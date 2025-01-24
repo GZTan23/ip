@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Bane {
     
-  public static ArrayList<String> al = new ArrayList<>(); 
+  public static ArrayList<Task> al = new ArrayList<>(); 
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
       
@@ -17,7 +17,7 @@ public class Bane {
       response(input);
       input = sc.nextLine();
 
-    }while(!input.equals("bye"));
+    } while(!input.equals("bye"));
       
     response(input);
        
@@ -38,12 +38,27 @@ public class Bane {
         System.out.println("what were you expecting? A present?");
       } else {
         for (int i = 1; i <= al.size(); i++) {
-          System.out.println(i + ". " + al.get(i - 1));
+          System.out.println("    " + i + "." + al.get(i - 1));
         }
         
       }
+    } else if (dialogue.matches("mark \\d")) {
+        String[] arr = dialogue.split(" ");
+        int num = Integer.valueOf(arr[1]);
+        al.get(num - 1).statusToggle();
+        System.out.println("Finally getting work done eh?"); 
+        System.out.println("    " + num + "." + al.get(num - 1));
+
+    } else if (dialogue.matches("unmark \\d")) {
+        String[] arr = dialogue.split(" ");
+        int num = Integer.valueOf(arr[1]);
+        al.get(num - 1).statusToggle();
+        System.out.println("As expected, didn't do your work and tried to cheat");
+        System.out.println("    " + num + "." + al.get(num - 1));
+
     } else {
-      al.add(dialogue);
+      Task t = new Task(dialogue); 
+      al.add(t);
       System.out.println("added to the trashpile: " + dialogue);
        
     }
