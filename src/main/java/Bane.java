@@ -7,9 +7,20 @@ public class Bane {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
       
+    String logo ="\n\t▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  \n"
+                +  "\t▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ \n"
+                +  "\t▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▒███   \n"
+                +  "\t▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒▒▓█  ▄ \n"
+                +  "\t░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░░▒████▒\n"
+                +  "\t░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ░░ ▒░ ░\n"
+                +  "\t▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ░  ░\n"
+                +  "\t░    ░   ░   ▒      ░   ░ ░    ░    \n"
+                +  "\t░            ░  ░         ░    ░  ░ \n"
+                +  "\t      ░                             \n";
+    System.out.println(logo);
     System.out.println("___________________________________________________\n");
     System.out.println("Hello, it is me, Bane.");
-    System.out.println("What do you want from me?\n");
+    System.out.println("Why have you called upon me?\n");
     System.out.println("___________________________________________________\n");
     
     String input = sc.nextLine();
