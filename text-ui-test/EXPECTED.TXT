@@ -41,11 +41,27 @@ ___________________________________________________
 
 ___________________________________________________
 
+Format: delete [integer]
+I do not understand how it is so hard to be correct
+___________________________________________________
+
+___________________________________________________
+
+Giving up are we? You disappoint me.
+___________________________________________________
+
+___________________________________________________
+
+You are trying to delete something that isn't even there.
+___________________________________________________
+
+___________________________________________________
+
 Added to list of things to "forget",
 
   [E][ ] cS2103T lecture  (from: 3pm to: 10pm)
 
-which makes the total: 2
+which makes the total: 1
 
 ___________________________________________________
 
@@ -79,7 +95,7 @@ Added to list of things to "forget",
 
   [T][ ] iP increments
 
-which makes the total: 3
+which makes the total: 2
 
 ___________________________________________________
 
@@ -95,7 +111,7 @@ Added to list of things to "forget",
 
   [T][ ] sleep
 
-which makes the total: 4
+which makes the total: 3
 
 ___________________________________________________
 
@@ -103,10 +119,9 @@ ___________________________________________________
 
 Reminding you of things you have already forgetten
 
-    1.[D][ ] finish homework  (by: 3pm)
-    2.[E][ ] cS2103T lecture  (from: 3pm to: 10pm)
-    3.[T][ ] iP increments
-    4.[T][ ] sleep
+    1.[E][ ] cS2103T lecture  (from: 3pm to: 10pm)
+    2.[T][ ] iP increments
+    3.[T][ ] sleep
 ___________________________________________________
 
 ___________________________________________________

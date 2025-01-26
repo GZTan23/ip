@@ -62,7 +62,18 @@ public class Bane {
                   System.out.println(e.toString());
                   System.out.println("Wow, you're bad at this. Try again.");
                 }
-            
+    }else if (dialogue.startsWith("delete")) {
+      try {
+        int index = Integer.parseInt(dialogue.split(" ")[1]);
+        al.remove(index-1);
+        System.out.println("Giving up are we? You disappoint me.");
+      } catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println("Format: delete [integer]");
+        System.out.println("I do not understand how it is so hard to be correct");
+      } catch (IndexOutOfBoundsException e) {
+        System.out.println("You are trying to delete something that isn't even there.");
+      } 
+
     } else {
       System.out.println("I fail to comprehend the inner machinations of the \nthing you call a brain. Try again");
     }
