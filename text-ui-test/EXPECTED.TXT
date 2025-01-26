@@ -21,7 +21,7 @@ ___________________________________________________
 
 Added to list of things to "forget",
 
-  [D][ ] finish (by: 3pm)
+  [D][ ] finish homework  (by: 3pm)
 
 which makes the total: 1
 
@@ -29,9 +29,21 @@ ___________________________________________________
 
 ___________________________________________________
 
+TaskExecuteException: Format: deadline [task] /by [deadline]
+Wow, you're bad at this. Try again.
+___________________________________________________
+
+___________________________________________________
+
+TaskExecuteException: Format: deadline [task] /by [deadline]
+Wow, you're bad at this. Try again.
+___________________________________________________
+
+___________________________________________________
+
 Added to list of things to "forget",
 
-  [E][ ] cS2103T (from: 3pm to: 10pm)
+  [E][ ] cS2103T lecture  (from: 3pm to: 10pm)
 
 which makes the total: 2
 
@@ -39,12 +51,42 @@ ___________________________________________________
 
 ___________________________________________________
 
+You have to input something else other than the command itself,
+just in case you have forgotten. Format: [command] [task] <duration if applicable>
+___________________________________________________
+
+___________________________________________________
+
+TaskExecuteException: Format: event [task] //from [time] //to [time]
+Wow, you're bad at this. Try again.
+___________________________________________________
+
+___________________________________________________
+
+TaskExecuteException: Format: event [task] //from [time] //to [time]
+Wow, you're bad at this. Try again.
+___________________________________________________
+
+___________________________________________________
+
+TaskExecuteException: Format: event [task] //from [time] //to [time]
+Wow, you're bad at this. Try again.
+___________________________________________________
+
+___________________________________________________
+
 Added to list of things to "forget",
 
-  [T][ ] iP
+  [T][ ] iP increments
 
 which makes the total: 3
 
+___________________________________________________
+
+___________________________________________________
+
+You have to input something else other than the command itself,
+just in case you have forgotten. Format: [command] [task] <duration if applicable>
 ___________________________________________________
 
 ___________________________________________________
@@ -61,20 +103,22 @@ ___________________________________________________
 
 Reminding you of things you have already forgetten
 
-    1.[D][ ] finish (by: 3pm)
-    2.[E][ ] cS2103T (from: 3pm to: 10pm)
-    3.[T][ ] iP
+    1.[D][ ] finish homework  (by: 3pm)
+    2.[E][ ] cS2103T lecture  (from: 3pm to: 10pm)
+    3.[T][ ] iP increments
     4.[T][ ] sleep
 ___________________________________________________
 
 ___________________________________________________
 
-Lot of gibberish that you just said there. Try again
+I fail to comprehend the inner machinations of the 
+thing you call a brain. Try again
 ___________________________________________________
 
 ___________________________________________________
 
-Lot of gibberish that you just said there. Try again
+I fail to comprehend the inner machinations of the 
+thing you call a brain. Try again
 ___________________________________________________
 
 ___________________________________________________

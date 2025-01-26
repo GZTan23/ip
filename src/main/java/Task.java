@@ -4,7 +4,7 @@ public abstract class Task {
   private String name;
 
   public Task(String dialogue) {
-    this.name = dialogue.split(" ")[1];
+    this.name = dialogue;
     this.isDone = false; 
   }
   public void taskStatus(boolean status) {

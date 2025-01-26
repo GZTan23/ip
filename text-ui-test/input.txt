@@ -1,6 +1,13 @@
 deadline finish homework /by 3pm
+deadline finish
+deadline finish /by
 event cS2103T lecture /from 3pm /to 10pm
+event
+event CS2103T 
+event lecture /from
+event lecture /from 9 /to
 todo iP increments
+todo
 todo sleep
 list
 error boi

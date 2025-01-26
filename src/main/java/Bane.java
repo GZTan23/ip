@@ -53,20 +53,18 @@ public class Bane {
       System.out.println("As expected, you didn't do it and tried to cheat\n");
       System.out.println("    " + num + "." + al.get(num - 1));
 
-    } else if (dialogue.startsWith("todo")) {
-      ToDo t = new ToDo(dialogue);
-      taskExecute(t, dialogue);
-
-    } else if (dialogue.startsWith("deadline")) {
-      Deadline d = new Deadline(dialogue);
-      taskExecute(d, dialogue); 
-      
-    } else if (dialogue.startsWith("event")) {
-      Event e = new Event(dialogue);
-      taskExecute(e, dialogue);
-      
+    } else if ((dialogue.startsWith("todo")) ||
+              (dialogue.startsWith("deadline")) ||
+              (dialogue.startsWith("event"))) {
+                try {  
+                  taskExecute(dialogue);
+                } catch (TaskExecuteException e) {
+                  System.out.println(e.toString());
+                  System.out.println("Wow, you're bad at this. Try again.");
+                }
+            
     } else {
-      System.out.println("Lot of gibberish that you just said there. Try again");
+      System.out.println("I fail to comprehend the inner machinations of the \nthing you call a brain. Try again");
     }
     System.out.println("___________________________________________________\n");
 
@@ -97,9 +95,30 @@ public class Bane {
       System.out.println(String.format("\nwhich makes the total: %d\n",al.size()));
   }
   
-  public static void taskExecute(Task task, String dialogue) {
-      al.add(task);
-      taskReply(task);
+  public static void taskExecute(String dialogue) throws TaskExecuteException {
+    String[] diagParts = dialogue.split(" ", 2);
+    if (diagParts.length < 2) {
+      System.out.println("""
+        You have to input something else other than the command itself,
+        just in case you have forgotten. Format: [command] [task] <duration if applicable> """);
+    } else {
+      switch (diagParts[0]) {
+        case "todo":
+          ToDo t = new ToDo(diagParts[1]);
+          al.add(t);
+          taskReply(t);
+          break;
+        case "event":
+          Event e = new Event(diagParts[1]);
+          al.add(e);
+          taskReply(e);
+          break;
+        case "deadline":
+          Deadline d = new Deadline(diagParts[1]);
+          al.add(d);
+          taskReply(d);
+          break;
+      }
+    }
   }
-ask
 }
