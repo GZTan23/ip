@@ -1,0 +1,8 @@
+deadline finish homework /by 3pm
+event cS2103T lecture /from 3pm /to 10pm
+todo iP increments
+todo sleep
+list
+error boi
+fail
+bye
