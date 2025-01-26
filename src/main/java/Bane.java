@@ -31,7 +31,7 @@ public class Bane {
     } else if (dialogue.startsWith("list")) {
 
       if (al.isEmpty()) {
-        System.out.println("what were you expecting? A present?");
+        System.out.println("what were you expecting? A present? It's empty!");
       } else {
         System.out.println("Reminding you of things you have already forgetten\n");
         for (int i = 1; i <= al.size(); i++) {
@@ -53,20 +53,18 @@ public class Bane {
       System.out.println("As expected, you didn't do it and tried to cheat\n");
       System.out.println("    " + num + "." + al.get(num - 1));
 
-    } else if (dialogue.startsWith("todo")){
-      Task t = new ToDo(dialogue); 
-      al.add(t);
-      taskReply(t);
+    } else if (dialogue.startsWith("todo")) {
+      ToDo t = new ToDo(dialogue);
+      taskExecute(t, dialogue);
 
     } else if (dialogue.startsWith("deadline")) {
-      Task t = new Deadline(dialogue);
-      al.add(t);
-      taskReply(t);
+      Deadline d = new Deadline(dialogue);
+      taskExecute(d, dialogue); 
       
     } else if (dialogue.startsWith("event")) {
-      Task t = new Event(dialogue); 
-      al.add(t);
-      taskReply(t);
+      Event e = new Event(dialogue);
+      taskExecute(e, dialogue);
+      
     } else {
       System.out.println("Lot of gibberish that you just said there. Try again");
     }
@@ -98,5 +96,10 @@ public class Bane {
       System.out.println("  " + t);
       System.out.println(String.format("\nwhich makes the total: %d\n",al.size()));
   }
-
+  
+  public static void taskExecute(Task task, String dialogue) {
+      al.add(task);
+      taskReply(task);
+  }
+ask
 }
