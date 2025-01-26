@@ -1,27 +1,13 @@
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Bane {
     
   public static ArrayList<Task> al = new ArrayList<>(); 
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-      
-    String logo ="\n\t▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  \n"
-                +  "\t▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ \n"
-                +  "\t▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▒███   \n"
-                +  "\t▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒▒▓█  ▄ \n"
-                +  "\t░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░░▒████▒\n"
-                +  "\t░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ░░ ▒░ ░\n"
-                +  "\t▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ░  ░\n"
-                +  "\t░    ░   ░   ▒      ░   ░ ░    ░    \n"
-                +  "\t░            ░  ░         ░    ░  ░ \n"
-                +  "\t      ░                             \n";
-    System.out.println(logo);
-    System.out.println("___________________________________________________\n");
-    System.out.println("Hello, it is me, Bane.");
-    System.out.println("Why have you called upon me?\n");
-    System.out.println("___________________________________________________\n");
+    
+    greeting(); 
     
     String input = sc.nextLine();
     do {  
@@ -39,41 +25,78 @@ public class Bane {
   public static void response(String dialogue) {
 
     System.out.println("___________________________________________________\n");
-
-    if (dialogue.equals("bye")) {
+    if (dialogue.startsWith("bye")) {
       System.out.println("Bye, hope to not see you again.\n");
       
-    } else if (dialogue.equals("list")) {
+    } else if (dialogue.startsWith("list")) {
 
       if (al.isEmpty()) {
         System.out.println("what were you expecting? A present?");
       } else {
+        System.out.println("Reminding you of things you have already forgetten\n");
         for (int i = 1; i <= al.size(); i++) {
           System.out.println("    " + i + "." + al.get(i - 1));
         }
         
       }
-    } else if (dialogue.matches("mark \\d")) {
-        String[] arr = dialogue.split(" ");
-        int num = Integer.valueOf(arr[1]);
-        al.get(num - 1).statusToggle();
-        System.out.println("Finally getting work done eh?"); 
-        System.out.println("    " + num + "." + al.get(num - 1));
+    } else if (dialogue.startsWith("mark")) {
+      String[] arr = dialogue.split(" ");
+      int num = Integer.parseInt(arr[1]);
+      al.get(num - 1).taskStatus(true);
+      System.out.println("Finally getting work done eh?\n"); 
+      System.out.println("    " + num + "." + al.get(num - 1));
 
-    } else if (dialogue.matches("unmark \\d")) {
-        String[] arr = dialogue.split(" ");
-        int num = Integer.valueOf(arr[1]);
-        al.get(num - 1).statusToggle();
-        System.out.println("As expected, didn't do your work and tried to cheat");
-        System.out.println("    " + num + "." + al.get(num - 1));
+    } else if (dialogue.startsWith("unmark")) {
+      String[] arr = dialogue.split(" ");
+      int num = Integer.parseInt(arr[1]);
+      al.get(num - 1).taskStatus(false);;
+      System.out.println("As expected, you didn't do it and tried to cheat\n");
+      System.out.println("    " + num + "." + al.get(num - 1));
 
-    } else {
-      Task t = new Task(dialogue); 
+    } else if (dialogue.startsWith("todo")){
+      Task t = new ToDo(dialogue); 
       al.add(t);
-      System.out.println("added to the trashpile: " + dialogue);
-       
+      taskReply(t);
+
+    } else if (dialogue.startsWith("deadline")) {
+      Task t = new Deadline(dialogue);
+      al.add(t);
+      taskReply(t);
+      
+    } else if (dialogue.startsWith("event")) {
+      Task t = new Event(dialogue); 
+      al.add(t);
+      taskReply(t);
+    } else {
+      System.out.println("Lot of gibberish that you just said there. Try again");
     }
     System.out.println("___________________________________________________\n");
+
+    }
     
+
+  public static void greeting() {
+    String logo ="\n\t▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  \n"
+                +  "\t▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ \n"
+                +  "\t▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▒███   \n"
+                +  "\t▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒▒▓█  ▄ \n"
+                +  "\t░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░░▒████▒\n"
+                +  "\t░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ░░ ▒░ ░\n"
+                +  "\t▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ░  ░\n"
+                +  "\t░    ░   ░   ▒      ░   ░ ░    ░    \n"
+                +  "\t░            ░  ░         ░    ░  ░ \n"
+                +  "\t      ░                             \n";
+    System.out.println(logo);
+    System.out.println("___________________________________________________\n");
+    System.out.println("Hello, it is me, Bane.");
+    System.out.println("Why have you called upon me?\n");
+    System.out.println("___________________________________________________\n");
   }
+
+  public static void taskReply(Task t) {
+      System.out.println("Added to list of things to \"forget\",\n");
+      System.out.println("  " + t);
+      System.out.println(String.format("\nwhich makes the total: %d\n",al.size()));
+  }
+
 }
