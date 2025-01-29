@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,7 +8,6 @@ public class Bane {
 		Scanner sc = new Scanner(System.in);
 		
 		greeting(); 
-		loadTasks();
 		String input; 
 		do {  
 			input = sc.nextLine();
@@ -21,34 +21,47 @@ public class Bane {
 	
 	public static void response(String dialogue) {
 
-		System.out.println("___________________________________________________\n");
 		if (dialogue.startsWith("bye")) {
-			System.out.println("Bye, hope to not see you again.\n");
+			responseTemplate("Bye, hope to not see you again.\n");
 		
 		} else if (dialogue.startsWith("list")) {
 
 			if (al.isEmpty()) {
-				System.out.println("what were you expecting? A present? It's empty!");
+				responseTemplate("what were you expecting? A present? It's empty!");
 			} else {
-				System.out.println("Reminding you of things you have already forgetten\n");
+				StringBuilder sb = new StringBuilder("Reminding you of things you have already forgetten:\n");
 				for (int i = 1; i <= al.size(); i++) {
-					System.out.println("    " + i + "." + al.get(i - 1));
+					sb.append(String.format("    %d. %s\n", i, al.get(i - 1)));
 				}
+				responseTemplate(sb.toString());
+			
 			
 			}
-		} else if (dialogue.startsWith("mark")) {
-			String[] arr = dialogue.split(" ");
-			int num = Integer.parseInt(arr[1]);
-			al.get(num - 1).taskStatus(true);
-			System.out.println("Finally getting work done eh?\n"); 
-			System.out.println("    " + num + "." + al.get(num - 1));
+		} else if ((dialogue.startsWith("mark")) |
+				(dialogue.startsWith("unmark"))) {
+			
+			try {
+				String[] arr = dialogue.split(" ");
+				int num = Integer.parseInt(arr[1]);
+				StringBuilder sb;
 
-		} else if (dialogue.startsWith("unmark")) {
-			String[] arr = dialogue.split(" ");
-			int num = Integer.parseInt(arr[1]);
-			al.get(num - 1).taskStatus(false);;
-			System.out.println("As expected, you didn't do it and tried to cheat\n");
-			System.out.println("    " + num + "." + al.get(num - 1));
+				if (arr[0].equals("mark")) {
+					al.get(num - 1).taskStatus(true);
+					sb = new StringBuilder("Finally getting work done eh?\n");
+					
+				} else {
+					al.get(num - 1).taskStatus(false);
+					sb = new StringBuilder("As expected, you didn't do it and tried to cheat.\n");
+
+				}
+
+				sb.append("    " + num + "." + al.get(num - 1));
+				responseTemplate(sb.toString());
+			} catch (IndexOutOfBoundsException e) {
+				responseTemplate("""
+						You're trying to unmark/mark something that doesn't exist!
+						Format: unmark/mark [task index]""");
+			}
 
 		} else if ((dialogue.startsWith("todo")) ||
 				(dialogue.startsWith("deadline")) ||
@@ -56,26 +69,31 @@ public class Bane {
 					try {  
 						executeTasks(dialogue);
 					} catch (TaskExecuteException e) {
-						System.out.println(e.toString());
-						System.out.println("Wow, you're bad at this. Try again.");
+						responseTemplate(e.toString() + "\nWow, you're bad at this. Try again.");
 					}
 		}else if (dialogue.startsWith("delete")) {
 			try {
 				int index = Integer.parseInt(dialogue.split(" ")[1]);
 				al.remove(index-1);
-				System.out.println("Giving up are we? You disappoint me.");
+				responseTemplate("Giving up are we? You disappoint me.");
 			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("Format: delete [integer]");
-				System.out.println("I do not understand how it is so hard to be correct");
+				responseTemplate("""
+						Format: delete [integer]
+						I do not understand how it is so hard to be correct.""");
 			} catch (IndexOutOfBoundsException e) {
-				System.out.println("You are trying to delete something that isn't even there.");
+				responseTemplate("You are trying to delete something that isn't even there.");
 			} 
 
 		} else {
-			System.out.println("I fail to comprehend the inner machinations of the \nthing you call a brain. Try again");
+			responseTemplate("I fail to comprehend the inner machinations of the \nthing you call a brain. Try again");
 		}
-		System.out.println("___________________________________________________\n");
 
+	}
+
+	public static void responseTemplate(String message) {
+		System.out.println("________________________________________________________________\n");
+		System.out.println(message);	
+		System.out.println("________________________________________________________________\n");
 	}
 	
 
@@ -91,24 +109,25 @@ public class Bane {
 					+  "\t░            ░  ░         ░    ░  ░ \n"
 					+  "\t      ░                             \n";
 		System.out.println(logo);
-		System.out.println("___________________________________________________\n");
-		System.out.println("Hello, it is me, Bane.");
-		System.out.println("Why have you called upon me?\n");
-		System.out.println("___________________________________________________\n");
+		responseTemplate("""
+				Hello, it is me, Bane.
+				Why have you called upon me?\n""");
 	}
 
 	public static void replyToTasks(Task t) {
-		System.out.println("Added to list of things to \"forget\",\n");
-		System.out.println("  " + t);
-		System.out.println(String.format("\nwhich makes the total: %d\n",al.size()));
+		StringBuilder sb = new StringBuilder("Added to list of things to \"forget\",\n");
+		sb.append("  " + t);
+		sb.append(String.format("\nwhich makes the total: %d.\n",al.size()));
+		responseTemplate(sb.toString());
 	}
 	
 	public static void executeTasks(String dialogue) throws TaskExecuteException {
 		String[] diagParts = dialogue.split(" ", 2);
 		if (diagParts.length < 2) {
-			System.out.println("""
+			responseTemplate("""
 					You have to input something else other than the command itself,
-					just in case you have forgotten. Format: [command] [task] <duration if applicable> """);
+					just in case you have forgotten. 
+					Format: [command] [task] <duration if applicable> """);
 		} else {
 			switch (diagParts[0]) {
 			case "todo":
@@ -128,13 +147,5 @@ public class Bane {
 				break;
 			}
 		}
-	}
-
-	public static void saveTasks() {
-	
-	}
-
-	public static void loadTasks() {
-	
 	}
 }
