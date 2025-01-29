@@ -1,20 +1,32 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Bane {     
 	public static ArrayList<Task> al = new ArrayList<>(); 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		try {
+			loadTasks();
+			greeting(); 
 		
-		greeting(); 
-
-		String input; 
-		do {  
+			String input; 
+			do {  
 			input = sc.nextLine();
 			response(input);
 
 		} while(!input.startsWith("bye"));
 		
-		sc.close();
+			saveTasks();
+		} catch (IOException e) {
+			responseTemplate(e.getMessage());
+			sc.close();
+			System.exit(0);
+		}
 	}
 	
 	
@@ -57,7 +69,7 @@ public class Bane {
 				sb.append("    " + num + "." + al.get(num - 1));
 				responseTemplate(sb.toString());
 			} catch (IndexOutOfBoundsException e) {
-				responseTemplate("""
+				responseTemplate(e.toString() + """
 						You're trying to unmark/mark something that doesn't exist!
 						Format: unmark/mark [task index]""");
 			}
@@ -68,7 +80,7 @@ public class Bane {
 					try {  
 						executeTasks(dialogue);
 					} catch (TaskExecuteException e) {
-						responseTemplate(e.toString() + "\nWow, you're bad at this. Try again.");
+						responseTemplate("\nWow, you're bad at this. Try again.");
 					}
 		}else if (dialogue.startsWith("delete")) {
 			try {
@@ -76,11 +88,11 @@ public class Bane {
 				al.remove(index-1);
 				responseTemplate("Giving up are we? You disappoint me.");
 			} catch (ArrayIndexOutOfBoundsException e) {
-				responseTemplate("""
-						Format: delete [integer]
+				responseTemplate(e.toString() + """
+						\nFormat: delete [integer]
 						I do not understand how it is so hard to be correct.""");
 			} catch (IndexOutOfBoundsException e) {
-				responseTemplate("You are trying to delete something that isn't even there.");
+				responseTemplate(e.toString() + "\nYou are trying to delete something that isn't even there.");
 			} 
 
 		} else {
@@ -141,7 +153,6 @@ public class Bane {
 					
 					//check if user has entered strictly following the format
 					if (!((taskParts[1].startsWith("from")) && (taskParts[2].startsWith("to")))) {
-						System.out.println("hi");
 						throw new TaskExecuteException("Format: event [task] /from [time] /to [time]");
 					}
        			    String start = taskParts[1].split(" ", 2)[1];
@@ -164,12 +175,103 @@ public class Bane {
 					replyToTasks(dTask);
 					
 				} catch (ArrayIndexOutOfBoundsException e) {
-					throw new TaskExecuteException("Format: deadline [task] /by [deadline]");
+					throw new TaskExecuteException(e.toString() + "\nFormat: deadline [task] /by [deadline]");
 				}
 				break;
 			}
 		}
 	}
 
+	public static void saveTasks() throws IOException {
+		try {
+			BufferedWriter bw = Files.newBufferedWriter(Paths.get("./data/Bane.txt"));
+			for (Task task : al) {
+				String input = "";
+				String taskStatus = (task.getTaskStatus()) ? "1" : "0";
+				switch (task) {
+				case ToDo todo -> input = String.format("%s, %s, %s", "T", 
+						taskStatus, todo.getName());
 
+				case Deadline deadline -> input = String.format("%s, %s, %s, %s", "D",
+						taskStatus, deadline.getName(), deadline.getDeadline());
+
+				case Event event -> input = String.format("%s, %s, %s, %s, %s", "E", 
+						taskStatus, event.getName(), event.getStart(), event.getEnd());
+				default -> {}
+				} 
+				try {
+					bw.write(input, 0, input.length());
+					bw.newLine();
+				} catch (IOException e) {
+					bw.close();
+					throw new IOException(e.toString() + """
+							\nLooks like there was an error whilst saving
+							Heh! I'll leave you to handle it :P""");
+				}
+			}
+			bw.close();
+        } catch (IOException e) {
+			throw new IOException(e.toString() + """
+					\nLooks like your files aren't working like they used to.	""");
+			
+        }
+		
+
+	}
+
+	//TODO: Add checks for corruption and invalid inputs
+
+	public static void loadTasks() throws IOException {
+		//if file/directory does not exist
+		if (Files.notExists(Paths.get("./data/Bane.txt"))) {
+			try {
+				if (Files.notExists(Paths.get("./data"))) {
+					Files.createDirectory(Paths.get("./data"));
+				}
+				Files.createFile(Paths.get("./data/Bane.txt"));
+				responseTemplate("""
+						Added new file "./data/Bane.txt" because I clearly have
+						to do everything for you.""");
+			} catch (IOException e) {
+				throw new IOException(e.toString() + """
+						\nIt seems that you're on your own.
+						Create "./data/Bane.txt" and wake me up when done.""");
+			}
+		}
+		try {
+			BufferedReader br = Files.newBufferedReader(Paths.get("./data/Bane.txt"));
+			String line = br.readLine();
+		
+			//check whether there is still more in the file
+			while (line != null) {
+				String[] lineParts = line.split(",");
+				boolean isDone = lineParts[1].trim().equals("1");
+				switch (lineParts[0]) {
+
+				case "T":
+					ToDo tTask = new ToDo(lineParts[2].trim());
+					tTask.taskStatus(isDone);
+					al.add(tTask);					
+					break;
+
+				case "D":
+					Deadline dTask = new Deadline(lineParts[2].trim(), lineParts[3].trim());
+					dTask.taskStatus(isDone);
+					al.add(dTask);
+					break;
+
+				case "E":
+					Event eTask = new Event(lineParts[2].trim(), lineParts[3].trim(), lineParts[4].trim());
+					eTask.taskStatus(isDone);
+					al.add(eTask);
+					break;
+				}
+				line = br.readLine();
+			}
+		} catch (IOException e) {
+			throw new IOException(e.toString() + """
+					\nGahhhh! Something went wrong with the file!
+					Fix it and get back to me dirtbag!""");
+		}		
+	}
 }
