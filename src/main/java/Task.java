@@ -3,8 +3,8 @@ public abstract class Task {
   private boolean isDone; 
   private String name;
 
-  public Task(String dialogue) {
-    this.name = dialogue;
+  public Task(String name) {
+    this.name = name;
     this.isDone = false; 
   }
   public void taskStatus(boolean status) {

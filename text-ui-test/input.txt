@@ -1,4 +1,7 @@
 deadline finish homework /by 3pm
+mark
+mark 2
+mark 1
 deadline finish
 deadline finish /by
 delete
@@ -11,6 +14,10 @@ event lecture /from
 event lecture /from 9 /to
 todo iP increments
 todo
+mark 1
+unmark
+unmark 4
+unmark 1
 todo sleep
 list
 error boi
