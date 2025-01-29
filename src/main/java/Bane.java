@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class Bane {
     
   public static ArrayList<Task> al = new ArrayList<>(); 
@@ -8,15 +11,12 @@ public class Bane {
     Scanner sc = new Scanner(System.in);
     
     greeting(); 
-    
-    String input = sc.nextLine();
+    String input; 
     do {  
-      response(input);
       input = sc.nextLine();
+      response(input);
 
-    } while(!input.equals("bye"));
-      
-    response(input);
+    } while(!input.startsWith("bye"));
        
     sc.close();
   }
@@ -57,7 +57,7 @@ public class Bane {
               (dialogue.startsWith("deadline")) ||
               (dialogue.startsWith("event"))) {
                 try {  
-                  taskExecute(dialogue);
+                  executeTasks(dialogue);
                 } catch (TaskExecuteException e) {
                   System.out.println(e.toString());
                   System.out.println("Wow, you're bad at this. Try again.");
@@ -100,13 +100,13 @@ public class Bane {
     System.out.println("___________________________________________________\n");
   }
 
-  public static void taskReply(Task t) {
+  public static void replyToTasks(Task t) {
       System.out.println("Added to list of things to \"forget\",\n");
       System.out.println("  " + t);
       System.out.println(String.format("\nwhich makes the total: %d\n",al.size()));
   }
   
-  public static void taskExecute(String dialogue) throws TaskExecuteException {
+  public static void executeTasks(String dialogue) throws TaskExecuteException {
     String[] diagParts = dialogue.split(" ", 2);
     if (diagParts.length < 2) {
       System.out.println("""
@@ -114,22 +114,30 @@ public class Bane {
         just in case you have forgotten. Format: [command] [task] <duration if applicable> """);
     } else {
       switch (diagParts[0]) {
-        case "todo":
-          ToDo t = new ToDo(diagParts[1]);
-          al.add(t);
-          taskReply(t);
-          break;
-        case "event":
-          Event e = new Event(diagParts[1]);
-          al.add(e);
-          taskReply(e);
-          break;
-        case "deadline":
-          Deadline d = new Deadline(diagParts[1]);
-          al.add(d);
-          taskReply(d);
-          break;
+      case "todo":
+        ToDo t = new ToDo(diagParts[1]);
+        al.add(t);
+        replyToTasks(t);
+        break;
+      case "event":
+        Event e = new Event(diagParts[1]);
+        al.add(e);
+        replyToTasks(e);
+        break;
+      case "deadline":
+        Deadline d = new Deadline(diagParts[1]);
+        al.add(d);
+        replyToTasks(d);
+        break;
       }
     }
+  }
+
+  public static void saveTasks() {
+    
+  }
+
+  public static void loadTasks() {
+
   }
 }
