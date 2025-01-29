@@ -1,12 +1,8 @@
 public class Deadline extends Task{
     private String deadline;
-    public Deadline(String dialogue) throws TaskExecuteException {
-        super(dialogue.split("/")[0]);
-        try {
-            this.deadline = dialogue.split("/")[1].split(" ", 2)[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new TaskExecuteException("Format: deadline [task] /by [deadline]");
-        }
+    public Deadline(String name, String deadline) throws TaskExecuteException {
+        super(name);
+        this.deadline = deadline;
     }
 
     @Override

@@ -1,13 +1,12 @@
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Bane {     
 	public static ArrayList<Task> al = new ArrayList<>(); 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
 		greeting(); 
+
 		String input; 
 		do {  
 			input = sc.nextLine();
@@ -131,21 +130,46 @@ public class Bane {
 		} else {
 			switch (diagParts[0]) {
 			case "todo":
-				ToDo t = new ToDo(diagParts[1]);
-				al.add(t);
-				replyToTasks(t);
+				ToDo tTask = new ToDo(diagParts[1]);
+				al.add(tTask);
+				replyToTasks(tTask);
 				break;
 			case "event":
-				Event e = new Event(diagParts[1]);
-				al.add(e);
-				replyToTasks(e);
-				break;
+       			try {
+					//split the rest of the string without the command in front
+       				String[] taskParts = diagParts[1].split("/");
+					
+					//check if user has entered strictly following the format
+					if (!((taskParts[1].startsWith("from")) && (taskParts[2].startsWith("to")))) {
+						System.out.println("hi");
+						throw new TaskExecuteException("Format: event [task] /from [time] /to [time]");
+					}
+       			    String start = taskParts[1].split(" ", 2)[1];
+       			    String end =  taskParts[2].split(" ", 2)[1] ;
+					
+					Event eTask = new Event(taskParts[0], start, end);
+					al.add(eTask);
+					replyToTasks(eTask);
+					} catch (ArrayIndexOutOfBoundsException e) {
+						throw new TaskExecuteException("Format: event [task] /from [time] /to [time]");
+					}
+					break;
 			case "deadline":
-				Deadline d = new Deadline(diagParts[1]);
-				al.add(d);
-				replyToTasks(d);
+				try {
+					String[] taskParts = diagParts[1].split("/");
+					String deadline = taskParts[1].split(" ", 2)[1];
+					
+					Deadline dTask = new Deadline(taskParts[0], deadline);
+					al.add(dTask);
+					replyToTasks(dTask);
+					
+				} catch (ArrayIndexOutOfBoundsException e) {
+					throw new TaskExecuteException("Format: deadline [task] /by [deadline]");
+				}
 				break;
 			}
 		}
 	}
+
+
 }
