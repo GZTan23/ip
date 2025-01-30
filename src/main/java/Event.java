@@ -7,26 +7,29 @@ import java.time.temporal.TemporalAccessor;
 
 public class Event extends Task {
     private TemporalAccessor start, end;
-    private final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-uuuu[ HH:mm]");
+    private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter(); 
+    private final DateTimeFormatter DISPLAYER = DateTimeFormat.DISPLAY_FORMAT.formatter(); 
+
 
     public Event(String name, String start, String end) throws DateTimeParseException {
-        super(name);
-        this.start = DATE_TIME_FORMAT.parseBest(start, LocalDateTime::from,
+        super(name.trim());
+        this.start = PARSER.parseBest(start.trim(), LocalDateTime::from,
                 LocalDate::from, LocalTime::from);
-        this.end = DATE_TIME_FORMAT.parseBest(end, LocalDateTime::from,
+        this.end = PARSER.parseBest(end.trim(), LocalDateTime::from,
                 LocalDate::from, LocalTime::from);
     } 
 
-    public String getStart() {
-        return DateTimeFormatter.ofPattern("MMM d yyyy[ HH:mm]").format(start);
+    public TemporalAccessor getStart() {
+        return this.start;
     }
 
-    public String getEnd() {
-        return DateTimeFormatter.ofPattern("MMM d yyyy[ HH:mm]").format(end);
+    public TemporalAccessor getEnd() {
+        return this.end;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", getStart(), getEnd());
+        return String.format("[E]%s (from: %s to: %s)",
+                super.toString(), DISPLAYER.format(getStart()), DISPLAYER.format(getEnd())); 
     }
 }

@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -166,7 +167,8 @@ public class Bane {
 						throw new TaskExecuteException("Format: event [task] /from [time] /to [time]");
 
 					} catch (DateTimeParseException e) {
-						throw new TaskExecuteException("Format for time: [DD-MM-YYYY] [HH:mm].\n Can be either or both.");
+						throw new TaskExecuteException(
+								 "\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be either or both.");
 
 					}
 					break;
@@ -183,14 +185,16 @@ public class Bane {
 					throw new TaskExecuteException(e.toString() + "\nFormat: deadline [task] /by [deadline]");
 
 				} catch (DateTimeParseException e) {
-					throw new TaskExecuteException("Format for time: [DD-MM-YYYY] [HH:mm].\n Can be either or or both.");
+					throw new TaskExecuteException(e.toString()+ "\nFormat for time: [DD-MM-YYYY] [HH:mm].\n Can be either or or both.");
 				}
 				break;
 			}
 		}
 	}
 
-	public static void saveTasks() throws IOException {
+	public static void saveTasks() throws IOException {	
+		DateTimeFormatter saver = DateTimeFormat.SAVE_FORMAT.formatter();
+
 		try {
 			BufferedWriter bw = Files.newBufferedWriter(Paths.get("./data/Bane.txt"));
 			for (Task task : al) {
@@ -200,11 +204,11 @@ public class Bane {
 				case ToDo todo -> input = String.format("%s, %s, %s", "T", 
 						taskStatus, todo.getName());
 
-				case Deadline deadline -> input = String.format("%s, %s, %s, %s", "D",
-						taskStatus, deadline.getName(), deadline.getDeadline());
+				case Deadline dTask -> input = String.format("%s, %s, %s, %s", "D",
+						taskStatus, dTask.getName(), saver.format(dTask.getDeadline()));
 
-				case Event event -> input = String.format("%s, %s, %s, %s, %s", "E", 
-						taskStatus, event.getName(), event.getStart(), event.getEnd());
+				case Event eTask -> input = String.format("%s, %s, %s, %s, %s", "E", 
+						taskStatus, eTask.getName(), saver.format(eTask.getStart()), saver.format(eTask.getEnd()));
 				default -> {}
 				} 
 				try {
@@ -252,7 +256,7 @@ public class Bane {
 		
 			//check whether there is still more in the file
 			while (line != null) {
-				String[] lineParts = line.replaceAll(" ", "").split(",");
+				String[] lineParts = line.split(",");
 				boolean isDone = lineParts[1].trim().equals("1");
 				switch (lineParts[0]) {
 

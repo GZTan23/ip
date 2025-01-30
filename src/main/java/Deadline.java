@@ -7,21 +7,23 @@ import java.time.temporal.TemporalAccessor;
 
 public class Deadline extends Task{
     private TemporalAccessor deadline;
-    private final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-uuuu[ HH:mm]");
+    private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter(); 
+    private final DateTimeFormatter DISPLAYER = DateTimeFormat.DISPLAY_FORMAT.formatter();
 
     
     public Deadline(String name, String deadline) throws DateTimeParseException {
-        super(name);
-        this.deadline = DATE_TIME_FORMAT.parseBest(deadline, LocalDateTime::from,
+        super(name.trim());
+        this.deadline = PARSER.parseBest(deadline.trim(), LocalDateTime::from,
                 LocalDate::from, LocalTime::from);
     }
 
-    public String getDeadline() {
-        return DateTimeFormatter.ofPattern("MMM d yyyy[ HH:mm]").format(deadline);
+    public TemporalAccessor getDeadline() {
+        return this.deadline;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (by: %s)", getDeadline());
+        return "[D]" + super.toString() + String.format(" (by: %s)", 
+                DISPLAYER.format(getDeadline()));
     }
 }
