@@ -3,6 +3,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -80,7 +82,7 @@ public class Bane {
 					try {  
 						executeTasks(dialogue);
 					} catch (TaskExecuteException e) {
-						responseTemplate("\nWow, you're bad at this. Try again.");
+						responseTemplate(e.toString() + "\nWow, you're bad at this. Try again.");
 					}
 		}else if (dialogue.startsWith("delete")) {
 			try {
@@ -156,13 +158,18 @@ public class Bane {
 						throw new TaskExecuteException("Format: event [task] /from [time] /to [time]");
 					}
        			    String start = taskParts[1].split(" ", 2)[1];
-       			    String end =  taskParts[2].split(" ", 2)[1] ;
+       			    String end =  taskParts[2].split(" ", 2)[1];
 					
 					Event eTask = new Event(taskParts[0], start, end);
 					al.add(eTask);
 					replyToTasks(eTask);
 					} catch (ArrayIndexOutOfBoundsException e) {
 						throw new TaskExecuteException("Format: event [task] /from [time] /to [time]");
+
+					} catch (DateTimeParseException e) {
+						throw new TaskExecuteException(
+								 "\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be either or both.");
+
 					}
 					break;
 			case "deadline":
@@ -176,13 +183,18 @@ public class Bane {
 					
 				} catch (ArrayIndexOutOfBoundsException e) {
 					throw new TaskExecuteException(e.toString() + "\nFormat: deadline [task] /by [deadline]");
+
+				} catch (DateTimeParseException e) {
+					throw new TaskExecuteException(e.toString()+ "\nFormat for time: [DD-MM-YYYY] [HH:mm].\n Can be either or or both.");
 				}
 				break;
 			}
 		}
 	}
 
-	public static void saveTasks() throws IOException {
+	public static void saveTasks() throws IOException {	
+		DateTimeFormatter saver = DateTimeFormat.SAVE_FORMAT.formatter();
+
 		try {
 			BufferedWriter bw = Files.newBufferedWriter(Paths.get("./data/Bane.txt"));
 			for (Task task : al) {
@@ -192,11 +204,11 @@ public class Bane {
 				case ToDo todo -> input = String.format("%s, %s, %s", "T", 
 						taskStatus, todo.getName());
 
-				case Deadline deadline -> input = String.format("%s, %s, %s, %s", "D",
-						taskStatus, deadline.getName(), deadline.getDeadline());
+				case Deadline dTask -> input = String.format("%s, %s, %s, %s", "D",
+						taskStatus, dTask.getName(), saver.format(dTask.getDeadline()));
 
-				case Event event -> input = String.format("%s, %s, %s, %s, %s", "E", 
-						taskStatus, event.getName(), event.getStart(), event.getEnd());
+				case Event eTask -> input = String.format("%s, %s, %s, %s, %s", "E", 
+						taskStatus, eTask.getName(), saver.format(eTask.getStart()), saver.format(eTask.getEnd()));
 				default -> {}
 				} 
 				try {
@@ -249,19 +261,19 @@ public class Bane {
 				switch (lineParts[0]) {
 
 				case "T":
-					ToDo tTask = new ToDo(lineParts[2].trim());
+					ToDo tTask = new ToDo(lineParts[2]);
 					tTask.taskStatus(isDone);
 					al.add(tTask);					
 					break;
 
 				case "D":
-					Deadline dTask = new Deadline(lineParts[2].trim(), lineParts[3].trim());
+					Deadline dTask = new Deadline(lineParts[2], lineParts[3]);
 					dTask.taskStatus(isDone);
 					al.add(dTask);
 					break;
 
 				case "E":
-					Event eTask = new Event(lineParts[2].trim(), lineParts[3].trim(), lineParts[4].trim());
+					Event eTask = new Event(lineParts[2], lineParts[3], lineParts[4]);
 					eTask.taskStatus(isDone);
 					al.add(eTask);
 					break;
