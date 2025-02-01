@@ -1,3 +1,7 @@
+package core;
+
+import task.Task;
+
 public class Ui {
 
     public static void separatorLine() {
