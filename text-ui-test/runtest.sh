@@ -19,7 +19,9 @@ then
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
+rm -rf ../src/main/java/data
+
+# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT 
 java -classpath ../bin Bane < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
