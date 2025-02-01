@@ -19,7 +19,8 @@ then
     exit 1
 fi
 
-rm -rf ../src/main/java/data
+#delete data file to simulate first run
+rm -r ./data
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT 
 java -classpath ../bin Bane < input.txt > ACTUAL.TXT
@@ -28,8 +29,11 @@ java -classpath ../bin Bane < input.txt > ACTUAL.TXT
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
 dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 
+cp ./data/Bane.txt ACTUAL_DATA.TXT
+
 # compare the output to the expected output
 diff ACTUAL.TXT EXPECTED-UNIX.TXT
+diff ACTUAL_DATA.TXT EXPECTED_DATA.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"

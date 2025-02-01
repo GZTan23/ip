@@ -33,7 +33,7 @@ public class TaskList {
     }
 
     public void displayTask(int idx) {
-            System.out.print(String.format("    %d. %s\n", idx, al.get(idx - 1)));
+        System.out.print(String.format("    %d. %s\n", idx, al.get(idx - 1)));
     }
 
     public boolean isEmpty() {

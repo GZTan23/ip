@@ -1,3 +1,5 @@
+Added new file "./data/Bane.txt" because I
+clearly have to do everything for you.
 
 	▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  
 	▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ 
@@ -19,46 +21,64 @@ ________________________________________________________________
 
 ________________________________________________________________
 
+Wrong Date Format.
+
+Format for time: [DD-MM-YYYY] [HH:mm].
+Can be date or both.
+Wow, you're bad at this. Try again.
+________________________________________________________________
+
+________________________________________________________________
+
 Added to list of things to "forget",
-  [D][ ] finish homework  (by: 3pm)
+
+  [D][ ] finish homework (by: Aug 19 2010 03:00PM)
+
 which makes the total: 1.
-
 ________________________________________________________________
 
 ________________________________________________________________
+
+Empty Command.
+
+Nobody understood that instruction.
+Format: mark/unmark [task index]
+________________________________________________________________
+
+________________________________________________________________
+
+Mark Non-Existent Entry.
 
 You're trying to unmark/mark something that doesn't exist!
-Format: unmark/mark [task index]
-________________________________________________________________
-
-________________________________________________________________
-
-You're trying to unmark/mark something that doesn't exist!
-Format: unmark/mark [task index]
 ________________________________________________________________
 
 ________________________________________________________________
 
 Finally getting work done eh?
-    1.[D][X] finish homework  (by: 3pm)
+
+    1. [D][X] finish homework (by: Aug 19 2010 03:00PM)
 ________________________________________________________________
 
 ________________________________________________________________
 
-TaskExecuteException: Format: deadline [task] /by [deadline]
+Wrong Format.
+
+Format: deadline [task] /by [deadline]
 Wow, you're bad at this. Try again.
 ________________________________________________________________
 
 ________________________________________________________________
 
-TaskExecuteException: Format: deadline [task] /by [deadline]
+Wrong Format.
+
+Format: deadline [task] /by [deadline]
 Wow, you're bad at this. Try again.
 ________________________________________________________________
 
 ________________________________________________________________
 
-Format: delete [integer]
 I do not understand how it is so hard to be correct.
+Format: delete [integer]
 ________________________________________________________________
 
 ________________________________________________________________
@@ -73,13 +93,25 @@ ________________________________________________________________
 
 ________________________________________________________________
 
+Wrong Date Format.
+
+Format for time: [DD-MM-YYYY] [HH:mm].
+Can be date or both.
+Wow, you're bad at this. Try again.
+________________________________________________________________
+
+________________________________________________________________
+
 Added to list of things to "forget",
-  [E][ ] cS2103T lecture  (from: 3pm to: 10pm)
+
+  [E][ ] cs2103T lecture (from: Jul 19 2015 03:00PM to: Jun 15 2016 04:00PM)
+
 which makes the total: 1.
-
 ________________________________________________________________
 
 ________________________________________________________________
+
+Empty Command.
 
 You have to input something else other than the command itself,
 just in case you have forgotten.
@@ -88,31 +120,40 @@ ________________________________________________________________
 
 ________________________________________________________________
 
-TaskExecuteException: Format: event [task] /from [time] /to [time]
+Wrong Format.
+
+Format: event [task] /from [time] /to [time]
 Wow, you're bad at this. Try again.
 ________________________________________________________________
 
 ________________________________________________________________
 
-TaskExecuteException: Format: event [task] /from [time] /to [time]
+Wrong Format.
+
+Format: event [task] /from [time] /to [time]
 Wow, you're bad at this. Try again.
 ________________________________________________________________
 
 ________________________________________________________________
 
-TaskExecuteException: Format: event [task] /from [time] /to [time]
+Wrong Format.
+
+Format: event [task] /from [time] /to [time]
 Wow, you're bad at this. Try again.
 ________________________________________________________________
 
 ________________________________________________________________
 
 Added to list of things to "forget",
+
   [T][ ] iP increments
+
 which makes the total: 2.
-
 ________________________________________________________________
 
 ________________________________________________________________
+
+Empty Command.
 
 You have to input something else other than the command itself,
 just in case you have forgotten.
@@ -122,51 +163,68 @@ ________________________________________________________________
 ________________________________________________________________
 
 Finally getting work done eh?
-    1.[E][X] cS2103T lecture  (from: 3pm to: 10pm)
+
+    1. [E][X] cs2103T lecture (from: Jul 19 2015 03:00PM to: Jun 15 2016 04:00PM)
 ________________________________________________________________
 
 ________________________________________________________________
+
+Empty Command.
+
+Nobody understood that instruction.
+Format: mark/unmark [task index]
+________________________________________________________________
+
+________________________________________________________________
+
+Mark Non-Existent Entry.
 
 You're trying to unmark/mark something that doesn't exist!
-Format: unmark/mark [task index]
-________________________________________________________________
-
-________________________________________________________________
-
-You're trying to unmark/mark something that doesn't exist!
-Format: unmark/mark [task index]
 ________________________________________________________________
 
 ________________________________________________________________
 
 As expected, you didn't do it and tried to cheat.
-    1.[E][ ] cS2103T lecture  (from: 3pm to: 10pm)
+
+    1. [E][ ] cs2103T lecture (from: Jul 19 2015 03:00PM to: Jun 15 2016 04:00PM)
+________________________________________________________________
+
+________________________________________________________________
+
+Finally getting work done eh?
+
+    2. [T][X] iP increments
 ________________________________________________________________
 
 ________________________________________________________________
 
 Added to list of things to "forget",
-  [T][ ] sleep
-which makes the total: 3.
 
+  [T][ ] sleep
+
+which makes the total: 3.
 ________________________________________________________________
 
 ________________________________________________________________
 
 Reminding you of things you have already forgetten:
-    1. [E][ ] cS2103T lecture  (from: 3pm to: 10pm)
-    2. [T][ ] iP increments
+
+    1. [E][ ] cs2103T lecture (from: Jul 19 2015 03:00PM to: Jun 15 2016 04:00PM)
+    2. [T][X] iP increments
     3. [T][ ] sleep
-
 ________________________________________________________________
 
 ________________________________________________________________
+
+Unknown Input.
 
 I fail to comprehend the inner machinations of the 
 thing you call a brain. Try again
 ________________________________________________________________
 
 ________________________________________________________________
+
+Unknown Input.
 
 I fail to comprehend the inner machinations of the 
 thing you call a brain. Try again
@@ -175,6 +233,5 @@ ________________________________________________________________
 ________________________________________________________________
 
 Bye, hope to not see you again.
-
 ________________________________________________________________
 

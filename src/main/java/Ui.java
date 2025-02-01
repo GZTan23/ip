@@ -56,9 +56,15 @@ public class Ui {
             break;
 
         case "index_out_of_bounds":
+            System.out.println("Mark Non-Existent Entry.\n");
+            System.out.println("You're trying to unmark/mark something that doesn't exist!");
+            break;
+
+        case "empty_command":
+            System.out.println("Empty Command.\n");
             System.out.println("""
-						You're trying to unmark/mark something that doesn't exist!
-						Format: unmark/mark [task index]""");
+                    Nobody understood that instruction.
+                    Format: mark/unmark [task index]""");
             break;
         }
     }
@@ -70,6 +76,7 @@ public class Ui {
             break;
 
         case "empty command":
+            System.out.println("Empty Command.\n");
             System.out.println("""
 					You have to input something else other than the command itself,
 					just in case you have forgotten. 
@@ -81,9 +88,9 @@ public class Ui {
     public static void taskReply(String type, Task task, int alSize) {
         switch (type) {
         case "success":
-            StringBuilder sb = new StringBuilder("Added to list of things to \"forget\",\n");
+            StringBuilder sb = new StringBuilder("Added to list of things to \"forget\",\n\n");
             sb.append("  " + task);
-            sb.append(String.format("\nwhich makes the total: %d.\n", alSize));
+            sb.append(String.format("\n\nwhich makes the total: %d.", alSize));
             System.out.println(sb.toString());
             break;
 
@@ -109,6 +116,7 @@ public class Ui {
     }
 
     public static void unknownInputReply() {
+        System.out.println("Unknown Input.\n");
 		System.out.println("I fail to comprehend the inner machinations of the \nthing you call a brain. Try again");
 
     }

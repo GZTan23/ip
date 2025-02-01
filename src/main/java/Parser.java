@@ -54,13 +54,13 @@ public class Parser {
     public void parseEvent(String dialogue) {
         try {  
             String[] diagParts = dialogue.split(" ", 2);
-            if (diagParts.length < 1) {
+            if (diagParts.length < 2) {
                 Ui.taskReply("empty command");
-
+            
             } else {
                 switch (diagParts[0]) {
                 case "todo":
-                    ToDo tTask = new ToDo(diagParts[0]);
+                    ToDo tTask = new ToDo(diagParts[1]);
                     tasks.addTask(tTask);
                     //Ui.taskReply("success", tTask, tasks.getSize());
                     break;
@@ -68,16 +68,16 @@ public class Parser {
                 case "event":
                     try {
                         //split the rest of the string without the command in front
-                        String[] taskParts = diagParts[0].split("/");
+                        String[] taskParts = diagParts[1].split("/");
                         
                         //check if user has entered strictly following the format
-                        if (!((taskParts[0].startsWith("from")) && (taskParts[2].startsWith("to")))) {
+                        if (!((taskParts[1].startsWith("from")) && (taskParts[2].startsWith("to")))) {
                             throw new TaskExecuteException("Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
                         }
-                        String start = taskParts[0].split(" ", 2)[1];
-                        String end =  taskParts[1].split(" ", 2)[1];
+                        String start = taskParts[1].split(" ", 2)[1];
+                        String end =  taskParts[2].split(" ", 2)[1];
                         
-                        Event eTask = new Event(taskParts[-1], start, end);
+                        Event eTask = new Event(taskParts[0], start, end);
                         tasks.addTask(eTask);
                         //Ui.taskReply("success", eTask, tasks.getSize());
                     } catch (ArrayIndexOutOfBoundsException e) {
@@ -92,10 +92,10 @@ public class Parser {
 
                 case "deadline":
                     try {
-                        String[] taskParts = diagParts[0].split("/");
-                        String deadline = taskParts[0].split(" ", 2)[1];
+                        String[] taskParts = diagParts[1].split("/");
+                        String deadline = taskParts[1].split(" ", 2)[1];
                         
-                        Deadline dTask = new Deadline(taskParts[-1], deadline);
+                        Deadline dTask = new Deadline(taskParts[0], deadline);
                         tasks.addTask(dTask);
                         //Ui.taskReply("success", eTask, tasks.getSize());
                         
@@ -122,6 +122,10 @@ public class Parser {
     public void parseMark(String dialogue) {
         try {
             String[] arr = dialogue.split(" ");
+            if (arr.length < 2) {
+                Ui.markReply("empty_command");
+                return;
+            }
             int idx = Integer.parseInt(arr[1]);
 
             if (arr[0].equals("mark")) {
@@ -133,7 +137,6 @@ public class Parser {
             tasks.displayTask(idx);
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Mark Non-Existent Entry.\n");
             Ui.markReply("index_out_of_bounds");
         }
     }
@@ -145,11 +148,9 @@ public class Parser {
             Ui.deleteReply("success");
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Empty Command.\n");
             Ui.deleteReply("empty_command");
             
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Delete Non-Existing Entry.\n");
             Ui.deleteReply("delete_out_of_bounds");
         } 
     }
