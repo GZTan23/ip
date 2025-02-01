@@ -1,3 +1,6 @@
 *.class
 input.txt
 output.txt
+/../../../text-ui-test/data/
+/data
+

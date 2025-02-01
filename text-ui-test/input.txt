@@ -1,4 +1,5 @@
 deadline finish homework /by 3pm
+deadline finish homework /by 19-08-2010 15:00
 mark
 mark 2
 mark 1
@@ -8,6 +9,7 @@ delete
 delete 1
 delete 4
 event cS2103T lecture /from 3pm /to 10pm
+event cs2103T lecture /from 19-07-2015 15:00 /to 15-06-2016 16:00
 event
 event CS2103T 
 event lecture /from
@@ -18,6 +20,7 @@ mark 1
 unmark
 unmark 4
 unmark 1
+mark 2
 todo sleep
 list
 error boi
