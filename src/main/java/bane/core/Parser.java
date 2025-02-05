@@ -27,15 +27,15 @@ public class Parser {
 	public void parseDialogue(String dialogue) {
 
 		if (dialogue.startsWith("bye")) {
-			Ui.farewell();
+			Ui.sayFarewell();
 		
 		} else if (dialogue.startsWith("list")) {
 			Ui.separateLine();
 			
 			if (tasks.isEmpty()) {
-				Ui.listReply("empty");
+				Ui.replyToList("empty");
 			} else {
-				Ui.listReply("success");
+				Ui.replyToList("success");
                 tasks.listTasks();
 			}
 
@@ -62,7 +62,7 @@ public class Parser {
 
 		} else {
 			Ui.separateLine();
-			Ui.unknownInputReply();
+			Ui.replyToUnknownInput();
 			Ui.separateLine();
 		}
 
@@ -77,14 +77,14 @@ public class Parser {
         try {  
             String[] diagParts = dialogue.split(" ", 2);
             if (diagParts.length < 2) {
-                Ui.taskReply("empty command");
+                Ui.replyToTasks("empty command");
             
             } else {
                 switch (diagParts[0]) {
                 case "todo":
                     ToDo tTask = new ToDo(diagParts[1]);
                     tasks.addTask(tTask);
-                    //Ui.taskReply("success", tTask, tasks.getSize());
+                    //Ui.replyToTasks("success", tTask, tasks.getSize());
                     break;
 
                 case "event":
@@ -102,10 +102,10 @@ public class Parser {
                         Event eTask = new Event(taskParts[0], start, end);
                         tasks.addTask(eTask);
 
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    } catch (ArrayIndexOutOfBoundsException exception) {
                         throw new TaskExecuteException("Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
 
-                    } catch (DateTimeParseException e) {
+                    } catch (DateTimeParseException exception) {
                         throw new TaskExecuteException(
                                 "Wrong Date Format.\n\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.");
 
@@ -120,10 +120,10 @@ public class Parser {
                         Deadline dTask = new Deadline(taskParts[0], deadline);
                         tasks.addTask(dTask);
 
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    } catch (ArrayIndexOutOfBoundsException exception) {
                         throw new TaskExecuteException("Wrong Format.\n\nFormat: deadline [task] /by [deadline]");
 
-                    } catch (DateTimeParseException e) {
+                    } catch (DateTimeParseException exception) {
                         throw new TaskExecuteException(
                             "Wrong Date Format.\n\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.");
                     }
@@ -133,9 +133,9 @@ public class Parser {
                     throw new TaskExecuteException("Unknown Command.\n");
                 }
 		    }
-        } catch (TaskExecuteException e) {
-            System.out.println(e.getMessage());
-            Ui.taskReply("fail");
+        } catch (TaskExecuteException exception) {
+            System.out.println(exception.getMessage());
+            Ui.replyToTasks("fail");
 
         }
     }
@@ -148,7 +148,7 @@ public class Parser {
         try {
             String[] arr = dialogue.split(" ");
             if (arr.length < 2) {
-                Ui.markReply("empty_command");
+                Ui.replyToMark("empty_command");
                 return;
             }
             int idx = Integer.parseInt(arr[1]);
@@ -161,8 +161,8 @@ public class Parser {
 
             tasks.displayTask(idx);
 
-        } catch (IndexOutOfBoundsException e) {
-            Ui.markReply("index_out_of_bounds");
+        } catch (IndexOutOfBoundsException exception) {
+            Ui.replyToMark("index_out_of_bounds");
         }
     }
 
@@ -174,13 +174,13 @@ public class Parser {
         try {
             int idx = Integer.parseInt(dialogue.split(" ")[1]);
             tasks.deleteTask(idx);
-            Ui.deleteReply("success");
+            Ui.replyToDelete("success");
 
-        } catch (ArrayIndexOutOfBoundsException e) {
-            Ui.deleteReply("empty_command");
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            Ui.replyToDelete("empty_command");
             
-        } catch (IndexOutOfBoundsException e) {
-            Ui.deleteReply("delete_out_of_bounds");
+        } catch (IndexOutOfBoundsException exception) {
+            Ui.replyToDelete("delete_out_of_bounds");
         } 
     }
 }

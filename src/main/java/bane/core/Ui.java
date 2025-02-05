@@ -17,7 +17,7 @@ public class Ui {
     /**
      * Prints the greeting message
      */
-    public static void greeting() {
+    public static void greetUser() {
   
 		String logo ="\n\t▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  \n"
 					+  "\t▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ \n"
@@ -39,9 +39,9 @@ public class Ui {
 	}
 
     /**
-     * Prints the farewell message
+     * Prints the sayFarewell message
      */
-    public static void farewell() {
+    public static void sayFarewell() {
         separateLine();
 		System.out.println("Bye, hope to not see you again.");
         separateLine();
@@ -51,7 +51,7 @@ public class Ui {
      * Prints a reply to the list command
      * @param type Type of reply to be printed
      */
-    public static void listReply(String type) {
+    public static void replyToList(String type) {
         switch (type) {
         case "empty":
             System.out.println("What were you expecting? A present? It's empty!");
@@ -68,7 +68,7 @@ public class Ui {
      * Prints a reply to the mark/unmark command
      * @param type Type of reply to be printed
      */
-    public static void markReply(String type) {
+    public static void replyToMark(String type) {
 
         switch (type) {
         case "marked":
@@ -97,7 +97,7 @@ public class Ui {
      * Prints a reply to the various task commands
      * @param type Type of reply to be printed
      */
-    public static void taskReply(String type) {
+    public static void replyToTasks(String type) {
         switch (type) {
         case "fail":
             System.out.println("Wow, you're bad at this. Try again.");
@@ -119,7 +119,7 @@ public class Ui {
      * @param task Task to be printed out
      * @param alSize Size of the task list
      */
-    public static void taskReply(String type, Task task, int alSize) {
+    public static void replyToTasks(String type, Task task, int alSize) {
         switch (type) {
         case "success":
             StringBuilder sb = new StringBuilder("Added to list of things to \"forget\",\n\n");
@@ -135,7 +135,7 @@ public class Ui {
      * Prints a reply to the delete command
      * @param type Type of reply to be printed
      */
-    public static void deleteReply(String type) {
+    public static void replyToDelete(String type) {
         switch (type) {
         case "success":
 			System.out.println("Giving up are we? You disappoint me.");
@@ -156,7 +156,7 @@ public class Ui {
     /**
      * Prints a reply when the command is unknown
      */
-    public static void unknownInputReply() {
+    public static void replyToUnknownInput() {
         System.out.println("Unknown Input.\n");
 		System.out.println("I fail to comprehend the inner machinations of the \nthing you call a brain. Try again");
 
@@ -166,7 +166,7 @@ public class Ui {
      * Prints a reply when loading the tasks from the file
      * @param type Type of reply to be printed
      */
-    public static void loadReply(String type) {
+    public static void replyToLoadFile(String type) {
         switch (type) {
         case "success":
             System.out.println("""
@@ -192,7 +192,7 @@ public class Ui {
      * Prints a reply when saving the tasks to the file
      * @param type Type of reply to be printed
      */
-    public static void saveReply(String type) {
+    public static void replyToSaveFile(String type) {
         switch (type) {
         case "write_error":
             System.out.println("""
