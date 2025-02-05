@@ -11,12 +11,12 @@ public class TaskList {
     }
 
     public void markTask(int idx) {
-        al.get(idx - 1).taskStatus(true);
+        al.get(idx - 1).changeTaskStatus(true);
         Ui.markReply("marked");
     }
 
     public void unmarkTask(int idx) {
-		al.get(idx - 1).taskStatus(false);
+		al.get(idx - 1).changeTaskStatus(false);
 		Ui.markReply("unmarked");
     }
 
