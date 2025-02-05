@@ -1,10 +1,10 @@
-package core;
+package bane.core;
 
-import exception.TaskExecuteException;
+import bane.exception.TaskExecuteException;
 import java.time.format.DateTimeParseException;
-import task.Deadline;
-import task.Event;
-import task.ToDo;
+import bane.task.Deadline;
+import bane.task.Event;
+import bane.task.ToDo;
 
 public class Parser {
     private TaskList tasks;

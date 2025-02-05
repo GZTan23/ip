@@ -1,6 +1,11 @@
-package core;
+package bane.core;
 
-import enums.DateTimeFormat;
+import bane.enums.DateTimeFormat;
+import bane.task.Deadline;
+import bane.task.Event;
+import bane.task.Task;
+import bane.task.ToDo;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -8,10 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
 
 public class Storage {
     private String filePath;

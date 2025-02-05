@@ -1,4 +1,4 @@
-package core;
+package bane.core;
 
 import java.util.Scanner;
 

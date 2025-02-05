@@ -1,6 +1,6 @@
-package core;
+package bane.core;
 
-import task.Task;
+import bane.task.Task;
 
 public class Ui {
 

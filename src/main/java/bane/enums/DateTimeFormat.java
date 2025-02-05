@@ -1,4 +1,4 @@
-package enums;
+package bane.enums;
 
 import java.time.format.DateTimeFormatter;
 
