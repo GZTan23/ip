@@ -8,14 +8,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 
-public class Deadline extends Task{
+public class Deadline implements Task{
     private TemporalAccessor deadline;
+    private String name;
+    private boolean isDone;
     private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter(); 
     private final DateTimeFormatter DISPLAYER = DateTimeFormat.DISPLAY_FORMAT.formatter();
 
     
     public Deadline(String name, String deadline) throws DateTimeParseException {
-        super(name.trim());
+        this.name = name.trim();
+        this.isDone = false;
         this.deadline = PARSER.parseBest(deadline.trim(), LocalDateTime::from,
                 LocalDate::from, LocalTime::from);
     }
@@ -24,9 +27,21 @@ public class Deadline extends Task{
         return this.deadline;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean isTaskDone() {
+        return this.isDone;
+    }
+
+    public void changeTaskStatus(boolean isDone) {
+       this.isDone = isDone;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (by: %s)", 
+        return String.format("[D][%s] %s (by: %s)", (this.isDone ? "X" : " "), this.name,
                 DISPLAYER.format(getDeadline()));
     }
 }

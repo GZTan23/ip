@@ -9,14 +9,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 
-public class Event extends Task {
+public class Event implements Task {
+    private String name;
+    private boolean isDone;
     private TemporalAccessor start, end;
     private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter(); 
     private final DateTimeFormatter DISPLAYER = DateTimeFormat.DISPLAY_FORMAT.formatter(); 
 
 
     public Event(String name, String start, String end) throws DateTimeParseException {
-        super(name.trim());
+        this.name = name.trim();
+        this.isDone = false;
         this.start = PARSER.parseBest(start.trim(), LocalDateTime::from,
                 LocalDate::from, LocalTime::from);
         this.end = PARSER.parseBest(end.trim(), LocalDateTime::from,
@@ -31,9 +34,21 @@ public class Event extends Task {
         return this.end;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean isTaskDone() {
+        return this.isDone;
+    }
+
+    public void changeTaskStatus(boolean isDone) {
+        this.isDone = isDone;
+    }
+
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)",
-                super.toString(), DISPLAYER.format(getStart()), DISPLAYER.format(getEnd())); 
+        return String.format("[E][%s] %s (from: %s to: %s)", (isDone ? "X" : " "), this.name,
+                DISPLAYER.format(getStart()), DISPLAYER.format(getEnd()));
     }
 }

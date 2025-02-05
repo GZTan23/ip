@@ -31,7 +31,7 @@ public class Storage {
 
 			for (Task task : al) {
 				String input = "";
-				String taskStatus = (task.getTaskStatus()) ? "1" : "0";
+				String taskStatus = (task.isTaskDone()) ? "1" : "0";
                 if (task instanceof ToDo todo) {
                     input = String.format("%s, %s, %s", "T", 
 						    taskStatus, todo.getName());
@@ -76,8 +76,8 @@ public class Storage {
 		try {
 			//if file/directory does not exist
 			if (Files.notExists(Paths.get(filePath))) {
-				if (Files.notExists(Paths.get("./data"))) {
-					Files.createDirectory(Paths.get("./data"));
+				if (Files.notExists(Paths.get(filePath))) {
+					Files.createDirectory(Paths.get(filePath));
 				}
 				Files.createFile(Paths.get(filePath));
 				Ui.loadReply("success");
@@ -99,19 +99,19 @@ public class Storage {
 
 					case "T":
 						ToDo tTask = new ToDo(lineParts[2]);
-						tTask.taskStatus(isDone);
+						tTask.changeTaskStatus(isDone);
 						al.add(tTask);					
 						break;
 
 					case "D":
 						Deadline dTask = new Deadline(lineParts[2], lineParts[3]);
-						dTask.taskStatus(isDone);
+						dTask.changeTaskStatus(isDone);
 						al.add(dTask);
 						break;
 
 					case "E":
 						Event eTask = new Event(lineParts[2], lineParts[3], lineParts[4]);
-						eTask.taskStatus(isDone);
+						eTask.changeTaskStatus(isDone);
 						al.add(eTask);
 						break;
 					}

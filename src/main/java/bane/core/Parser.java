@@ -85,7 +85,7 @@ public class Parser {
                         
                         Event eTask = new Event(taskParts[0], start, end);
                         tasks.addTask(eTask);
-                        //Ui.taskReply("success", eTask, tasks.getSize());
+
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new TaskExecuteException("Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
 
@@ -103,8 +103,7 @@ public class Parser {
                         
                         Deadline dTask = new Deadline(taskParts[0], deadline);
                         tasks.addTask(dTask);
-                        //Ui.taskReply("success", eTask, tasks.getSize());
-                        
+
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new TaskExecuteException("Wrong Format.\n\nFormat: deadline [task] /by [deadline]");
 
