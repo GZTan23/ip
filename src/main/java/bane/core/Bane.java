@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Main class for the Bane chatbot
  */
-public class Bane {     
+public class Bane {
 
 	private static Parser parser;
 	private static Storage storage;
@@ -26,12 +26,12 @@ public class Bane {
 	 * Runs the chatbot
 	 */
 	public void run() {
-		try (Scanner sc = new Scanner(System.in)) {
-			Ui.greeting();
+		try (Scanner scanner = new Scanner(System.in)) {
+			Ui.greetUser();
 			
 			String input;
 			do {
-				input = sc.nextLine();
+				input = scanner.nextLine();
 				parser.parseDialogue(input);
 				
 			} while(!input.startsWith("bye"));

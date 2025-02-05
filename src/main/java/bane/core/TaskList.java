@@ -7,14 +7,14 @@ import java.util.ArrayList;
  * Keeps track of the task list and operates on the tasks
  */
 public class TaskList {
-    private ArrayList<Task> arraylist;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructor for TaskList class
-     * @param arrayList ArrayList for storing of tasks
+     * @param tasks ArrayList for storing of tasks
      */
-    public TaskList(ArrayList<Task> arrayList) {
-        this.arraylist = arrayList;
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -22,8 +22,8 @@ public class TaskList {
      * @param idx Index of the task on the list
      */
     public void markTask(int idx) {
-        arraylist.get(idx - 1).changeTaskStatus(true);
-        Ui.markReply("marked");
+        tasks.get(idx - 1).changeTaskStatus(true);
+        Ui.replyToMark("marked");
     }
 
     /**
@@ -31,8 +31,8 @@ public class TaskList {
      * @param idx Index of the task on the list
      */
     public void unmarkTask(int idx) {
-		arraylist.get(idx - 1).changeTaskStatus(false);
-		Ui.markReply("unmarked");
+		tasks.get(idx - 1).changeTaskStatus(false);
+		Ui.replyToMark("unmarked");
     }
 
     /**
@@ -40,8 +40,8 @@ public class TaskList {
      * @param task Task to be added
      */
     public void addTask(Task task) {
-        this.arraylist.add(task);
-		Ui.taskReply("success", task, arraylist.size());
+        this.tasks.add(task);
+		Ui.replyToTasks("success", task, tasks.size());
     }
 
     /**
@@ -49,14 +49,14 @@ public class TaskList {
      * @param idx Index of the task to delete from the list
      */
     public void deleteTask(int idx) {
-		arraylist.remove(idx-1);
+		tasks.remove(idx-1);
     }
 
     /**
      * Prints out all the tasks currently in the list
      */
     public void listTasks() {
-        for (int i = 1; i <= arraylist.size(); i++) {
+        for (int i = 1; i <= tasks.size(); i++) {
             displayTask(i);
         }	
     }
@@ -66,7 +66,7 @@ public class TaskList {
      * @param idx Index of the task to display from the list
      */
     public void displayTask(int idx) {
-        System.out.print(String.format("    %d. %s\n", idx, arraylist.get(idx - 1)));
+        System.out.print(String.format("    %d. %s\n", idx, tasks.get(idx - 1)));
     }
 
     /**
@@ -74,15 +74,15 @@ public class TaskList {
      * @return boolean True if the list is empty, False if it isn't
      */
     public boolean isEmpty() {
-        return this.arraylist.isEmpty();
+        return this.tasks.isEmpty();
     }
 
     public int getSize() {
-        return this.arraylist.size();
+        return this.tasks.size();
     }
 
     public  ArrayList<Task> getList() {
-        return this.arraylist;
+        return this.tasks;
     }
 
 }

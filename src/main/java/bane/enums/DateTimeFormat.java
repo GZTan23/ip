@@ -13,14 +13,14 @@ public enum DateTimeFormat {
     private final String FORMAT;
     /**
      * Constructor for the DateTimeFormat class
-     * @param s String containing the format to be used
+     * @param string String containing the format to be used
      */
-    private DateTimeFormat(String s) {
-        this.FORMAT = s;
+    private DateTimeFormat(String string) {
+        this.FORMAT = string;
     }
 
     /**
-     * Creates a formmatter for the specified date time format
+     * Creates a formatter for the specified date time format
      * @return DateTimeFormatter Formatter for the date time strings
      */
     public DateTimeFormatter formatter() {

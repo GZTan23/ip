@@ -9,6 +9,7 @@ import bane.task.ToDo;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  */
 public class Storage {
     private String filePath;
-    private ArrayList<Task> al;
+    private ArrayList<Task> tasks;
 
 	/**
 	 * Constructor for the Storage class
@@ -60,10 +61,10 @@ public class Storage {
 				try {
 					bw.write(input, 0, input.length());
 					bw.newLine();
-				} catch (IOException e) {
+				} catch (IOException exception) {
 					Ui.separateLine();
 					System.out.println("File Write Error.\n");
-					Ui.saveReply("write_error");
+					Ui.replyToSaveFile("write_error");
 					Ui.separateLine();
 
 					System.exit(1);
@@ -74,7 +75,7 @@ public class Storage {
 		} catch (IOException e) {
 			Ui.separateLine();
 			System.out.println("File Open Error.\n");
-			Ui.saveReply("file_open_error");
+			Ui.replyToSaveFile("file_open_error");
 			Ui.separateLine();
 
 			System.exit(1);
@@ -87,17 +88,17 @@ public class Storage {
 	 * @return ArrayList<Task> The list of tasks that have been loaded from the file
 	 */
 	public ArrayList<Task> loadTasks() {
-        al = new ArrayList<>();
+        tasks = new ArrayList<>();
 		try {
 			//if file/directory does not exist
 			if (Files.notExists(Paths.get(filePath))) {
 				Files.createDirectory(Paths.get(filePath).getParent());
 				Files.createFile(Paths.get(filePath));
-				Ui.loadReply("success");
+				Ui.replyToLoadFile("success");
 			}
 			try {
-				BufferedReader br = Files.newBufferedReader(Paths.get(filePath));
-				String line = br.readLine();
+				BufferedReader reader = Files.newBufferedReader(Paths.get(filePath));
+				String line = reader.readLine();
 			
 				//check whether there is still more in the file
 				while (line != null) {
@@ -112,27 +113,27 @@ public class Storage {
 					case "T":
 						ToDo tTask = new ToDo(lineParts[2]);
 						tTask.changeTaskStatus(isDone);
-						al.add(tTask);					
+						tasks.add(tTask);
 						break;
 
 					case "D":
 						Deadline dTask = new Deadline(lineParts[2], lineParts[3]);
 						dTask.changeTaskStatus(isDone);
-						al.add(dTask);
+						tasks.add(dTask);
 						break;
 
 					case "E":
 						Event eTask = new Event(lineParts[2], lineParts[3], lineParts[4]);
 						eTask.changeTaskStatus(isDone);
-						al.add(eTask);
+						tasks.add(eTask);
 						break;
 					}
-					line = br.readLine();
+					line = reader.readLine();
 				}
 			} catch (IOException e) {
 				Ui.separateLine();
 				System.out.println("Read File Error\n");
-				Ui.loadReply("read_file_error");
+				Ui.replyToLoadFile("read_file_error");
 				Ui.separateLine();
 
 				System.exit(1);
@@ -140,12 +141,12 @@ public class Storage {
 		} catch (IOException e) {
 			Ui.separateLine();
 			System.out.println("File Creation Fail\n");
-			Ui.loadReply("file_creation_fail");
+			Ui.replyToLoadFile("file_creation_fail");
 			Ui.separateLine();
 
 			System.exit(1);
 
 		}
-        return al;
+        return tasks;
 	}
 }
