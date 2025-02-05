@@ -76,12 +76,9 @@ public class Storage {
 		try {
 			//if file/directory does not exist
 			if (Files.notExists(Paths.get(filePath))) {
-				if (Files.notExists(Paths.get(filePath))) {
-					Files.createDirectory(Paths.get(filePath));
-				}
+				Files.createDirectory(Paths.get(filePath).getParent());
 				Files.createFile(Paths.get(filePath));
 				Ui.loadReply("success");
-
 			}
 			try {
 				BufferedReader br = Files.newBufferedReader(Paths.get(filePath));
