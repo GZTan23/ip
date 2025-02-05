@@ -6,20 +6,31 @@ import bane.task.Deadline;
 import bane.task.Event;
 import bane.task.ToDo;
 
+/**
+ * Parses and handles user input
+ */
 public class Parser {
     private TaskList tasks;
 
+    /**
+     * Constructor for Parser class
+     * @param tasks TaskList to add tasks to the list
+     */
     public Parser(TaskList tasks) {
         this.tasks = tasks;
     }
 
-	public void parseDialog(String dialogue) {
+    /**
+     * Parses the command part of the user input
+     * @param dialogue User input
+     */
+	public void parseDialogue(String dialogue) {
 
 		if (dialogue.startsWith("bye")) {
 			Ui.farewell();
 		
 		} else if (dialogue.startsWith("list")) {
-			Ui.separatorLine();
+			Ui.separateLine();
 			
 			if (tasks.isEmpty()) {
 				Ui.listReply("empty");
@@ -28,35 +39,40 @@ public class Parser {
                 tasks.listTasks();
 			}
 
-			Ui.separatorLine();	
+			Ui.separateLine();
 		} else if ((dialogue.startsWith("mark")) |
 				(dialogue.startsWith("unmark"))) {
                     
-                Ui.separatorLine();
+                Ui.separateLine();
                 parseMark(dialogue);
-                Ui.separatorLine();
+                Ui.separateLine();
 
 		} else if ((dialogue.startsWith("todo")) ||
 				(dialogue.startsWith("deadline")) ||
 				(dialogue.startsWith("event"))) {
     
-				Ui.separatorLine();
+				Ui.separateLine();
                 parseEvent(dialogue);	
-				Ui.separatorLine();
+				Ui.separateLine();
 
 		} else if (dialogue.startsWith("delete")) {
-			Ui.separatorLine();
+			Ui.separateLine();
             parseDelete(dialogue);
-			Ui.separatorLine();
+			Ui.separateLine();
 
 		} else {
-			Ui.separatorLine();
+			Ui.separateLine();
 			Ui.unknownInputReply();
-			Ui.separatorLine();
+			Ui.separateLine();
 		}
 
 	}
 
+
+    /**
+     * Parses user input for the task name and date if any
+     * @param dialogue User input
+     */
     public void parseEvent(String dialogue) {
         try {  
             String[] diagParts = dialogue.split(" ", 2);
@@ -124,6 +140,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input for the mark/unmark commands
+     * @param dialogue User input
+     */
     public void parseMark(String dialogue) {
         try {
             String[] arr = dialogue.split(" ");
@@ -146,6 +166,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input for the delete command
+     * @param dialogue User input
+     */
     public void parseDelete(String dialogue) {
         try {
             int idx = Integer.parseInt(dialogue.split(" ")[1]);
