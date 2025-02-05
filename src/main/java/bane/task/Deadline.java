@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 
+/**
+ * Class for tasks with a deadline
+ */
 public class Deadline implements Task{
     private TemporalAccessor deadline;
     private String name;
@@ -15,7 +18,12 @@ public class Deadline implements Task{
     private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter(); 
     private final DateTimeFormatter DISPLAYER = DateTimeFormat.DISPLAY_FORMAT.formatter();
 
-    
+    /**
+     * Constructor for the Deadline class
+     * @param name Name of the task
+     * @param deadline Deadline of the task
+     * @throws DateTimeParseException if the string given is not of the correct format
+     */
     public Deadline(String name, String deadline) throws DateTimeParseException {
         this.name = name.trim();
         this.isDone = false;

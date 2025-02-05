@@ -2,13 +2,22 @@ package bane.core;
 
 import bane.task.Task;
 
+/**
+ * Handles most of the UI elements of the chatbot
+ */
 public class Ui {
 
-    public static void separatorLine() {
+    /**
+     * Prints a separator between the chatbot and user input
+     */
+    public static void separateLine() {
 	    System.out.println("________________________________________________________________\n");
     }
 
-	public static void greeting() {
+    /**
+     * Prints the greeting message
+     */
+    public static void greeting() {
   
 		String logo ="\n\t▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  \n"
 					+  "\t▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ \n"
@@ -22,19 +31,26 @@ public class Ui {
 					+  "\t      ░                             \n";
 
 		System.out.println(logo); 
-        separatorLine();
+        separateLine();
 		System.out.println("""
 				Hello, it is me, Bane.
 				Why have you called upon me?\n""");
-        separatorLine();
+        separateLine();
 	}
 
+    /**
+     * Prints the farewell message
+     */
     public static void farewell() {
-        separatorLine();
+        separateLine();
 		System.out.println("Bye, hope to not see you again.");
-        separatorLine();
+        separateLine();
     }
 
+    /**
+     * Prints a reply to the list command
+     * @param type Type of reply to be printed
+     */
     public static void listReply(String type) {
         switch (type) {
         case "empty":
@@ -48,6 +64,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a reply to the mark/unmark command
+     * @param type Type of reply to be printed
+     */
     public static void markReply(String type) {
 
         switch (type) {
@@ -73,6 +93,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a reply to the various task commands
+     * @param type Type of reply to be printed
+     */
     public static void taskReply(String type) {
         switch (type) {
         case "fail":
@@ -89,6 +113,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a reply to the various task commands
+     * @param type Type of reply to be printed
+     * @param task Task to be printed out
+     * @param alSize Size of the task list
+     */
     public static void taskReply(String type, Task task, int alSize) {
         switch (type) {
         case "success":
@@ -101,6 +131,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a reply to the delete command
+     * @param type Type of reply to be printed
+     */
     public static void deleteReply(String type) {
         switch (type) {
         case "success":
@@ -119,12 +153,19 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a reply when the command is unknown
+     */
     public static void unknownInputReply() {
         System.out.println("Unknown Input.\n");
 		System.out.println("I fail to comprehend the inner machinations of the \nthing you call a brain. Try again");
 
     }
 
+    /**
+     * Prints a reply when loading the tasks from the file
+     * @param type Type of reply to be printed
+     */
     public static void loadReply(String type) {
         switch (type) {
         case "success":
@@ -147,6 +188,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a reply when saving the tasks to the file
+     * @param type Type of reply to be printed
+     */
     public static void saveReply(String type) {
         switch (type) {
         case "write_error":

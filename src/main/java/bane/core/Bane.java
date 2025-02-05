@@ -2,18 +2,29 @@ package bane.core;
 
 import java.util.Scanner;
 
+/**
+ * Main class for the Bane chatbot
+ */
 public class Bane {     
 
 	private static Parser parser;
 	private static Storage storage;
 	private static TaskList tasks;
 
+	/**
+	 * Constructor for the Bane class
+	 * Initialises the Storage, TaskList and Parser
+	 * @param filePath File path to load and save the tasks from
+	 */
 	public Bane(String filePath) {
 		storage = new Storage(filePath);
 		tasks = new TaskList(storage.loadTasks());
 		parser = new Parser(tasks);
 	}
 
+	/**
+	 * Runs the chatbot
+	 */
 	public void run() {
 		try (Scanner sc = new Scanner(System.in)) {
 			Ui.greeting();
@@ -21,7 +32,7 @@ public class Bane {
 			String input;
 			do {
 				input = sc.nextLine();
-				parser.parseDialog(input);
+				parser.parseDialogue(input);
 				
 			} while(!input.startsWith("bye"));
 			

@@ -14,22 +14,34 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Loads the tasks from a specified file and saves to it after execution
+ */
 public class Storage {
     private String filePath;
     private ArrayList<Task> al;
 
+	/**
+	 * Constructor for the Storage class
+	 * @param filePath File path of the place to store and load the tasks from
+	 */
     public Storage(String filePath) {
         this.filePath = filePath;
-    }   
+    }
 
-	public void saveTasks(ArrayList<Task> al) {	
+	/**
+	 * Saves tasks from the list into the file before closing the program
+	 * If unable to create directory/file, the program exits with status of 1
+	 * @param arrayList ArrayList to extract and save the tasks from
+	 */
+	public void saveTasks(ArrayList<Task> arrayList) {
 		DateTimeFormatter saver = DateTimeFormat.SAVE_FORMAT.formatter();
 		BufferedWriter bw;
 
 		try {
 			bw = Files.newBufferedWriter(Paths.get(filePath));
 
-			for (Task task : al) {
+			for (Task task : arrayList) {
 				String input = "";
 				String taskStatus = (task.isTaskDone()) ? "1" : "0";
                 if (task instanceof ToDo todo) {
@@ -49,10 +61,10 @@ public class Storage {
 					bw.write(input, 0, input.length());
 					bw.newLine();
 				} catch (IOException e) {
-					Ui.separatorLine();
+					Ui.separateLine();
 					System.out.println("File Write Error.\n");
 					Ui.saveReply("write_error");
-					Ui.separatorLine();
+					Ui.separateLine();
 
 					System.exit(1);
 				}
@@ -60,17 +72,20 @@ public class Storage {
 			bw.close();
 
 		} catch (IOException e) {
-			Ui.separatorLine();
+			Ui.separateLine();
 			System.out.println("File Open Error.\n");
 			Ui.saveReply("file_open_error");
-			Ui.separatorLine();
+			Ui.separateLine();
 
 			System.exit(1);
 		}
 	}
 
-	//TODO: Add checks for corruption and invalid inputs
-
+	/**
+	 * Loads the tasks from the specified path
+	 * If the specified file does not exist, creates the file and returns an empty list
+	 * @return ArrayList<Task> The list of tasks that have been loaded from the file
+	 */
 	public ArrayList<Task> loadTasks() {
         al = new ArrayList<>();
 		try {
@@ -115,18 +130,18 @@ public class Storage {
 					line = br.readLine();
 				}
 			} catch (IOException e) {
-				Ui.separatorLine();
+				Ui.separateLine();
 				System.out.println("Read File Error\n");
 				Ui.loadReply("read_file_error");
-				Ui.separatorLine();
+				Ui.separateLine();
 
 				System.exit(1);
 			}
 		} catch (IOException e) {
-			Ui.separatorLine();
+			Ui.separateLine();
 			System.out.println("File Creation Fail\n");
 			Ui.loadReply("file_creation_fail");
-			Ui.separatorLine();
+			Ui.separateLine();
 
 			System.exit(1);
 

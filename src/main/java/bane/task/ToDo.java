@@ -1,9 +1,16 @@
 package bane.task;
 
+/**
+ * Class for tasks that do not have date or time
+ */
 public class ToDo implements Task {
 	private String name;
 	private boolean isDone;
 
+	/**
+	 * Constructor for the ToDo class
+	 * @param name Name of the task
+	 */
 	public ToDo(String name) {
 		this.name = name.trim();
 		this.isDone = false;
