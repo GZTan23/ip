@@ -58,7 +58,7 @@ public class Ui {
             break;
 
         case "success":
-            System.out.println("Reminding you of things you have already forgetten:\n");
+            System.out.println("Reminding you of things you have already forgotten:\n");
             break;
 
         }
@@ -170,7 +170,7 @@ public class Ui {
         switch (type) {
         case "success":
             System.out.println("""
-                    Added new file "./data/Bane.txt" because I 
+                    Added new file "./data/Bane.txt" because I
                     clearly have to do everything for you.""");
             break;
 
@@ -207,5 +207,25 @@ public class Ui {
             
         }
     }
-    
+
+    /**
+     * Prints a reply to finding a task
+     * @param type Type of reply to be printed
+     */
+    public static void replyToFind(String type) {
+        switch (type) {
+        case "success":
+            System.out.println("Looking for these?");
+            break;
+        case "empty_command":
+            System.out.println("Empty Command.\n");
+            System.out.println("You still don't get it do you?\nFormat: find [keyword/phrase]");
+            break;
+
+        case "not_found":
+            System.out.println("Can't seem to find anything...");
+            break;
+        }
+    }
+
 }

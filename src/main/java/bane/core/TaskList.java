@@ -2,6 +2,7 @@ package bane.core;
 
 import bane.task.Task;
 import java.util.ArrayList;
+import java.lang.StringBuilder;
 
 /**
  * Keeps track of the task list and operates on the tasks
@@ -67,6 +68,25 @@ public class TaskList {
      */
     public void displayTask(int idx) {
         System.out.print(String.format("    %d. %s\n", idx, tasks.get(idx - 1)));
+    }
+
+    public void findTask(String keyword) {
+        int count = 0;
+        StringBuilder string = new StringBuilder();
+        for (Task task : tasks) {
+            if (task.getName().contains(keyword)) {count++;
+                string.append(count);
+                string.append(". ");
+                string.append(task.toString());
+                string.append("\n");
+            }
+        }
+        if (count == 0) {
+            Ui.replyToFind("not_found");
+        } else {
+            Ui.replyToFind("success");
+            System.out.println(string.toString());
+        }
     }
 
     /**
