@@ -6,9 +6,9 @@ import java.time.format.DateTimeFormatter;
  * A bunch of date formats used by the chatbot
  */
 public enum DateTimeFormat {
-    DISPLAY_FORMAT ("MMM d yyyy[ hh:mma]"),
-    SAVE_FORMAT ("dd-MM-uuuu[ HH:mm]"),
-    PARSE_FORMAT ("dd-MM-uuuu[ HH:mm]");
+    DISPLAY_FORMAT("MMM d yyyy[ hh:mma]"),
+    SAVE_FORMAT("dd-MM-uuuu[ HH:mm]"),
+    PARSE_FORMAT("dd-MM-uuuu[ HH:mm]");
 
     private final String FORMAT;
     /**

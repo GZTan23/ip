@@ -1,7 +1,8 @@
 package bane.core;
 
-import bane.exception.TaskExecuteException;
 import java.time.format.DateTimeParseException;
+
+import bane.exception.TaskExecuteException;
 import bane.task.Deadline;
 import bane.task.Event;
 import bane.task.ToDo;
@@ -40,16 +41,16 @@ public class Parser {
             }
 
             Ui.separateLine();
-        } else if ((dialogue.startsWith("mark")) |
-                (dialogue.startsWith("unmark"))) {
+        } else if ((dialogue.startsWith("mark"))
+                | (dialogue.startsWith("unmark"))) {
 
             Ui.separateLine();
             parseMark(dialogue);
             Ui.separateLine();
 
-        } else if ((dialogue.startsWith("todo")) ||
-                (dialogue.startsWith("deadline")) ||
-                (dialogue.startsWith("event"))) {
+        } else if ((dialogue.startsWith("todo"))
+                || (dialogue.startsWith("deadline"))
+                || (dialogue.startsWith("event"))) {
 
             Ui.separateLine();
             parseEvent(dialogue);
@@ -86,56 +87,57 @@ public class Parser {
 
             } else {
                 switch (diagParts[0]) {
-                    case "todo":
-                        ToDo tTask = new ToDo(diagParts[1]);
-                        tasks.addTask(tTask);
-                        //Ui.replyToTasks("success", tTask, tasks.getSize());
-                        break;
+                case "todo":
+                    ToDo tTask = new ToDo(diagParts[1]);
+                    tasks.addTask(tTask);
+                    //Ui.replyToTasks("success", tTask, tasks.getSize());
+                    break;
 
-                    case "event":
-                        try {
-                            //split the rest of the string without the command in front
-                            String[] taskParts = diagParts[1].split("/");
+                case "event":
+                    try {
+                        //split the rest of the string without the command in front
+                        String[] taskParts = diagParts[1].split("/");
 
-                            //check if user has entered strictly following the format
-                            if (!((taskParts[1].startsWith("from")) && (taskParts[2].startsWith("to")))) {
-                                throw new TaskExecuteException("Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
-                            }
-                            String start = taskParts[1].split(" ", 2)[1];
-                            String end =  taskParts[2].split(" ", 2)[1];
-
-                            Event eTask = new Event(taskParts[0], start, end);
-                            tasks.addTask(eTask);
-
-                        } catch (ArrayIndexOutOfBoundsException exception) {
-                            throw new TaskExecuteException("Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
-
-                        } catch (DateTimeParseException exception) {
+                        //check if user has entered strictly following the format
+                        if (!((taskParts[1].startsWith("from")) && (taskParts[2].startsWith("to")))) {
                             throw new TaskExecuteException(
-                                    "Wrong Date Format.\n\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.");
-
+                                    "Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
                         }
-                        break;
+                        String start = taskParts[1].split(" ", 2)[1];
+                        String end = taskParts[2].split(" ", 2)[1];
 
-                    case "deadline":
-                        try {
-                            String[] taskParts = diagParts[1].split("/");
-                            String deadline = taskParts[1].split(" ", 2)[1];
+                        Event eTask = new Event(taskParts[0], start, end);
+                        tasks.addTask(eTask);
 
-                            Deadline dTask = new Deadline(taskParts[0], deadline);
-                            tasks.addTask(dTask);
+                    } catch (ArrayIndexOutOfBoundsException exception) {
+                        throw new TaskExecuteException("Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
 
-                        } catch (ArrayIndexOutOfBoundsException exception) {
-                            throw new TaskExecuteException("Wrong Format.\n\nFormat: deadline [task] /by [deadline]");
+                    } catch (DateTimeParseException exception) {
+                        throw new TaskExecuteException(
+                                "Wrong Date Format.\n\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.");
 
-                        } catch (DateTimeParseException exception) {
-                            throw new TaskExecuteException(
-                                    "Wrong Date Format.\n\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.");
-                        }
-                        break;
+                    }
+                    break;
 
-                    default:
-                        throw new TaskExecuteException("Unknown Command.\n");
+                case "deadline":
+                    try {
+                        String[] taskParts = diagParts[1].split("/");
+                        String deadline = taskParts[1].split(" ", 2)[1];
+
+                        Deadline dTask = new Deadline(taskParts[0], deadline);
+                        tasks.addTask(dTask);
+
+                    } catch (ArrayIndexOutOfBoundsException exception) {
+                        throw new TaskExecuteException("Wrong Format.\n\nFormat: deadline [task] /by [deadline]");
+
+                    } catch (DateTimeParseException exception) {
+                        throw new TaskExecuteException(
+                                "Wrong Date Format.\n\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.");
+                    }
+                    break;
+
+                default:
+                    throw new TaskExecuteException("Unknown Command.\n");
                 }
             }
         } catch (TaskExecuteException exception) {

@@ -1,7 +1,5 @@
 package bane.task;
 
-import bane.enums.DateTimeFormat;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,13 +7,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 
+import bane.enums.DateTimeFormat;
+
 /**
  * Class for tasks with a start and end time
  */
 public class Event implements Task {
     private String name;
     private boolean isDone;
-    private TemporalAccessor start, end;
+    private TemporalAccessor start;
+    private TemporalAccessor end;
     private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter();
     private final DateTimeFormatter DISPLAYER = DateTimeFormat.DISPLAY_FORMAT.formatter();
 

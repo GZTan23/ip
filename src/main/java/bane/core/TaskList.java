@@ -1,8 +1,9 @@
 package bane.core;
 
-import bane.task.Task;
 import java.util.ArrayList;
-import java.lang.StringBuilder;
+
+import bane.task.Task;
+
 
 /**
  * Keeps track of the task list and operates on the tasks
@@ -50,7 +51,7 @@ public class TaskList {
      * @param idx Index of the task to delete from the list
      */
     public void deleteTask(int idx) {
-        tasks.remove(idx-1);
+        tasks.remove(idx - 1);
     }
 
     /**
@@ -70,14 +71,19 @@ public class TaskList {
         System.out.print(String.format("    %d. %s\n", idx, tasks.get(idx - 1)));
     }
 
+    /**
+     * Finds task in list using keyword
+     * @param keyword String to match with the task description
+     */
     public void findTask(String keyword) {
         int count = 0;
         StringBuilder string = new StringBuilder();
         for (Task task : tasks) {
-            if (task.getName().contains(keyword)) {count++;
+            if (task.getName().contains(keyword)) {
+                count++;
                 string.append(count);
                 string.append(". ");
-                string.append(task.toString());
+                string.append(task);
                 string.append("\n");
             }
         }
@@ -85,7 +91,7 @@ public class TaskList {
             Ui.replyToFind("not_found");
         } else {
             Ui.replyToFind("success");
-            System.out.println(string.toString());
+            System.out.println(string);
         }
     }
 
@@ -101,7 +107,7 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public  ArrayList<Task> getList() {
+    public ArrayList<Task> getList() {
         return this.tasks;
     }
 

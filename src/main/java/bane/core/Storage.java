@@ -1,19 +1,20 @@
 package bane.core;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import bane.enums.DateTimeFormat;
 import bane.task.Deadline;
 import bane.task.Event;
 import bane.task.Task;
 import bane.task.ToDo;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 /**
  * Loads the tasks from a specified file and saves to it after execution
@@ -46,7 +47,7 @@ public class Storage {
                 String input = "";
                 String taskStatus = (task.isTaskDone()) ? "1" : "0";
                 if (task instanceof ToDo todo) {
-                    input = String.format("%s, %s, %s", "T", 
+                    input = String.format("%s, %s, %s", "T",
                             taskStatus, todo.getName());
 
                 } else if (task instanceof Deadline deadline) {
@@ -85,7 +86,7 @@ public class Storage {
     /**
      * Loads the tasks from the specified path
      * If the specified file does not exist, creates the file and returns an empty list
-     * @return ArrayList<Task> The list of tasks that have been loaded from the file
+     * @return The list of tasks that have been loaded from the file
      */
     public ArrayList<Task> loadTasks() {
         tasks = new ArrayList<>();
@@ -109,24 +110,24 @@ public class Storage {
 
                     boolean isDone = lineParts[1].trim().equals("1");
                     switch (lineParts[0]) {
+                    case "T":
+                        ToDo tTask = new ToDo(lineParts[2]);
+                        tTask.changeTaskStatus(isDone);
+                        tasks.add(tTask);
+                        break;
 
-                        case "T":
-                            ToDo tTask = new ToDo(lineParts[2]);
-                            tTask.changeTaskStatus(isDone);
-                            tasks.add(tTask);
-                            break;
+                    case "D":
+                        Deadline dTask = new Deadline(lineParts[2], lineParts[3]);
+                        dTask.changeTaskStatus(isDone);
+                        tasks.add(dTask);
+                        break;
 
-                        case "D":
-                            Deadline dTask = new Deadline(lineParts[2], lineParts[3]);
-                            dTask.changeTaskStatus(isDone);
-                            tasks.add(dTask);
-                            break;
-
-                        case "E":
-                            Event eTask = new Event(lineParts[2], lineParts[3], lineParts[4]);
-                            eTask.changeTaskStatus(isDone);
-                            tasks.add(eTask);
-                            break;
+                    case "E":
+                        Event eTask = new Event(lineParts[2], lineParts[3], lineParts[4]);
+                        eTask.changeTaskStatus(isDone);
+                        tasks.add(eTask);
+                        break;
+                    default:
                     }
                     line = reader.readLine();
                 }

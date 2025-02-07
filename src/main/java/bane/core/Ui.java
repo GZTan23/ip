@@ -19,16 +19,16 @@ public class Ui {
      */
     public static void greetUser() {
 
-        String logo ="\n\t▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  \n"
-                    +  "\t▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ \n"
-                    +  "\t▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▒███   \n"
-                    +  "\t▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒▒▓█  ▄ \n"
-                    +  "\t░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░░▒████▒\n"
-                    +  "\t░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ░░ ▒░ ░\n"
-                    +  "\t▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ░  ░\n"
-                    +  "\t░    ░   ░   ▒      ░   ░ ░    ░    \n"
-                    +  "\t░            ░  ░         ░    ░  ░ \n"
-                    +  "\t      ░                             \n";
+        String logo = "\n\t▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  \n"
+                    + "\t▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ \n"
+                    + "\t▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▒███   \n"
+                    + "\t▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒▒▓█  ▄ \n"
+                    + "\t░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░░▒████▒\n"
+                    + "\t░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ░░ ▒░ ░\n"
+                    + "\t▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ░  ░\n"
+                    + "\t░    ░   ░   ▒      ░   ░ ░    ░    \n"
+                    + "\t░            ░  ░         ░    ░  ░ \n"
+                    + "\t      ░                             \n";
 
         System.out.println(logo);
         separateLine();
@@ -60,7 +60,8 @@ public class Ui {
         case "success":
             System.out.println("Reminding you of things you have already forgotten:\n");
             break;
-
+        default:
+            break;
         }
     }
 
@@ -90,6 +91,8 @@ public class Ui {
                     Nobody understood that instruction.
                     Format: mark/unmark [task index]""");
             break;
+        default:
+            break;
         }
     }
 
@@ -107,8 +110,10 @@ public class Ui {
             System.out.println("Empty Command.\n");
             System.out.println("""
                     You have to input something else other than the command itself,
-                    just in case you have forgotten. 
-                    Format: [command] [task] <duration if applicable> """);
+                    just in case you have forgotten.
+                    Format: [command] [task] <duration if applicable>""");
+            break;
+        default:
             break;
         }
     }
@@ -125,9 +130,9 @@ public class Ui {
             StringBuilder sb = new StringBuilder("Added to list of things to \"forget\",\n\n");
             sb.append("  " + task);
             sb.append(String.format("\n\nwhich makes the total: %d.", alSize));
-            System.out.println(sb.toString());
+            System.out.println(sb);
             break;
-
+        default:
         }
     }
 
@@ -150,6 +155,7 @@ public class Ui {
         case "delete_out_of_bounds":
             System.out.println("You are trying to delete something that isn't even there.");
             break;
+        default:
         }
     }
 
@@ -185,6 +191,7 @@ public class Ui {
                 Gahhhh! Something went wrong with the file!
                 Fix it and get back to me dirtbag!""");
             break;
+        default:
         }
     }
 
@@ -198,13 +205,13 @@ public class Ui {
             System.out.println("""
                     Looks like there was an error whilst saving
                     Heh! I'll leave you to handle it :P""");
-                break;
+            break;
 
         case "file_open_error":
             System.out.println("""
                     Looks like your files aren't working like they used to.""");
             break;
-
+        default:
         }
     }
 
@@ -225,6 +232,7 @@ public class Ui {
         case "not_found":
             System.out.println("Can't seem to find anything...");
             break;
+        default:
         }
     }
 
