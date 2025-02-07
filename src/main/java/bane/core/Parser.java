@@ -56,9 +56,14 @@ public class Parser {
 				Ui.separateLine();
 
 		} else if (dialogue.startsWith("delete")) {
-			Ui.separateLine();
+            Ui.separateLine();
             parseDelete(dialogue);
-			Ui.separateLine();
+            Ui.separateLine();
+
+        } else if (dialogue.startsWith("find")) {
+            Ui.separateLine();
+            parseFind(dialogue);
+            Ui.separateLine();
 
 		} else {
 			Ui.separateLine();
@@ -182,5 +187,19 @@ public class Parser {
         } catch (IndexOutOfBoundsException exception) {
             Ui.replyToDelete("delete_out_of_bounds");
         } 
+    }
+
+    /**
+     * Parse user input for the find command
+     * @param dialogue User input
+     */
+    public void parseFind(String dialogue) {
+        String[] diagParts = dialogue.split(" ", 2);
+
+        if (diagParts.length < 2) {
+            Ui.replyToFind("empty_command");
+            return;
+        }
+        tasks.findTask(diagParts[1]);
     }
 }
