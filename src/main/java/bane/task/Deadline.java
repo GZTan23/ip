@@ -1,6 +1,5 @@
 package bane.task;
 
-import bane.enums.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,10 +7,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 
+import bane.enums.DateTimeFormat;
+
 /**
  * Class for tasks with a deadline
  */
-public class Deadline implements Task{
+public class Deadline implements Task {
     private TemporalAccessor deadline;
     private String name;
     private boolean isDone;
