@@ -15,7 +15,7 @@ public class Deadline implements Task{
     private TemporalAccessor deadline;
     private String name;
     private boolean isDone;
-    private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter(); 
+    private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter();
     private final DateTimeFormatter DISPLAYER = DateTimeFormat.DISPLAY_FORMAT.formatter();
 
     /**
@@ -44,7 +44,7 @@ public class Deadline implements Task{
     }
 
     public void changeTaskStatus(boolean isDone) {
-       this.isDone = isDone;
+        this.isDone = isDone;
     }
 
     @Override

@@ -11,39 +11,39 @@ public class Ui {
      * Prints a separator between the chatbot and user input
      */
     public static void separateLine() {
-	    System.out.println("________________________________________________________________\n");
+        System.out.println("________________________________________________________________\n");
     }
 
     /**
      * Prints the greeting message
      */
     public static void greetUser() {
-  
-		String logo ="\n\t▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  \n"
-					+  "\t▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ \n"
-					+  "\t▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▒███   \n"
-					+  "\t▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒▒▓█  ▄ \n"
-					+  "\t░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░░▒████▒\n"
-					+  "\t░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ░░ ▒░ ░\n"
-					+  "\t▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ░  ░\n"
-					+  "\t░    ░   ░   ▒      ░   ░ ░    ░    \n"
-					+  "\t░            ░  ░         ░    ░  ░ \n"
-					+  "\t      ░                             \n";
 
-		System.out.println(logo); 
+        String logo ="\n\t▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  \n"
+                    +  "\t▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ \n"
+                    +  "\t▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▒███   \n"
+                    +  "\t▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒▒▓█  ▄ \n"
+                    +  "\t░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░░▒████▒\n"
+                    +  "\t░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ░░ ▒░ ░\n"
+                    +  "\t▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ░  ░\n"
+                    +  "\t░    ░   ░   ▒      ░   ░ ░    ░    \n"
+                    +  "\t░            ░  ░         ░    ░  ░ \n"
+                    +  "\t      ░                             \n";
+
+        System.out.println(logo);
         separateLine();
-		System.out.println("""
-				Hello, it is me, Bane.
-				Why have you called upon me?\n""");
+        System.out.println("""
+                Hello, it is me, Bane.
+                Why have you called upon me?\n""");
         separateLine();
-	}
+    }
 
     /**
      * Prints the sayFarewell message
      */
     public static void sayFarewell() {
         separateLine();
-		System.out.println("Bye, hope to not see you again.");
+        System.out.println("Bye, hope to not see you again.");
         separateLine();
     }
 
@@ -106,9 +106,9 @@ public class Ui {
         case "empty command":
             System.out.println("Empty Command.\n");
             System.out.println("""
-					You have to input something else other than the command itself,
-					just in case you have forgotten. 
-					Format: [command] [task] <duration if applicable> """);
+                    You have to input something else other than the command itself,
+                    just in case you have forgotten. 
+                    Format: [command] [task] <duration if applicable> """);
             break;
         }
     }
@@ -138,13 +138,13 @@ public class Ui {
     public static void replyToDelete(String type) {
         switch (type) {
         case "success":
-			System.out.println("Giving up are we? You disappoint me.");
+            System.out.println("Giving up are we? You disappoint me.");
             break;
 
         case "empty_command":
             System.out.println("""
-						I do not understand how it is so hard to be correct.
-						Format: delete [integer]""");
+                        I do not understand how it is so hard to be correct.
+                        Format: delete [integer]""");
             break;
 
         case "delete_out_of_bounds":
@@ -158,7 +158,7 @@ public class Ui {
      */
     public static void replyToUnknownInput() {
         System.out.println("Unknown Input.\n");
-		System.out.println("I fail to comprehend the inner machinations of the \nthing you call a brain. Try again");
+        System.out.println("I fail to comprehend the inner machinations of the \nthing you call a brain. Try again");
 
     }
 
@@ -182,8 +182,8 @@ public class Ui {
 
         case "read_file_error":
             System.out.println("""
-					Gahhhh! Something went wrong with the file!
-					Fix it and get back to me dirtbag!""");
+                Gahhhh! Something went wrong with the file!
+                Fix it and get back to me dirtbag!""");
             break;
         }
     }
@@ -197,14 +197,14 @@ public class Ui {
         case "write_error":
             System.out.println("""
                     Looks like there was an error whilst saving
-                    Heh! I'll leave you to handle it :P"""); 
+                    Heh! I'll leave you to handle it :P""");
                 break;
 
         case "file_open_error":
             System.out.println("""
-					Looks like your files aren't working like they used to.""");
+                    Looks like your files aren't working like they used to.""");
             break;
-            
+
         }
     }
 

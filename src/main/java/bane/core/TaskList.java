@@ -32,8 +32,8 @@ public class TaskList {
      * @param idx Index of the task on the list
      */
     public void unmarkTask(int idx) {
-		tasks.get(idx - 1).changeTaskStatus(false);
-		Ui.replyToMark("unmarked");
+        tasks.get(idx - 1).changeTaskStatus(false);
+        Ui.replyToMark("unmarked");
     }
 
     /**
@@ -42,7 +42,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         this.tasks.add(task);
-		Ui.replyToTasks("success", task, tasks.size());
+        Ui.replyToTasks("success", task, tasks.size());
     }
 
     /**
@@ -50,7 +50,7 @@ public class TaskList {
      * @param idx Index of the task to delete from the list
      */
     public void deleteTask(int idx) {
-		tasks.remove(idx-1);
+        tasks.remove(idx-1);
     }
 
     /**
@@ -59,7 +59,7 @@ public class TaskList {
     public void listTasks() {
         for (int i = 1; i <= tasks.size(); i++) {
             displayTask(i);
-        }	
+        }
     }
 
     /**

@@ -4,31 +4,31 @@ package bane.task;
  * Class for tasks that do not have date or time
  */
 public class ToDo implements Task {
-	private String name;
-	private boolean isDone;
+    private String name;
+    private boolean isDone;
 
-	/**
-	 * Constructor for the ToDo class
-	 * @param name Name of the task
-	 */
-	public ToDo(String name) {
-		this.name = name.trim();
-		this.isDone = false;
-	}
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * Constructor for the ToDo class
+     * @param name Name of the task
+     */
+    public ToDo(String name) {
+        this.name = name.trim();
+        this.isDone = false;
+    }
+    public String getName() {
+        return this.name;
+    }
 
-	public boolean isTaskDone() {
-		return this.isDone;
-	}
+    public boolean isTaskDone() {
+        return this.isDone;
+    }
 
-	public void changeTaskStatus(boolean isDone) {
-		this.isDone = isDone;
-	}
+    public void changeTaskStatus(boolean isDone) {
+        this.isDone = isDone;
+    }
 
-	@Override
-	public String toString() {
-		return String.format("[T][%s] %s", (this.isDone ? "X" : " "), this.name);
-	}
+    @Override
+    public String toString() {
+        return String.format("[T][%s] %s", (this.isDone ? "X" : " "), this.name);
+    }
 }

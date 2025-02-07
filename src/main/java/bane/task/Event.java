@@ -16,7 +16,7 @@ public class Event implements Task {
     private String name;
     private boolean isDone;
     private TemporalAccessor start, end;
-    private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter(); 
+    private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter();
     private final DateTimeFormatter DISPLAYER = DateTimeFormat.DISPLAY_FORMAT.formatter();
 
     /**
@@ -33,7 +33,7 @@ public class Event implements Task {
                 LocalDate::from, LocalTime::from);
         this.end = PARSER.parseBest(end.trim(), LocalDateTime::from,
                 LocalDate::from, LocalTime::from);
-    } 
+    }
 
     public TemporalAccessor getStart() {
         return this.start;
