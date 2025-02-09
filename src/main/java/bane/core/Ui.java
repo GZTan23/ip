@@ -9,113 +9,124 @@ public class Ui {
 
     /**
      * Prints a separator between the chatbot and user input
+     * @return String to be printed out
      */
-    public static void separateLine() {
-        System.out.println("________________________________________________________________\n");
+    public static String separateLine() {
+        //return "________________________________________________________________\n";
+        return "";
     }
 
     /**
      * Prints the greeting message
+     * @return String to be printed out
      */
-    public static void greetUser() {
-
-        String logo = "\n\t▄▄▄▄    ▄▄▄       ███▄    █ ▓█████  \n"
-                    + "\t▓█████▄ ▒████▄     ██ ▀█   █ ▓█   ▀ \n"
-                    + "\t▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▒███   \n"
-                    + "\t▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒▒▓█  ▄ \n"
-                    + "\t░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░░▒████▒\n"
-                    + "\t░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ░░ ▒░ ░\n"
-                    + "\t▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ░  ░\n"
-                    + "\t░    ░   ░   ▒      ░   ░ ░    ░    \n"
-                    + "\t░            ░  ░         ░    ░  ░ \n"
-                    + "\t      ░                             \n";
-
-        System.out.println(logo);
-        separateLine();
-        System.out.println("""
+    public static String greetUser() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(separateLine());
+        sb.append("""
                 Hello, it is me, Bane.
                 Why have you called upon me?\n""");
-        separateLine();
+        sb.append(separateLine());
+        return sb.toString();
     }
 
     /**
      * Prints the sayFarewell message
+     * @return String to be printed out
      */
-    public static void sayFarewell() {
-        separateLine();
-        System.out.println("Bye, hope to not see you again.");
-        separateLine();
+    public static String sayFarewell() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(separateLine());
+        sb.append(("Bye, hope to not see you again.\n"));
+        sb.append(separateLine());
+        return sb.toString();
     }
 
     /**
      * Prints a reply to the list command
      * @param type Type of reply to be printed
+     * @return String to be printed out
      */
-    public static void replyToList(String type) {
+    public static String replyToList(String type) {
+        String string = "";
         switch (type) {
         case "empty":
-            System.out.println("What were you expecting? A present? It's empty!");
+            string = "What were you expecting? A present? It's empty!\n";
             break;
 
         case "success":
-            System.out.println("Reminding you of things you have already forgotten:\n");
+            string = "Reminding you of things you have already forgotten:\n";
             break;
         default:
             break;
         }
+        return string;
     }
 
     /**
      * Prints a reply to the mark/unmark command
      * @param type Type of reply to be printed
+     * @return String to be printed out
      */
-    public static void replyToMark(String type) {
+    public static String replyToMark(String type) {
+        String string = "";
 
         switch (type) {
         case "marked":
-            System.out.println("Finally getting work done eh?\n");
+            string = "Finally getting work done eh?\n";
             break;
 
         case "unmarked":
-            System.out.println("As expected, you didn't do it and tried to cheat.\n");
+            string = "As expected, you didn't do it and tried to cheat.\n";
             break;
 
         case "index_out_of_bounds":
-            System.out.println("Mark Non-Existent Entry.\n");
-            System.out.println("You're trying to unmark/mark something that doesn't exist!");
+            string = """
+                Mark Non-Existent Entry.
+                You're trying to unmark/mark something that doesn't exist!
+                """;
             break;
 
         case "empty_command":
-            System.out.println("Empty Command.\n");
-            System.out.println("""
-                    Nobody understood that instruction.
-                    Format: mark/unmark [task index]""");
+            string = """
+                Empty Command.
+                Nobody understood that instruction.
+                Format: mark/unmark [task index]
+                """;
             break;
         default:
             break;
         }
+
+        return string;
     }
 
     /**
      * Prints a reply to the various task commands
      * @param type Type of reply to be printed
+     * @return String to be printed out
      */
-    public static void replyToTasks(String type) {
+    public static String replyToTasks(String type) {
+        String string = "";
+
         switch (type) {
         case "fail":
-            System.out.println("Wow, you're bad at this. Try again.");
+            string = "Wow, you're bad at this. Try again.\n";
             break;
 
         case "empty command":
-            System.out.println("Empty Command.\n");
-            System.out.println("""
-                    You have to input something else other than the command itself,
-                    just in case you have forgotten.
-                    Format: [command] [task] <duration if applicable>""");
+            string = """
+                Empty Command.
+                You have to input something else other than the command itself,
+                just in case you have forgotten.
+                Format: [command] [task] <duration if applicable>
+                """;
             break;
         default:
             break;
         }
+
+        return string;
     }
 
     /**
@@ -123,117 +134,151 @@ public class Ui {
      * @param type Type of reply to be printed
      * @param task Task to be printed out
      * @param alSize Size of the task list
+     * @return String to be printed out
      */
-    public static void replyToTasks(String type, Task task, int alSize) {
-        switch (type) {
-        case "success":
+    public static String replyToTasks(String type, Task task, int alSize) {
+        if (type.equals("success")) {
             StringBuilder sb = new StringBuilder("Added to list of things to \"forget\",\n\n");
-            sb.append("  " + task);
-            sb.append(String.format("\n\nwhich makes the total: %d.", alSize));
-            System.out.println(sb);
-            break;
-        default:
+            sb.append("  ");
+            sb.append(task);
+            sb.append(String.format("\n\nwhich makes the total: %d.\n", alSize));
+            return sb.toString();
         }
+        return "";
     }
 
     /**
      * Prints a reply to the delete command
      * @param type Type of reply to be printed
+     * @return String to be printed out
      */
-    public static void replyToDelete(String type) {
+    public static String replyToDelete(String type) {
+        String string = "";
+
         switch (type) {
         case "success":
-            System.out.println("Giving up are we? You disappoint me.");
+            string = "Giving up are we? You disappoint me.\n";
             break;
 
         case "empty_command":
-            System.out.println("""
-                        I do not understand how it is so hard to be correct.
-                        Format: delete [integer]""");
+            string = """
+                I do not understand how it is so hard to be correct.
+                Format: delete [integer]
+                """;
             break;
 
         case "delete_out_of_bounds":
-            System.out.println("You are trying to delete something that isn't even there.");
+            string = "You are trying to delete something that isn't even there.\n";
             break;
         default:
         }
+
+        return string;
     }
 
     /**
      * Prints a reply when the command is unknown
+     * @return String to be printed out
      */
-    public static void replyToUnknownInput() {
-        System.out.println("Unknown Input.\n");
-        System.out.println("I fail to comprehend the inner machinations of the \nthing you call a brain. Try again");
-
+    public static String replyToUnknownInput() {
+        return """
+            Unknown Input.
+            I fail to comprehend the inner machinations of the
+            thing you call a brain. Try again
+            """;
     }
 
     /**
      * Prints a reply when loading the tasks from the file
      * @param type Type of reply to be printed
+     * @return String to be printed out
      */
-    public static void replyToLoadFile(String type) {
+    public static String replyToLoadFile(String type) {
+        String string = "";
+
         switch (type) {
         case "success":
-            System.out.println("""
+            string = """
                     Added new file "./data/Bane.txt" because I
-                    clearly have to do everything for you.""");
+                    clearly have to do everything for you.
+                    """;
             break;
 
         case "file_creation_fail":
-            System.out.println("""
+            string = """
                     It seems that you're on your own.
-                    Create "./data/Bane.txt" and wake me up when done.""");
+                    Create "./data/Bane.txt" and wake me up when done.
+                    """;
             break;
 
         case "read_file_error":
-            System.out.println("""
+            string = """
                 Gahhhh! Something went wrong with the file!
-                Fix it and get back to me dirtbag!""");
+                Fix it and get back to me dirtbag!
+                """;
             break;
         default:
         }
+
+        return string;
     }
 
     /**
      * Prints a reply when saving the tasks to the file
      * @param type Type of reply to be printed
+     * @return String to be printed out
      */
-    public static void replyToSaveFile(String type) {
+    public static String replyToSaveFile(String type) {
+        String string = "";
+
         switch (type) {
         case "write_error":
             System.out.println("""
                     Looks like there was an error whilst saving
-                    Heh! I'll leave you to handle it :P""");
+                    Heh! I'll leave you to handle it :P
+                    """);
             break;
 
         case "file_open_error":
             System.out.println("""
-                    Looks like your files aren't working like they used to.""");
+                    Looks like your files aren't working like they used to.
+                    """);
             break;
         default:
         }
+
+        return string;
     }
 
     /**
      * Prints a reply to finding a task
      * @param type Type of reply to be printed
+     * @return String to be printed out
      */
-    public static void replyToFind(String type) {
+    public static String replyToFind(String type) {
+        String string = "";
+
         switch (type) {
         case "success":
-            System.out.println("Looking for these?");
+            string = "Looking for these?\n";
             break;
+
         case "empty_command":
-            System.out.println("Empty Command.\n");
-            System.out.println("You still don't get it do you?\nFormat: find [keyword/phrase]");
+            string = """
+                Empty Command.
+                You still don't get it do you?
+                Format: find [keyword/phrase]
+                """;
             break;
 
         case "not_found":
-            System.out.println("Can't seem to find anything...");
+            string = "Can't seem to find anything...\n";
             break;
+
         default:
         }
+
+        return string;
     }
 
 }
