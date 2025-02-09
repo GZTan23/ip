@@ -1,57 +1,46 @@
 package bane.core;
 
+import java.awt.*;
 import java.util.Scanner;
+
+import bane.gui.DialogBox;
 
 /**
  * Main class for the Bane chatbot
  */
 public class Bane {
 
-    private static Parser parser;
-    private static Storage storage;
-    private static TaskList tasks;
+    private Parser parser;
+    private Storage storage;
+    private TaskList tasks;
+    private String filePath = "./data/Bane.txt";
 
     /**
      * Constructor for the Bane class
      * Initialises the Storage, TaskList and Parser
-     * @param filePath File path to load and save the tasks from
      */
-    public Bane(String filePath) {
+    public Bane() {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks());
         parser = new Parser(tasks);
-    }
-
-    /**
-     * Empty constructor for the Application instance
-     */
-    public Bane() {
-
+        run();
     }
 
     /**
      * Runs the chatbot
      */
     public void run() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            Ui.greetUser();
-
-            String input;
-            do {
-                input = scanner.nextLine();
-                parser.parseDialogue(input);
-
-            } while(!input.startsWith("bye"));
-
-            storage.saveTasks(tasks.getList());
-        }
+        String s = Ui.greetUser();
     }
 
-    public static void main(String[] args) {
-        new Bane("./data/Bane.txt").run();
+    /**
+     * Stops the chatbot
+     */
+    public void stop() {
+        storage.saveTasks(tasks.getList());
     }
 
     public String getResponse(String input) {
-        return " ";
+        return parser.parseDialogue(input);
     }
 }

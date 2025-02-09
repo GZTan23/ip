@@ -25,7 +25,6 @@ public class TaskList {
      */
     public void markTask(int idx) {
         tasks.get(idx - 1).changeTaskStatus(true);
-        Ui.replyToMark("marked");
     }
 
     /**
@@ -34,7 +33,6 @@ public class TaskList {
      */
     public void unmarkTask(int idx) {
         tasks.get(idx - 1).changeTaskStatus(false);
-        Ui.replyToMark("unmarked");
     }
 
     /**
@@ -43,7 +41,6 @@ public class TaskList {
      */
     public void addTask(Task task) {
         this.tasks.add(task);
-        Ui.replyToTasks("success", task, tasks.size());
     }
 
     /**
@@ -56,28 +53,35 @@ public class TaskList {
 
     /**
      * Prints out all the tasks currently in the list
+     * @return List of tasks as String
      */
-    public void listTasks() {
+    public String listTasks() {
+        String string = "";
+
         for (int i = 1; i <= tasks.size(); i++) {
-            displayTask(i);
+            string += displayTask(i);
         }
+
+        return string;
     }
 
     /**
      * Prints out a specific task on the list
      * @param idx Index of the task to display from the list
      */
-    public void displayTask(int idx) {
-        System.out.print(String.format("    %d. %s\n", idx, tasks.get(idx - 1)));
+    public String displayTask(int idx) {
+        return String.format("    %d. %s\n", idx, tasks.get(idx - 1));
     }
 
     /**
      * Finds task in list using keyword
      * @param keyword String to match with the task description
+     * @return String representation of task found
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) {
         int count = 0;
         StringBuilder string = new StringBuilder();
+
         for (Task task : tasks) {
             if (task.getName().contains(keyword)) {
                 count++;
@@ -88,11 +92,12 @@ public class TaskList {
             }
         }
         if (count == 0) {
-            Ui.replyToFind("not_found");
+            return Ui.replyToFind("not_found");
         } else {
-            Ui.replyToFind("success");
-            System.out.println(string);
+            string.insert(0, Ui.replyToFind("success"));
         }
+
+        return string.toString();
     }
 
     /**
