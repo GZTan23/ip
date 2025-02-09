@@ -23,6 +23,13 @@ public class Bane {
     }
 
     /**
+     * Empty constructor for the Application instance
+     */
+    public Bane() {
+
+    }
+
+    /**
      * Runs the chatbot
      */
     public void run() {
@@ -44,4 +51,7 @@ public class Bane {
         new Bane("./data/Bane.txt").run();
     }
 
+    public String getResponse(String input) {
+        return " ";
+    }
 }
