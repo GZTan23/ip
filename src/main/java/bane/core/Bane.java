@@ -1,8 +1,5 @@
 package bane.core;
 
-import java.awt.*;
-import java.util.Scanner;
-
 import bane.gui.DialogBox;
 
 /**
