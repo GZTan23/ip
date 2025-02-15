@@ -2,7 +2,7 @@ package bane.core;
 
 import java.time.format.DateTimeParseException;
 
-import bane.exception.TaskExecuteException;
+import bane.exception.TaskException;
 import bane.task.Deadline;
 import bane.task.Event;
 import bane.task.ToDo;
@@ -106,7 +106,7 @@ public class Parser {
 
                         //check if user has entered strictly following the format
                         if (!((taskParts[1].startsWith("from")) && (taskParts[2].startsWith("to")))) {
-                            throw new TaskExecuteException(
+                            throw new TaskException(
                                     "Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
                         }
                         String start = taskParts[1].split(" ", 2)[1];
@@ -117,10 +117,10 @@ public class Parser {
                         sb.append(Ui.replyToTasks("success", eTask, tasks.getSize()));
 
                     } catch (ArrayIndexOutOfBoundsException exception) {
-                        throw new TaskExecuteException("Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
+                        throw new TaskException("Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
 
                     } catch (DateTimeParseException exception) {
-                        throw new TaskExecuteException(
+                        throw new TaskException(
                                 "Wrong Date Format.\n\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.");
 
                     }
@@ -137,19 +137,19 @@ public class Parser {
                         sb.append(Ui.replyToTasks("success", dTask, tasks.getSize()));
 
                     } catch (ArrayIndexOutOfBoundsException exception) {
-                        throw new TaskExecuteException("Wrong Format.\n\nFormat: deadline [task] /by [deadline]");
+                        throw new TaskException("Wrong Format.\n\nFormat: deadline [task] /by [deadline]");
 
                     } catch (DateTimeParseException exception) {
-                        throw new TaskExecuteException(
+                        throw new TaskException(
                                 "Wrong Date Format.\n\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.");
                     }
                     break;
 
                 default:
-                    throw new TaskExecuteException("Unknown Command.\n");
+                    throw new TaskException("Unknown Command.\n");
                 }
             }
-        } catch (TaskExecuteException exception) {
+        } catch (TaskException exception) {
             sb.append(exception.getMessage());
             sb.append(Ui.replyToTasks("fail"));
 
