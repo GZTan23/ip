@@ -11,5 +11,6 @@ public class StorageException extends Exception{
      */
     public StorageException(String message) {
         super(message);
+        assert message != null : "StorageException message should not be null";
     }
 }
