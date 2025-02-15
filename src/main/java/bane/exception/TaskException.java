@@ -10,5 +10,7 @@ public class TaskException extends Exception {
      */
     public TaskException(String message) {
         super(message);
+        assert message != null : "TaskException message should not be null";
     }
+
 }

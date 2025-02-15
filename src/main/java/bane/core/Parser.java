@@ -29,6 +29,8 @@ public class Parser {
     public String parseDialogue(String dialogue) {
         StringBuilder sb = new StringBuilder();
 
+        assert dialogue != null;
+
         if (dialogue.startsWith("bye")) {
             sb.append(Ui.sayFarewell());
 
@@ -85,6 +87,7 @@ public class Parser {
      */
     public String parseEvent(String dialogue) {
         StringBuilder sb = new StringBuilder();
+
 
         try {
             String[] diagParts = dialogue.split(" ", 2);
@@ -174,6 +177,8 @@ public class Parser {
             }
             int idx = Integer.parseInt(arr[1]);
 
+            assert idx > 0 : "idx should be more than 0";
+
             if (arr[0].equals("mark")) {
                 tasks.markTask(idx);
                 sb.append(Ui.replyToMark("marked"));
@@ -201,6 +206,8 @@ public class Parser {
 
         try {
             int idx = Integer.parseInt(dialogue.split(" ")[1]);
+            assert idx > 0 : "idx should be more than 0";
+
             tasks.deleteTask(idx);
             sb.append(Ui.replyToDelete("success"));
 
