@@ -58,7 +58,10 @@ public class Event implements Task {
 
     @Override
     public String toString() {
-        return String.format("[E][%s] %s (from: %s to: %s)", (isDone ? "X" : " "), this.name,
-                DISPLAYER.format(getStart()), DISPLAYER.format(getEnd()));
+        String formattedStartDate = DISPLAYER.format(getStart());
+        String formattedEndDate = DISPLAYER.format(getEnd());
+        String mark = isDone ? "X" : " ";
+        return String.format("[E][%s] %s (from: %s to: %s)", mark, this.name,
+                formattedStartDate, formattedEndDate);
     }
 }

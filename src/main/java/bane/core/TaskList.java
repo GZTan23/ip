@@ -70,7 +70,8 @@ public class TaskList {
      * @param idx Index of the task to display from the list
      */
     public String displayTask(int idx) {
-        return String.format("    %d. %s\n", idx, tasks.get(idx - 1));
+        Task task = tasks.get(idx - 1);
+        return String.format("    %d. %s\n", idx, task);
     }
 
     /**
@@ -83,7 +84,8 @@ public class TaskList {
         StringBuilder string = new StringBuilder();
 
         for (Task task : tasks) {
-            if (task.getName().contains(keyword)) {
+            boolean containsKeyword = task.getName().contains(keyword);
+            if (containsKeyword) {
                 count++;
                 string.append(count);
                 string.append(". ");
