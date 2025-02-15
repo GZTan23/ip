@@ -29,6 +29,7 @@ public class ToDo implements Task {
 
     @Override
     public String toString() {
-        return String.format("[T][%s] %s", (this.isDone ? "X" : " "), this.name);
+        String mark = this.isDone ? "X" : " ";
+        return String.format("[T][%s] %s", mark, this.name);
     }
 }

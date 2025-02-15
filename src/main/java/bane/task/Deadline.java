@@ -50,7 +50,9 @@ public class Deadline implements Task {
 
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", (this.isDone ? "X" : " "), this.name,
-                DISPLAYER.format(getDeadline()));
+        String mark = this.isDone ? "X" : " ";
+        String formattedDeadline = DISPLAYER.format(getDeadline());
+        return String.format("[D][%s] %s (by: %s)", mark, this.name,
+                formattedDeadline);
     }
 }

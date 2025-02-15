@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,22 +49,29 @@ public class Storage {
                 String input = "";
                 String taskStatus = (task.isTaskDone()) ? "1" : "0";
                 if (task instanceof ToDo todo) {
+                    String taskName = todo.getName();
                     input = String.format("%s, %s, %s", "T",
-                            taskStatus, todo.getName());
+                            taskStatus, taskName);
 
                 } else if (task instanceof Deadline deadline) {
+                    String taskName = deadline.getName();
+                    String formattedDate = saver.format(deadline.getDeadline());
                     input = String.format("%s, %s, %s, %s", "D",
-                            taskStatus, deadline.getName(), saver.format(deadline.getDeadline()));
+                            taskStatus, taskName, formattedDate);
 
                 } else if (task instanceof Event event) {
+                    String taskName = event.getName();
+                    String startDateFormatted = saver.format(event.getStart());
+                    String endDateFormatted = saver.format(event.getEnd());
                     input = String.format("%s, %s, %s, %s, %s", "E",
-                            taskStatus, event.getName(), saver.format(event.getStart()), saver.format(event.getEnd()));
+                            taskStatus, taskName, startDateFormatted, endDateFormatted);
                 }
 
                 try {
                     bw.write(input, 0, input.length());
                     bw.newLine();
                 } catch (IOException exception) {
+
                     String lineSeparator = Ui.separateLine();
                     String exceptionMessage = lineSeparator
                             + "File Write Error.\n"
@@ -96,12 +104,15 @@ public class Storage {
         tasks = new ArrayList<>();
         try {
             //if file/directory does not exist
-            if (Files.notExists(Paths.get(filePath))) {
-                Files.createDirectory(Paths.get(filePath).getParent());
-                Files.createFile(Paths.get(filePath));
+            Path file = Paths.get(filePath);
+
+            boolean doesFileNotExist = Files.notExists(file);
+            if (doesFileNotExist) {
+                Files.createDirectory(file.getParent());
+                Files.createFile(file);
             }
             try {
-                BufferedReader reader = Files.newBufferedReader(Paths.get(filePath));
+                BufferedReader reader = Files.newBufferedReader(file);
                 String line = reader.readLine();
 
                 //check whether there is still more in the file

@@ -25,7 +25,8 @@ public class Ui {
         sb.append(separateLine());
         sb.append("""
                 Hello, it is me, Bane.
-                Why have you called upon me?\n""");
+                Why have you called upon me?
+                """);
         sb.append(separateLine());
         return sb.toString();
     }
