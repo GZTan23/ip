@@ -1,6 +1,6 @@
 package bane.core;
 
-import bane.gui.DialogBox;
+import bane.exception.StorageException;
 
 /**
  * Main class for the Bane chatbot
@@ -17,24 +17,25 @@ public class Bane {
      * Initialises the Storage, TaskList and Parser
      */
     public Bane() {
-        storage = new Storage(filePath);
-        tasks = new TaskList(storage.loadTasks());
-        parser = new Parser(tasks);
-        run();
     }
 
     /**
      * Runs the chatbot
      */
-    public void run() {
+    public String run() throws StorageException {
         String s = Ui.greetUser();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.loadTasks());
+        parser = new Parser(tasks);
+        return s;
     }
 
     /**
      * Stops the chatbot
+     * @return String if exception occurs when saving
      */
-    public void stop() {
-        storage.saveTasks(tasks.getList());
+    public String stop() throws StorageException{
+        return storage.saveTasks(tasks.getList());
     }
 
     public String getResponse(String input) {

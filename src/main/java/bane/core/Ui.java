@@ -233,17 +233,24 @@ public class Ui {
 
         switch (type) {
         case "write_error":
-            System.out.println("""
+            string = """
                     Looks like there was an error whilst saving
                     Heh! I'll leave you to handle it :P
-                    """);
+                    """;
             break;
 
         case "file_open_error":
-            System.out.println("""
+            string = """
                     Looks like your files aren't working like they used to.
-                    """);
+                    """;
             break;
+
+        case "success":
+            string = """
+                    Saved current tasks because you will forget it
+                    """;
+            break;
+
         default:
         }
 

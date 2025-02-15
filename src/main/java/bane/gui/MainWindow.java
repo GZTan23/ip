@@ -2,6 +2,7 @@ package bane.gui;
 
 import bane.core.Bane;
 import bane.core.Ui;
+import bane.exception.StorageException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import javafx.animation.PauseTransition;
 /**
  * Controller for the main GUI.
  */
@@ -31,7 +34,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getBaneDialog(Ui.greetUser(), baneImage));
     }
 
     /**
@@ -39,6 +41,15 @@ public class MainWindow extends AnchorPane {
      * */
     public void setBane(Bane b) {
         bane = b;
+        try {
+            String startReply = bane.run();
+            dialogContainer.getChildren().add(DialogBox.getBaneDialog(startReply, baneImage));
+
+        } catch (StorageException e) {
+            String exceptionMessage = e.getMessage();
+            dialogContainer.getChildren().add(DialogBox.getBaneDialog(exceptionMessage, baneImage));
+            exitApplication();
+        }
     }
 
     /**
@@ -55,14 +66,28 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         if (input.equals("bye")) {
-            exitApplication();
+            String message = "";
+            try {
+                message = bane.stop();
+            } catch (StorageException e) {
+                message = e.getMessage();
+            } finally {
+
+                DialogBox baneDialog = DialogBox.getBaneDialog(message, baneImage);
+                dialogContainer.getChildren().add(baneDialog);
+                exitApplication();
+            }
         }
     }
 
     @FXML
     private void exitApplication() {
-        dialogContainer.getChildren().add(DialogBox.getBaneDialog(Ui.sayFarewell(), baneImage));
-        Platform.exit();
+        //@@author ypuppy-reused
+        //Reused from https://github.com/nus-cs2103-AY2425S2/forum/issues/160
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished( event -> Platform.exit());
+        pause.play();
+        //@@author
     }
 
 }

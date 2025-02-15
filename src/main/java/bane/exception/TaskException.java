@@ -3,12 +3,12 @@ package bane.exception;
 /**
  * Custom exception for any exceptions during execution of Tasks
  */
-public class TaskExecuteException extends Exception {
+public class TaskException extends Exception {
     /**
-     * Constructor for the TaskExecuteException class
+     * Constructor for the TaskException class
      * @param message Message to be printed by the exception
      */
-    public TaskExecuteException(String message) {
+    public TaskException(String message) {
         super(message);
     }
 }

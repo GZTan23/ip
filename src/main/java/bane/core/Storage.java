@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import bane.enums.DateTimeFormat;
+import bane.exception.StorageException;
 import bane.task.Deadline;
 import bane.task.Event;
 import bane.task.Task;
@@ -36,7 +37,7 @@ public class Storage {
      * If unable to create directory/file, the program exits with status of 1
      * @param arrayList ArrayList to extract and save the tasks from
      */
-    public void saveTasks(ArrayList<Task> arrayList) {
+    public String saveTasks(ArrayList<Task> arrayList) throws StorageException {
         DateTimeFormatter saver = DateTimeFormat.SAVE_FORMAT.formatter();
         BufferedWriter bw;
 
@@ -63,24 +64,27 @@ public class Storage {
                     bw.write(input, 0, input.length());
                     bw.newLine();
                 } catch (IOException exception) {
-                    Ui.separateLine();
-                    System.out.println("File Write Error.\n");
-                    Ui.replyToSaveFile("write_error");
-                    Ui.separateLine();
-
-                    System.exit(1);
+                    String lineSeparator = Ui.separateLine();
+                    String exceptionMessage = lineSeparator
+                            + "File Write Error.\n"
+                            + Ui.replyToSaveFile("write_error")
+                            + lineSeparator;
+                    throw new StorageException(exceptionMessage);
                 }
             }
             bw.close();
 
         } catch (IOException e) {
-            Ui.separateLine();
-            System.out.println("File Open Error.\n");
-            Ui.replyToSaveFile("file_open_error");
-            Ui.separateLine();
+            String lineSeparator = Ui.separateLine();
+            String exceptionMessage = lineSeparator
+                    + "File Open Error.\n"
+                    + Ui.replyToSaveFile("file_open_error")
+                    + lineSeparator;
+            throw new StorageException(exceptionMessage);
 
-            System.exit(1);
         }
+
+        return Ui.replyToSaveFile("success");
     }
 
     /**
@@ -88,14 +92,13 @@ public class Storage {
      * If the specified file does not exist, creates the file and returns an empty list
      * @return The list of tasks that have been loaded from the file
      */
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() throws StorageException {
         tasks = new ArrayList<>();
         try {
             //if file/directory does not exist
             if (Files.notExists(Paths.get(filePath))) {
                 Files.createDirectory(Paths.get(filePath).getParent());
                 Files.createFile(Paths.get(filePath));
-                Ui.replyToLoadFile("success");
             }
             try {
                 BufferedReader reader = Files.newBufferedReader(Paths.get(filePath));
@@ -132,21 +135,20 @@ public class Storage {
                     line = reader.readLine();
                 }
             } catch (IOException e) {
-                Ui.separateLine();
-                System.out.println("Read File Error\n");
-                Ui.replyToLoadFile("read_file_error");
-                Ui.separateLine();
-
-                System.exit(1);
+                String lineSeparator = Ui.separateLine();
+                String exceptionMessage = lineSeparator
+                        + "Read File Error.\n"
+                        + Ui.replyToLoadFile("read_file_error")
+                        + lineSeparator;
+                throw new StorageException(exceptionMessage);
             }
         } catch (IOException e) {
-            Ui.separateLine();
-            System.out.println("File Creation Fail\n");
-            Ui.replyToLoadFile("file_creation_fail");
-            Ui.separateLine();
-
-            System.exit(1);
-
+            String lineSeparator = Ui.separateLine();
+            String exceptionMessage = lineSeparator
+                    + "File Creation Fail.\n"
+                    + Ui.replyToLoadFile("file_creation_fail")
+                    + lineSeparator;
+            throw new StorageException(exceptionMessage);
         }
         return tasks;
     }
