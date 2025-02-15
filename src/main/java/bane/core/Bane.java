@@ -24,9 +24,15 @@ public class Bane {
      */
     public String run() throws StorageException {
         String s = Ui.greetUser();
+
+        assert filePath != null;
+
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks());
         parser = new Parser(tasks);
+
+        assert storage != null && tasks != null && parser != null;
+
         return s;
     }
 
@@ -39,6 +45,7 @@ public class Bane {
     }
 
     public String getResponse(String input) {
+        assert input != null;
         return parser.parseDialogue(input);
     }
 }
