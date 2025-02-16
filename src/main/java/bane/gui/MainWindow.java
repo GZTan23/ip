@@ -1,7 +1,8 @@
 package bane.gui;
 
+import java.util.ArrayList;
+
 import bane.core.Bane;
-import bane.core.Ui;
 import bane.exception.StorageException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -43,11 +44,11 @@ public class MainWindow extends AnchorPane {
         bane = b;
         try {
             String startReply = bane.run();
-            dialogContainer.getChildren().add(DialogBox.getBaneDialog(startReply, baneImage));
+            dialogContainer.getChildren().addAll(DialogBox.getBaneDialog(baneImage, startReply));
 
         } catch (StorageException e) {
             String exceptionMessage = e.getMessage();
-            dialogContainer.getChildren().add(DialogBox.getBaneDialog(exceptionMessage, baneImage));
+            dialogContainer.getChildren().addAll(DialogBox.getBaneDialog(baneImage, exceptionMessage));
             exitApplication();
         }
     }
@@ -60,10 +61,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bane.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBaneDialog(response, baneImage)
-        );
+        ArrayList<DialogBox> userDialogBoxes = DialogBox.getUserDialog(userImage, input);
+        ArrayList<DialogBox> baneDialogBoxes = DialogBox.getBaneDialog(baneImage, response);
+        ArrayList<DialogBox> combinedDialogBoxes = new ArrayList<>(userDialogBoxes);
+        combinedDialogBoxes.addAll(baneDialogBoxes);
+        dialogContainer.getChildren().addAll(combinedDialogBoxes);
+
         userInput.clear();
         if (input.equals("bye")) {
             String message = "";
@@ -73,8 +76,8 @@ public class MainWindow extends AnchorPane {
                 message = e.getMessage();
             } finally {
 
-                DialogBox baneDialog = DialogBox.getBaneDialog(message, baneImage);
-                dialogContainer.getChildren().add(baneDialog);
+                ArrayList<DialogBox> baneDialog = DialogBox.getBaneDialog(baneImage, message);
+                dialogContainer.getChildren().addAll(baneDialog);
                 exitApplication();
             }
         }
