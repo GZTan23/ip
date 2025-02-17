@@ -43,7 +43,8 @@ public class MainWindow extends AnchorPane {
     public void setBane(Bane b) {
         bane = b;
         try {
-            String startReply = bane.run();
+            String[] startReply = bane.run().toArray(new String[0]);
+
             dialogContainer.getChildren().addAll(DialogBox.getBaneDialog(baneImage, startReply));
 
         } catch (StorageException e) {
@@ -87,7 +88,7 @@ public class MainWindow extends AnchorPane {
     private void exitApplication() {
         //@@author ypuppy-reused
         //Reused from https://github.com/nus-cs2103-AY2425S2/forum/issues/160
-        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
         pause.setOnFinished( event -> Platform.exit());
         pause.play();
         //@@author
