@@ -1,5 +1,6 @@
 package bane.core;
 
+import java.util.ArrayList;
 import bane.exception.StorageException;
 
 /**
@@ -22,9 +23,7 @@ public class Bane {
     /**
      * Runs the chatbot
      */
-    public String run() throws StorageException {
-        String s = Ui.greetUser();
-
+    public ArrayList<String> run() throws StorageException {
         assert filePath != null;
 
         storage = new Storage(filePath);
@@ -33,7 +32,13 @@ public class Bane {
 
         assert storage != null && tasks != null && parser != null;
 
-        return s;
+        String s = Ui.greetUser();
+        ArrayList<String> replyList = new ArrayList<String>();
+        replyList.add(s);
+        String reminderReply = tasks.listReminders();
+        replyList.add(reminderReply);
+
+        return replyList;
     }
 
     /**
@@ -41,7 +46,7 @@ public class Bane {
      * @return String if exception occurs when saving
      */
     public String stop() throws StorageException{
-        return storage.saveTasks(tasks.getList());
+        return storage.saveTasks(tasks.getTaskList());
     }
 
     public String getResponse(String input) {

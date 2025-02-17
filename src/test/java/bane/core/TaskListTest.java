@@ -17,7 +17,7 @@ public class TaskListTest {
         arrayList.add(stub);
         TaskList taskList = new TaskList(arrayList);
         taskList.markTask(1);
-        assertTrue(taskList.getList().get(0).isTaskDone());
+        assertTrue(taskList.getTaskList().get(0).isTaskDone());
     }
 
     @Test
@@ -27,7 +27,7 @@ public class TaskListTest {
         arrayList.add(stub);
         TaskList taskList = new TaskList(arrayList);
         taskList.unmarkTask(1);
-        assertFalse(taskList.getList().get(0).isTaskDone());
+        assertFalse(taskList.getTaskList().get(0).isTaskDone());
     }
 
     @Test

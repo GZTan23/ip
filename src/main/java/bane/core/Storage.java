@@ -48,22 +48,22 @@ public class Storage {
             for (Task task : arrayList) {
                 String input = "";
                 String taskStatus = (task.isTaskDone()) ? "1" : "0";
+                String reminderStatus = (task.isTaskReminder()) ? "1" : "0";
+                String taskName = task.getName();
+
                 if (task instanceof ToDo todo) {
-                    String taskName = todo.getName();
-                    input = String.format("%s, %s, %s", "T",
+                    input = String.format("%s, %s, %s, %s", "T", reminderStatus,
                             taskStatus, taskName);
 
                 } else if (task instanceof Deadline deadline) {
-                    String taskName = deadline.getName();
                     String formattedDate = saver.format(deadline.getDeadline());
-                    input = String.format("%s, %s, %s, %s", "D",
+                    input = String.format("%s, %s, %s, %s, %s", "D", reminderStatus,
                             taskStatus, taskName, formattedDate);
 
                 } else if (task instanceof Event event) {
-                    String taskName = event.getName();
                     String startDateFormatted = saver.format(event.getStart());
                     String endDateFormatted = saver.format(event.getEnd());
-                    input = String.format("%s, %s, %s, %s, %s", "E",
+                    input = String.format("%s, %s, %s, %s, %s, %s", "E", reminderStatus,
                             taskStatus, taskName, startDateFormatted, endDateFormatted);
                 }
 
@@ -118,27 +118,34 @@ public class Storage {
                 //check whether there is still more in the file
                 while (line != null) {
                     String[] lineParts = line.split(",");
-                    if (lineParts.length < 3) {
+                    if (lineParts.length < 4 || lineParts.length > 6) {
                         throw new IOException();
                     }
 
                     boolean isDone = lineParts[1].trim().equals("1");
+                    boolean isReminder = lineParts[2].trim().equals("1");
+
+                    String name = lineParts[3].trim();
+
                     switch (lineParts[0]) {
                     case "T":
-                        ToDo tTask = new ToDo(lineParts[2]);
+                        ToDo tTask = new ToDo(name);
                         tTask.changeTaskStatus(isDone);
+                        tTask.setReminder(isReminder);
                         tasks.add(tTask);
                         break;
 
                     case "D":
-                        Deadline dTask = new Deadline(lineParts[2], lineParts[3]);
+                        Deadline dTask = new Deadline(name , lineParts[4]);
                         dTask.changeTaskStatus(isDone);
+                        dTask.setReminder(isReminder);
                         tasks.add(dTask);
                         break;
 
                     case "E":
-                        Event eTask = new Event(lineParts[2], lineParts[3], lineParts[4]);
+                        Event eTask = new Event(name , lineParts[4], lineParts[5]);
                         eTask.changeTaskStatus(isDone);
+                        eTask.setReminder(isReminder);
                         tasks.add(eTask);
                         break;
                     default:

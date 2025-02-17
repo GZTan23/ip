@@ -10,6 +10,7 @@ import bane.task.Task;
  */
 public class TaskList {
     private ArrayList<Task> tasks;
+    private ReminderList reminders;
 
     /**
      * Constructor for TaskList class
@@ -17,6 +18,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+        this.reminders = new ReminderList(tasks);
     }
 
     /**
@@ -56,22 +58,53 @@ public class TaskList {
      * @return List of tasks as String
      */
     public String listTasks() {
-        String string = "";
+        StringBuilder sb = new StringBuilder();
 
+        if (tasks.isEmpty()) {
+            return Ui.replyToList("empty");
+        }
+        sb.append(Ui.replyToList("success"));
         for (int i = 1; i <= tasks.size(); i++) {
-            string += displayTask(i);
+            sb.append(displayTask(i));
         }
 
-        return string;
+        return sb.toString();
+    }
+
+    /**
+     * Prints out all the reminders currently in the list
+     * @return List of reminders as String
+     */
+    public String listReminders() {
+        return reminders.listReminders();
     }
 
     /**
      * Prints out a specific task on the list
      * @param idx Index of the task to display from the list
+     * @return String representation of task to be printed
      */
     public String displayTask(int idx) {
         Task task = tasks.get(idx - 1);
         return String.format("    %d. %s\n", idx, task);
+    }
+
+    /**
+     * Removes reminder from reminder list
+     * @param idx Index of reminder on the task list to be removed
+     */
+    public void removeReminder(int idx) {
+        Task task = tasks.get(idx - 1);
+        reminders.removeReminder(task);
+    }
+
+    /**
+     * Adds reminder to reminder list
+     * @param idx Index of task on the task list to add to reminder list
+     */
+    public void addReminder(int idx) {
+        Task task = tasks.get(idx - 1);
+        reminders.addReminder(task);
     }
 
     /**
@@ -110,11 +143,11 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
-    public int getSize() {
+    public int getTaskSize() {
         return this.tasks.size();
     }
 
-    public ArrayList<Task> getList() {
+    public ArrayList<Task> getTaskList() {
         return this.tasks;
     }
 

@@ -1,6 +1,7 @@
 package bane.core;
 
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 import bane.exception.TaskException;
 import bane.task.Deadline;
@@ -36,15 +37,9 @@ public class Parser {
 
         } else if (dialogue.startsWith("list")) {
             sb.append(Ui.separateLine());
-
-            if (tasks.isEmpty()) {
-                sb.append(Ui.replyToList("empty"));
-            } else {
-                sb.append(Ui.replyToList("success"));
-                sb.append(tasks.listTasks());
-            }
-
+            sb.append(parseList(dialogue));
             sb.append(Ui.separateLine());
+
         } else if ((dialogue.startsWith("mark"))
                 | (dialogue.startsWith("unmark"))) {
 
@@ -92,7 +87,7 @@ public class Parser {
         try {
             String[] diagParts = dialogue.split(" ", 2);
 
-            if (diagParts.length < 2) {
+            if (diagParts.length < 2 || diagParts[1].isEmpty()) {
                 sb.append(Ui.replyToTasks("empty command"));
                 return sb.toString();
             }
@@ -100,7 +95,7 @@ public class Parser {
             case "todo":
                 ToDo tTask = new ToDo(diagParts[1]);
                 tasks.addTask(tTask);
-                sb.append(Ui.replyToTasks("success", tTask, tasks.getSize()));
+                sb.append(Ui.replyToTasks("success", tTask, tasks.getTaskSize()));
                 break;
 
             case "event":
@@ -133,7 +128,7 @@ public class Parser {
             Deadline dTask = new Deadline(taskParts[0], deadline);
             tasks.addTask(dTask);
 
-            sb.append(Ui.replyToTasks("success", dTask, tasks.getSize()));
+            sb.append(Ui.replyToTasks("success", dTask, tasks.getTaskSize()));
 
         } catch (ArrayIndexOutOfBoundsException exception) {
             throw new TaskException("Wrong Format.\n\nFormat: deadline [task] /by [deadline]");
@@ -166,7 +161,7 @@ public class Parser {
 
             Event eTask = new Event(taskParts[0], start, end);
             tasks.addTask(eTask);
-            sb.append(Ui.replyToTasks("success", eTask, tasks.getSize()));
+            sb.append(Ui.replyToTasks("success", eTask, tasks.getTaskSize()));
 
         } catch (ArrayIndexOutOfBoundsException exception) {
             throw new TaskException("Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
@@ -189,24 +184,48 @@ public class Parser {
 
         try {
             String[] arr = dialogue.split(" ");
-            boolean arrLenLess2 = arr.length < 2;
+            boolean arrLenLess3 = arr.length < 3;
 
-            if (arrLenLess2) {
-                sb.append(Ui.replyToMark("empty_command"));
-                return sb.toString();
+            if (arrLenLess3) {
+                return Ui.replyToMark("wrong_format");
+
+            } else {
+                boolean isNotCorrectType = !(arr[1].equals("task") || arr[1].equals("reminder"));
+                boolean isNotDigit = arr[2].matches("\\D*");
+
+                if (isNotDigit || isNotCorrectType) {
+                    return Ui.replyToMark("wrong_format");
+                }
             }
-            int idx = Integer.parseInt(arr[1]);
 
+            assert arr[2].matches("\\d+") : "mark should be followed by a number.";
+
+            int idx = Integer.parseInt(arr[2]);
+            String type = arr[1];
             assert idx > 0 : "idx should be more than 0";
 
             if (arr[0].equals("mark")) {
-                tasks.markTask(idx);
-                String reply = Ui.replyToMark("marked");
-                sb.append(reply);
+                if (type.equals("tasks")) {
+                    tasks.markTask(idx);
+                    String reply = Ui.replyToMark("marked");
+                    sb.append(reply);
+
+                } else {
+                    tasks.addReminder(idx);
+                    String reply = Ui.replyToReminder("add_success");
+                    sb.append(reply);
+                }
             } else {
-                tasks.unmarkTask(idx);
-                String reply = Ui.replyToMark("unmarked");
-                sb.append(reply);
+                if (type.equals("tasks")) {
+                    tasks.unmarkTask(idx);
+                    String reply = Ui.replyToMark("unmarked");
+                    sb.append(reply);
+
+                } else {
+                    tasks.removeReminder(idx);
+                    String reply = Ui.replyToReminder("remove_success");
+                    sb.append(reply);
+                }
             }
 
             sb.append(tasks.displayTask(idx));
@@ -219,8 +238,7 @@ public class Parser {
         return sb.toString();
     }
 
-    /**
-     * Parses user input for the delete command
+    /** * Parses user input for the delete command
      * @param dialogue User input
      * @return String to be printed out
      */
@@ -263,5 +281,43 @@ public class Parser {
 
         String findTaskReply = tasks.findTask(diagParts[1]);
         return findTaskReply;
+    }
+
+    /**
+     * Parse user input for the find command
+     * @param dialogue User input
+     * @return String to be printed out
+     */
+    public String parseList(String dialogue) {
+        String[] diagParts = dialogue.split(" ", 2);
+
+        if (diagParts.length != 2) {
+            return Ui.replyToList("wrong_format");
+        } else {
+            boolean isNotCorrectType = !(diagParts[1].equals("tasks")
+                    || diagParts[1].equals("reminders"));
+            if (isNotCorrectType) {
+                return Ui.replyToList("wrong_format");
+            }
+        }
+
+        String type = diagParts[1];
+        String successReply = "";
+        String list = "";
+
+        switch (type) {
+        case "tasks":
+            list = tasks.listTasks();
+            break;
+
+        case "reminders":
+            list = tasks.listReminders();
+            break;
+
+        default:
+            assert false : "Something is wrong with parseList";
+        }
+
+        return successReply + list;
     }
 }

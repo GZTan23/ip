@@ -58,6 +58,13 @@ public class Ui {
         case "success":
             string = "Reminding you of things you have already forgotten:\n";
             break;
+
+        case "wrong_format":
+            string = """
+                    Wrong Format.
+                    Do you even remember the format for this command?
+                    Format: list [reminders/tasks]
+                    """;
         default:
             break;
         }
@@ -88,11 +95,11 @@ public class Ui {
                 """;
             break;
 
-        case "empty_command":
+        case "wrong_format":
             string = """
-                Empty Command.
+                Wrong Format.
                 Nobody understood that instruction.
-                Format: mark/unmark [task index]
+                Format: mark/unmark task/reminder [task index]
                 """;
             break;
         default:
@@ -288,5 +295,45 @@ public class Ui {
 
         return string;
     }
+
+    /**
+     * Prints a reply to reminders
+     * @param type Type of reply to be printed
+     * @return String to be printed out
+     */
+    public static String replyToReminder(String type) {
+        String string = "";
+        switch (type) {
+        case "success":
+            string = """
+                    I don't get paid enough for this but here are
+                    your reminders:
+                    """;
+            break;
+
+        case "empty_reminders":
+            string = """
+                    Nothing for you to do eh?
+                    """;
+            break;
+
+        case "add_success":
+            string = """
+                    You're asking me to nag you?
+                    """;
+            break;
+
+        case "remove_success":
+            string = """
+                    Now you want me to stop nagging?
+                    """;
+            break;
+
+        default:
+        }
+
+        return string;
+    }
+
 
 }

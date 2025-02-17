@@ -1,6 +1,7 @@
 package bane.gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,13 +41,25 @@ public class DialogBox extends HBox{
         this.getChildren().setAll(tmp);
     }
 
-    public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
+    public static ArrayList<DialogBox> getUserDialog(Image i, String... s) {
+        ArrayList<DialogBox> dialogBoxes = new ArrayList<>();
+
+        for (String dialog : s) {
+           dialogBoxes.add(new DialogBox(dialog, i));
+        }
+
+        return dialogBoxes;
     }
 
-    public static DialogBox getBaneDialog(String s, Image i) {
-        var db = new DialogBox(s, i);
-        db.flip();
-        return db;
+    public static ArrayList<DialogBox> getBaneDialog(Image i, String... s) {
+        ArrayList<DialogBox> dialogBoxes = new ArrayList<>();
+
+        for (String dialog : s) {
+            var db = new DialogBox(dialog, i);
+            db.flip();
+            dialogBoxes.add(db);
+        }
+
+        return dialogBoxes;
     }
 }

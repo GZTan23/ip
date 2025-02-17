@@ -16,8 +16,8 @@ public class Deadline implements Task {
     private TemporalAccessor deadline;
     private String name;
     private boolean isDone;
-    private final DateTimeFormatter PARSER = DateTimeFormat.PARSE_FORMAT.formatter();
-    private final DateTimeFormatter DISPLAYER = DateTimeFormat.DISPLAY_FORMAT.formatter();
+    private boolean isReminder;
+
 
     /**
      * Constructor for the Deadline class
@@ -28,6 +28,7 @@ public class Deadline implements Task {
     public Deadline(String name, String deadline) throws DateTimeParseException {
         this.name = name.trim();
         this.isDone = false;
+        this.isReminder = false;
         this.deadline = PARSER.parseBest(deadline.trim(), LocalDateTime::from,
                 LocalDate::from, LocalTime::from);
     }
@@ -44,15 +45,44 @@ public class Deadline implements Task {
         return this.isDone;
     }
 
+    public boolean isTaskReminder() {
+        return this.isReminder;
+    }
+
     public void changeTaskStatus(boolean isDone) {
         this.isDone = isDone;
     }
 
+    public void setReminder(boolean isReminder) {
+        this.isReminder = isReminder;
+    }
+
     @Override
     public String toString() {
-        String mark = this.isDone ? "X" : " ";
         String formattedDeadline = DISPLAYER.format(getDeadline());
-        return String.format("[D][%s] %s (by: %s)", mark, this.name,
+        String mark = this.isDone ? "X" : " ";
+        String reminder = this.isReminder ? "!" : " ";
+        return String.format("[D] [%s] [%s] %s (by: %s)", mark, reminder, this.name,
                 formattedDeadline);
+    }
+
+    /**
+     * Checks if two Deadlines are equal
+     * @param obj Deadline to be compared to
+     * @return true if name is equal, marked and reminder status are the same,
+     * and deadline is the same
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Deadline deadline)) {
+            return false;
+        }
+
+        boolean isNameEqual = this.name.equals(deadline.name);
+        boolean isMarkSame = this.isDone == (deadline.isDone);
+        boolean isReminder = this.isReminder == (deadline.isReminder);
+        boolean isSameDate = this.deadline.equals(deadline.deadline);
+
+        return isNameEqual && isMarkSame && isReminder && isSameDate;
     }
 }
