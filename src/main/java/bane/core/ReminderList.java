@@ -29,7 +29,7 @@ public class ReminderList {
         StringBuilder sb = new StringBuilder();
 
         if (reminders.isEmpty()) {
-            return Ui.replyToReminder("empty");
+            return Ui.replyToReminder("empty_reminders");
         }
         sb.append(Ui.replyToReminder("success"));
         for (int i = 1; i <= reminders.size(); i++) {
@@ -42,6 +42,7 @@ public class ReminderList {
     /**
      * Prints out a specific reminder on the list
      * @param idx Index of the reminder to display from the list
+     * @return String representation of the reminder
      */
     public String displayReminder(int idx) {
         Task reminder= reminders.get(idx - 1);
@@ -52,20 +53,21 @@ public class ReminderList {
      * Removes reminder from reminder list
      * @param reminder Reminder to be removed
      */
-    public String removeReminder(Task reminder) {
-        reminder.setReminder(false);
+    public void removeReminder(Task reminder) {
         this.reminders.remove(reminder);
-        return Ui.replyToReminder("remove_success");
+        reminder.setReminder(false);
+
     }
 
     /**
      * Adds reminder to reminder list
      * @param task Index of task on the task list to add to reminder list
      */
-    public String addReminder(Task task) {
+    public void addReminder(Task task) {
         task.setReminder(true);
-        this.reminders.add(task);
-        return Ui.replyToReminder("add_success");
+        if (!this.reminders.contains(task)) {
+            this.reminders.add(task);
+        }
     }
 
 }

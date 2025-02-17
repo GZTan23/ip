@@ -184,27 +184,48 @@ public class Parser {
 
         try {
             String[] arr = dialogue.split(" ");
-            boolean arrLenLess2 = arr.length < 2;
+            boolean arrLenLess3 = arr.length < 3;
 
-            if (arrLenLess2 || arr[1].matches("\\D*")) {
-                sb.append(Ui.replyToMark("wrong_format"));
-                return sb.toString();
+            if (arrLenLess3) {
+                return Ui.replyToMark("wrong_format");
+
+            } else {
+                boolean isNotCorrectType = !(arr[1].equals("task") || arr[1].equals("reminder"));
+                boolean isNotDigit = arr[2].matches("\\D*");
+
+                if (isNotDigit || isNotCorrectType) {
+                    return Ui.replyToMark("wrong_format");
+                }
             }
 
-            assert arr[1].matches("\\d+") : "mark should be followed by a number.";
+            assert arr[2].matches("\\d+") : "mark should be followed by a number.";
 
-            int idx = Integer.parseInt(arr[1]);
-
+            int idx = Integer.parseInt(arr[2]);
+            String type = arr[1];
             assert idx > 0 : "idx should be more than 0";
 
             if (arr[0].equals("mark")) {
-                tasks.markTask(idx);
-                String reply = Ui.replyToMark("marked");
-                sb.append(reply);
+                if (type.equals("tasks")) {
+                    tasks.markTask(idx);
+                    String reply = Ui.replyToMark("marked");
+                    sb.append(reply);
+
+                } else {
+                    tasks.addReminder(idx);
+                    String reply = Ui.replyToReminder("add_success");
+                    sb.append(reply);
+                }
             } else {
-                tasks.unmarkTask(idx);
-                String reply = Ui.replyToMark("unmarked");
-                sb.append(reply);
+                if (type.equals("tasks")) {
+                    tasks.unmarkTask(idx);
+                    String reply = Ui.replyToMark("unmarked");
+                    sb.append(reply);
+
+                } else {
+                    tasks.removeReminder(idx);
+                    String reply = Ui.replyToReminder("remove_success");
+                    sb.append(reply);
+                }
             }
 
             sb.append(tasks.displayTask(idx));
@@ -217,8 +238,7 @@ public class Parser {
         return sb.toString();
     }
 
-    /**
-     * Parses user input for the delete command
+    /** * Parses user input for the delete command
      * @param dialogue User input
      * @return String to be printed out
      */
@@ -271,8 +291,14 @@ public class Parser {
     public String parseList(String dialogue) {
         String[] diagParts = dialogue.split(" ", 2);
 
-        if (diagParts.length != 2 || diagParts[1].isEmpty()) {
+        if (diagParts.length != 2) {
             return Ui.replyToList("wrong_format");
+        } else {
+            boolean isNotCorrectType = !(diagParts[1].equals("tasks")
+                    || diagParts[1].equals("reminders"));
+            if (isNotCorrectType) {
+                return Ui.replyToList("wrong_format");
+            }
         }
 
         String type = diagParts[1];

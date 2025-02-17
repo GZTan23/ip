@@ -82,6 +82,7 @@ public class TaskList {
     /**
      * Prints out a specific task on the list
      * @param idx Index of the task to display from the list
+     * @return String representation of task to be printed
      */
     public String displayTask(int idx) {
         Task task = tasks.get(idx - 1);
@@ -92,18 +93,18 @@ public class TaskList {
      * Removes reminder from reminder list
      * @param idx Index of reminder on the task list to be removed
      */
-    public String removeReminder(int idx) {
+    public void removeReminder(int idx) {
         Task task = tasks.get(idx - 1);
-        return reminders.removeReminder(task);
+        reminders.removeReminder(task);
     }
 
     /**
      * Adds reminder to reminder list
      * @param idx Index of task on the task list to add to reminder list
      */
-    public String addReminder(int idx) {
+    public void addReminder(int idx) {
         Task task = tasks.get(idx - 1);
-        return reminders.addReminder(task);
+        reminders.addReminder(task);
     }
 
     /**

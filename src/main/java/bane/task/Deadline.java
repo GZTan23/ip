@@ -61,8 +61,8 @@ public class Deadline implements Task {
     public String toString() {
         String formattedDeadline = DISPLAYER.format(getDeadline());
         String mark = this.isDone ? "X" : " ";
-        String reminder = this.isReminder ? "!!!" : "   ";
-        return String.format("[D][%s][%s] %s (by: %s)", mark, reminder, this.name,
+        String reminder = this.isReminder ? "!" : " ";
+        return String.format("[D] [%s] [%s] %s (by: %s)", mark, reminder, this.name,
                 formattedDeadline);
     }
 

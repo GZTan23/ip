@@ -40,8 +40,8 @@ public class ToDo implements Task {
     @Override
     public String toString() {
         String mark = this.isDone ? "X" : " ";
-        String reminder = this.isReminder ? "!!!" : "   ";
-        return String.format("[T][%s][%s] %s", mark, reminder, this.name);
+        String reminder = this.isReminder ? "!" : " ";
+        return String.format("[T] [%s] [%s] %s", mark, reminder, this.name);
     }
 
     @Override

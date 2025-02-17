@@ -99,7 +99,7 @@ public class Ui {
             string = """
                 Wrong Format.
                 Nobody understood that instruction.
-                Format: mark/unmark [task index]
+                Format: mark/unmark task/reminder [task index]
                 """;
             break;
         default:
@@ -322,6 +322,7 @@ public class Ui {
                     You're asking me to nag you?
                     """;
             break;
+
         case "remove_success":
             string = """
                     Now you want me to stop nagging?
