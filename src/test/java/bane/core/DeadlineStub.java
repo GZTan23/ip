@@ -19,7 +19,17 @@ public class DeadlineStub implements Task{
         return this.isDone;
     }
 
+    @Override
+    public boolean isTaskReminder() {
+        return false;
+    }
+
     public void changeTaskStatus(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    @Override
+    public void setReminder(boolean isReminder) {
+        //do something
     }
 }

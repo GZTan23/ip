@@ -38,7 +38,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Duke instance
+     * Injects the Bane instance
      * */
     public void setBane(Bane b) {
         bane = b;
@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Bane's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML

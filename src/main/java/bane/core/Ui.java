@@ -8,26 +8,15 @@ import bane.task.Task;
 public class Ui {
 
     /**
-     * Prints a separator between the chatbot and user input
-     * @return String to be printed out
-     */
-    public static String separateLine() {
-        //return "________________________________________________________________\n";
-        return "";
-    }
-
-    /**
      * Prints the greeting message
      * @return String to be printed out
      */
     public static String greetUser() {
         StringBuilder sb = new StringBuilder();
-        sb.append(separateLine());
         sb.append("""
                 Hello, it is me, Bane.
                 Why have you called upon me?
                 """);
-        sb.append(separateLine());
         return sb.toString();
     }
 
@@ -37,9 +26,7 @@ public class Ui {
      */
     public static String sayFarewell() {
         StringBuilder sb = new StringBuilder();
-        sb.append(separateLine());
         sb.append(("Bye, hope to not see you again.\n"));
-        sb.append(separateLine());
         return sb.toString();
     }
 

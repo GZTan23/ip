@@ -1,7 +1,6 @@
 package bane.core;
 
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 
 import bane.exception.TaskException;
 import bane.task.Deadline;
@@ -36,39 +35,27 @@ public class Parser {
             sb.append(Ui.sayFarewell());
 
         } else if (dialogue.startsWith("list")) {
-            sb.append(Ui.separateLine());
             sb.append(parseList(dialogue));
-            sb.append(Ui.separateLine());
 
         } else if ((dialogue.startsWith("mark"))
                 | (dialogue.startsWith("unmark"))) {
 
-            sb.append(Ui.separateLine());
             sb.append(parseMark(dialogue));
-            sb.append(Ui.separateLine());
 
         } else if ((dialogue.startsWith("todo"))
                 || (dialogue.startsWith("deadline"))
                 || (dialogue.startsWith("event"))) {
 
-            sb.append(Ui.separateLine());
             sb.append(parseTasks(dialogue));
-            sb.append(Ui.separateLine());
 
         } else if (dialogue.startsWith("delete")) {
-            sb.append(Ui.separateLine());
             sb.append(parseDelete(dialogue));
-            sb.append(Ui.separateLine());
 
         } else if (dialogue.startsWith("find")) {
-            sb.append(Ui.separateLine());
             sb.append(parseFind(dialogue));
-            sb.append(Ui.separateLine());
 
         } else {
-            sb.append(Ui.separateLine());
             sb.append(Ui.replyToUnknownInput());
-            sb.append(Ui.separateLine());
         }
 
         return sb.toString();

@@ -72,22 +72,16 @@ public class Storage {
                     bw.newLine();
                 } catch (IOException exception) {
 
-                    String lineSeparator = Ui.separateLine();
-                    String exceptionMessage = lineSeparator
-                            + "File Write Error.\n"
-                            + Ui.replyToSaveFile("write_error")
-                            + lineSeparator;
+                    String exceptionMessage = "File Write Error.\n"
+                            + Ui.replyToSaveFile("write_error");
                     throw new StorageException(exceptionMessage);
                 }
             }
             bw.close();
 
         } catch (IOException e) {
-            String lineSeparator = Ui.separateLine();
-            String exceptionMessage = lineSeparator
-                    + "File Open Error.\n"
-                    + Ui.replyToSaveFile("file_open_error")
-                    + lineSeparator;
+            String exceptionMessage = "File Open Error.\n"
+                    + Ui.replyToSaveFile("file_open_error");
             throw new StorageException(exceptionMessage);
 
         }
@@ -153,19 +147,13 @@ public class Storage {
                     line = reader.readLine();
                 }
             } catch (IOException e) {
-                String lineSeparator = Ui.separateLine();
-                String exceptionMessage = lineSeparator
-                        + "Read File Error.\n"
-                        + Ui.replyToLoadFile("read_file_error")
-                        + lineSeparator;
+                String exceptionMessage = "Read File Error.\n"
+                        + Ui.replyToLoadFile("read_file_error");
                 throw new StorageException(exceptionMessage);
             }
         } catch (IOException e) {
-            String lineSeparator = Ui.separateLine();
-            String exceptionMessage = lineSeparator
-                    + "File Creation Fail.\n"
-                    + Ui.replyToLoadFile("file_creation_fail")
-                    + lineSeparator;
+            String exceptionMessage = "File Creation Fail.\n"
+                    + Ui.replyToLoadFile("file_creation_fail");
             throw new StorageException(exceptionMessage);
         }
         return tasks;
