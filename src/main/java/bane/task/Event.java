@@ -71,7 +71,7 @@ public class Event implements Task {
         String formattedEndDate = DISPLAYER.format(getEnd());
         String mark = isDone ? "X" : " ";
         String reminder = isReminder ? "!" : " ";
-        return String.format("[E] [%s] [%s] %s (from: %s to: %s)", mark, this.name, reminder,
+        return String.format("[E] [%s] [%s] %s (from: %s to: %s)", mark, reminder, this.name,
                 formattedStartDate, formattedEndDate);
     }
 

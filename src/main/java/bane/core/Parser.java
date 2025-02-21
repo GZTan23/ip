@@ -128,11 +128,11 @@ public class Parser {
             sb.append(Ui.replyToTasks("success", dTask, tasks.getTaskSize()));
 
         } catch (ArrayIndexOutOfBoundsException exception) {
-            throw new TaskException("Wrong Format.\n\nFormat: deadline [task] /by [deadline]");
+            throw new TaskException("Wrong Format.\nFormat: deadline [task] /by [deadline]\n");
 
         } catch (DateTimeParseException exception) {
             throw new TaskException(
-                    "Wrong Date Format.\n\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.");
+                    "Wrong Date Format.\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.\n");
         }
 
         return sb;
@@ -158,7 +158,7 @@ public class Parser {
 
             if (!(startsWithFrom && startsWithTo)) {
                 throw new TaskException(
-                        "Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
+                        "Wrong Format.\nFormat: event [task] /from [time] /to [time]\n");
             }
             String start = taskParts[1].split(" ", 2)[1];
             String end = taskParts[2].split(" ", 2)[1];
@@ -168,11 +168,11 @@ public class Parser {
             sb.append(Ui.replyToTasks("success", eTask, tasks.getTaskSize()));
 
         } catch (ArrayIndexOutOfBoundsException exception) {
-            throw new TaskException("Wrong Format.\n\nFormat: event [task] /from [time] /to [time]");
+            throw new TaskException("Wrong Format.\nFormat: event [task] /from [time] /to [time]\n");
 
         } catch (DateTimeParseException exception) {
             throw new TaskException(
-                    "Wrong Date Format.\n\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.");
+                    "Wrong Date Format.\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.\n");
         }
 
         return sb;

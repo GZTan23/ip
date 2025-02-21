@@ -26,6 +26,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Bane Chatbot");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBane(bane); // inject the Bane instance
             stage.show();

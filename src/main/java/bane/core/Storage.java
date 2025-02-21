@@ -74,24 +74,24 @@ public class Storage {
                                     BufferedWriter bw) throws StorageException {
         for (Task task : arrayList) {
             String input = "";
-            String taskStatus = (task.isTaskDone()) ? "1" : "0";
             String reminderStatus = (task.isTaskReminder()) ? "1" : "0";
+            String taskStatus = (task.isTaskDone()) ? "1" : "0";
             String taskName = task.getName();
 
             if (task instanceof ToDo todo) {
-                input = String.format("%s, %s, %s, %s", "T", reminderStatus,
-                        taskStatus, taskName);
+                input = String.format("%s, %s, %s, %s", "T", taskStatus,
+                        reminderStatus, taskName);
 
             } else if (task instanceof Deadline deadline) {
                 String formattedDate = saver.format(deadline.getDeadline());
-                input = String.format("%s, %s, %s, %s, %s", "D", reminderStatus,
-                        taskStatus, taskName, formattedDate);
+                input = String.format("%s, %s, %s, %s, %s", "D", taskStatus,
+                        reminderStatus, taskName, formattedDate);
 
             } else if (task instanceof Event event) {
                 String startDateFormatted = saver.format(event.getStart());
                 String endDateFormatted = saver.format(event.getEnd());
-                input = String.format("%s, %s, %s, %s, %s, %s", "E", reminderStatus,
-                        taskStatus, taskName, startDateFormatted, endDateFormatted);
+                input = String.format("%s, %s, %s, %s, %s, %s", "E", taskStatus,
+                        reminderStatus, taskName, startDateFormatted, endDateFormatted);
             }
 
             try {
