@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-public class DialogBox extends HBox{
+public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
@@ -46,7 +46,7 @@ public class DialogBox extends HBox{
         ArrayList<DialogBox> dialogBoxes = new ArrayList<>();
 
         for (String dialog : s) {
-           dialogBoxes.add(new DialogBox(dialog, i));
+            dialogBoxes.add(new DialogBox(dialog, i));
         }
 
         return dialogBoxes;

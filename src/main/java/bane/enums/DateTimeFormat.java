@@ -7,15 +7,15 @@ import java.time.format.DateTimeFormatter;
  */
 public enum DateTimeFormat {
     DISPLAY_FORMAT("MMM d yyyy[ hh:mma]"),
-    SAVE_FORMAT("dd-MM-uuuu[ HH:mm]"),
-    PARSE_FORMAT("dd-MM-uuuu[ HH:mm]");
+    SAVE_FORMAT("d-M-uuuu[ HH:mm]"),
+    PARSE_FORMAT("d-M-uuuu[ HH:mm]");
 
     private final String FORMAT;
     /**
      * Constructor for the DateTimeFormat class
      * @param string String containing the format to be used
      */
-    private DateTimeFormat(String string) {
+    DateTimeFormat(String string) {
         this.FORMAT = string;
     }
 

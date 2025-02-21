@@ -3,11 +3,9 @@ package bane.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 
-import bane.enums.DateTimeFormat;
 
 /**
  * Class for tasks with a deadline
@@ -21,9 +19,10 @@ public class Deadline implements Task {
 
     /**
      * Constructor for the Deadline class
-     * @param name Name of the task
-     * @param deadline Deadline of the task
-     * @throws DateTimeParseException if the string given is not of the correct format
+     *
+     * @param name Name of the task.
+     * @param deadline Deadline of the task.
+     * @throws DateTimeParseException if the string given is not of the correct format.
      */
     public Deadline(String name, String deadline) throws DateTimeParseException {
         this.name = name.trim();
@@ -68,9 +67,10 @@ public class Deadline implements Task {
 
     /**
      * Checks if two Deadlines are equal
-     * @param obj Deadline to be compared to
+     *
+     * @param obj Deadline to be compared to.
      * @return true if name is equal, marked and reminder status are the same,
-     * and deadline is the same
+     *      and deadline is the same.
      */
     @Override
     public boolean equals(Object obj) {

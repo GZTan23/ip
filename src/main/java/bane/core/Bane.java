@@ -1,6 +1,7 @@
 package bane.core;
 
 import java.util.ArrayList;
+
 import bane.exception.StorageException;
 
 /**
@@ -11,7 +12,6 @@ public class Bane {
     private Parser parser;
     private Storage storage;
     private TaskList tasks;
-    private String filePath = "./data/Bane.txt";
 
     /**
      * Constructor for the Bane class
@@ -22,9 +22,11 @@ public class Bane {
 
     /**
      * Runs the chatbot
+     *
+     * @throws StorageException if there is an error with loading the file.
      */
     public ArrayList<String> run() throws StorageException {
-        assert filePath != null;
+        String filePath = "./data/Bane.txt";
 
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks());
@@ -43,9 +45,11 @@ public class Bane {
 
     /**
      * Stops the chatbot
-     * @return String if exception occurs when saving
+     *
+     * @return String if exception occurs when saving.
+     * @throws StorageException if there is a problem with saving the file
      */
-    public String stop() throws StorageException{
+    public String stop() throws StorageException {
         return storage.saveTasks(tasks.getTaskList());
     }
 

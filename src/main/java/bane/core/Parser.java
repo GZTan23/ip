@@ -15,7 +15,8 @@ public class Parser {
 
     /**
      * Constructor for Parser class
-     * @param tasks TaskList to add tasks to the list
+     *
+     * @param tasks TaskList to add tasks to the list.
      */
     public Parser(TaskList tasks) {
         this.tasks = tasks;
@@ -23,8 +24,9 @@ public class Parser {
 
     /**
      * Parses the command part of the user input
-     * @param dialogue User input
-     * @return String to be printed out
+     *
+     * @param dialogue User input.
+     * @return String to be printed out.
      */
     public String parseDialogue(String dialogue) {
         StringBuilder sb = new StringBuilder();
@@ -64,8 +66,9 @@ public class Parser {
 
     /**
      * Parses user input for the task name and date if any
-     * @param dialogue User input
-     * @return String to be printed out
+     *
+     * @param dialogue User input.
+     * @return String to be printed out.
      */
     public String parseTasks(String dialogue) {
         StringBuilder sb = new StringBuilder();
@@ -105,6 +108,13 @@ public class Parser {
         return sb.toString();
     }
 
+    /**
+     * Parses user input for the Deadline task
+     *
+     * @param diagParts Array of strings split from the user input.
+     * @return Reply of whether the command has been completed successfully.
+     * @throws TaskException if the input date and command is of wrong format.
+     */
     private StringBuilder parseDeadline(String[] diagParts) throws TaskException {
         StringBuilder sb = new StringBuilder();
 
@@ -128,6 +138,13 @@ public class Parser {
         return sb;
     }
 
+    /**
+     * Parses user input for the Event task
+     *
+     * @param diagParts Array of strings split from the user input.
+     * @return Reply of whether the command has been completed successfully.
+     * @throws TaskException if the input date and command is of wrong format.
+     */
     private StringBuilder parseEvent(String[] diagParts) throws TaskException {
         StringBuilder sb = new StringBuilder();
 
@@ -163,8 +180,9 @@ public class Parser {
 
     /**
      * Parses user input for the mark/unmark commands
-     * @param dialogue User input
-     * @return String to be printed out
+     *
+     * @param dialogue User input.
+     * @return String to be printed out.
      */
     public String parseMark(String dialogue) {
         StringBuilder sb = new StringBuilder();
@@ -192,7 +210,7 @@ public class Parser {
             assert idx > 0 : "idx should be more than 0";
 
             if (arr[0].equals("mark")) {
-                if (type.equals("tasks")) {
+                if (type.equals("task")) {
                     tasks.markTask(idx);
                     String reply = Ui.replyToMark("marked");
                     sb.append(reply);
@@ -203,7 +221,7 @@ public class Parser {
                     sb.append(reply);
                 }
             } else {
-                if (type.equals("tasks")) {
+                if (type.equals("task")) {
                     tasks.unmarkTask(idx);
                     String reply = Ui.replyToMark("unmarked");
                     sb.append(reply);
@@ -225,9 +243,11 @@ public class Parser {
         return sb.toString();
     }
 
-    /** * Parses user input for the delete command
-     * @param dialogue User input
-     * @return String to be printed out
+    /**
+     * Parses user input for the delete command
+     *
+     * @param dialogue User input.
+     * @return String to be printed out.
      */
     public String parseDelete(String dialogue) {
         StringBuilder sb = new StringBuilder();
@@ -255,9 +275,10 @@ public class Parser {
     }
 
     /**
-     * Parse user input for the find command
-     * @param dialogue User input
-     * @return String to be printed out
+     * Parses user input for the find command
+     *
+     * @param dialogue User input.
+     * @return String to be printed out.
      */
     public String parseFind(String dialogue) {
         String[] diagParts = dialogue.split(" ", 2);
@@ -272,8 +293,9 @@ public class Parser {
 
     /**
      * Parse user input for the find command
-     * @param dialogue User input
-     * @return String to be printed out
+     *
+     * @param dialogue User input.
+     * @return String to be printed out.
      */
     public String parseList(String dialogue) {
         String[] diagParts = dialogue.split(" ", 2);

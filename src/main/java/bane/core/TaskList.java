@@ -14,7 +14,8 @@ public class TaskList {
 
     /**
      * Constructor for TaskList class
-     * @param tasks ArrayList for storing of tasks
+     *
+     * @param tasks ArrayList for storing of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -23,7 +24,8 @@ public class TaskList {
 
     /**
      * Marks the task with the specified index on the list as done
-     * @param idx Index of the task on the list
+     *
+     * @param idx Index of the task on the list.
      */
     public void markTask(int idx) {
         tasks.get(idx - 1).changeTaskStatus(true);
@@ -31,7 +33,8 @@ public class TaskList {
 
     /**
      * Unmarks the task with the specified index on the list
-     * @param idx Index of the task on the list
+     *
+     * @param idx Index of the task on the list.
      */
     public void unmarkTask(int idx) {
         tasks.get(idx - 1).changeTaskStatus(false);
@@ -39,7 +42,8 @@ public class TaskList {
 
     /**
      * Adds a task to the list
-     * @param task Task to be added
+     *
+     * @param task Task to be added.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
@@ -47,7 +51,8 @@ public class TaskList {
 
     /**
      * Deletes a task from the list with the specified index
-     * @param idx Index of the task to delete from the list
+     *
+     * @param idx Index of the task to delete from the list.
      */
     public void deleteTask(int idx) {
         tasks.remove(idx - 1);
@@ -55,7 +60,8 @@ public class TaskList {
 
     /**
      * Prints out all the tasks currently in the list
-     * @return List of tasks as String
+     *
+     * @return List of tasks as String.
      */
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
@@ -73,7 +79,8 @@ public class TaskList {
 
     /**
      * Prints out all the reminders currently in the list
-     * @return List of reminders as String
+     *
+     * @return List of reminders as String.
      */
     public String listReminders() {
         return reminders.listReminders();
@@ -81,8 +88,9 @@ public class TaskList {
 
     /**
      * Prints out a specific task on the list
-     * @param idx Index of the task to display from the list
-     * @return String representation of task to be printed
+     *
+     * @param idx Index of the task to display from the list.
+     * @return String representation of task to be printed.
      */
     public String displayTask(int idx) {
         Task task = tasks.get(idx - 1);
@@ -91,7 +99,8 @@ public class TaskList {
 
     /**
      * Removes reminder from reminder list
-     * @param idx Index of reminder on the task list to be removed
+     *
+     * @param idx Index of reminder on the task list to be removed.
      */
     public void removeReminder(int idx) {
         Task task = tasks.get(idx - 1);
@@ -100,7 +109,8 @@ public class TaskList {
 
     /**
      * Adds reminder to reminder list
-     * @param idx Index of task on the task list to add to reminder list
+     *
+     * @param idx Index of task on the task list to add to reminder list.
      */
     public void addReminder(int idx) {
         Task task = tasks.get(idx - 1);
@@ -109,8 +119,9 @@ public class TaskList {
 
     /**
      * Finds task in list using keyword
-     * @param keyword String to match with the task description
-     * @return String representation of task found
+     *
+     * @param keyword String to match with the task description.
+     * @return String representation of task found.
      */
     public String findTask(String keyword) {
         int count = 0;
@@ -137,7 +148,8 @@ public class TaskList {
 
     /**
      * Checks whether the list is empty
-     * @return boolean True if the list is empty, False if it isn't
+     *
+     * @return boolean True if the list is empty, False if it isn't.
      */
     public boolean isEmpty() {
         return this.tasks.isEmpty();

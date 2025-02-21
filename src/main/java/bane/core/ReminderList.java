@@ -1,14 +1,19 @@
 package bane.core;
 
-import bane.task.Task;
 import java.util.ArrayList;
 
+import bane.task.Task;
+
+/**
+ * Class that is part of TaskList, containing just the reminders
+ */
 public class ReminderList {
     private ArrayList<Task> reminders;
 
     /**
      * Constructor for the ReminderList class
-     * @param tasks List of tasks
+     *
+     * @param tasks List of tasks.
      */
     ReminderList(ArrayList<Task> tasks) {
         ArrayList<Task> reminders = new ArrayList<>();
@@ -23,7 +28,8 @@ public class ReminderList {
 
     /**
      * Prints out all the reminders currently in the list
-     * @return List of reminders as String
+     *
+     * @return List of reminders as String.
      */
     public String listReminders() {
         StringBuilder sb = new StringBuilder();
@@ -41,17 +47,19 @@ public class ReminderList {
 
     /**
      * Prints out a specific reminder on the list
-     * @param idx Index of the reminder to display from the list
-     * @return String representation of the reminder
+     *
+     * @param idx Index of the reminder to display from the list.
+     * @return String representation of the reminder.
      */
     public String displayReminder(int idx) {
-        Task reminder= reminders.get(idx - 1);
+        Task reminder = reminders.get(idx - 1);
         return String.format("    %d. %s\n", idx, reminder);
     }
 
     /**
      * Removes reminder from reminder list
-     * @param reminder Reminder to be removed
+     *
+     * @param reminder Reminder to be removed.
      */
     public void removeReminder(Task reminder) {
         this.reminders.remove(reminder);
@@ -61,7 +69,8 @@ public class ReminderList {
 
     /**
      * Adds reminder to reminder list
-     * @param task Index of task on the task list to add to reminder list
+     *
+     * @param task Index of task on the task list to add to reminder list.
      */
     public void addReminder(Task task) {
         task.setReminder(true);

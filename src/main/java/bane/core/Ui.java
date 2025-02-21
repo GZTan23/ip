@@ -9,7 +9,8 @@ public class Ui {
 
     /**
      * Prints the greeting message
-     * @return String to be printed out
+     *
+     * @return String to be printed out.
      */
     public static String greetUser() {
         StringBuilder sb = new StringBuilder();
@@ -22,7 +23,8 @@ public class Ui {
 
     /**
      * Prints the sayFarewell message
-     * @return String to be printed out
+     *
+     * @return String to be printed out.
      */
     public static String sayFarewell() {
         StringBuilder sb = new StringBuilder();
@@ -32,8 +34,9 @@ public class Ui {
 
     /**
      * Prints a reply to the list command
-     * @param type Type of reply to be printed
-     * @return String to be printed out
+     *
+     * @param type Type of reply to be printed.
+     * @return String to be printed out.
      */
     public static String replyToList(String type) {
         String string = "";
@@ -52,6 +55,7 @@ public class Ui {
                     Do you even remember the format for this command?
                     Format: list [reminders/tasks]
                     """;
+            break;
         default:
             break;
         }
@@ -60,8 +64,9 @@ public class Ui {
 
     /**
      * Prints a reply to the mark/unmark command
-     * @param type Type of reply to be printed
-     * @return String to be printed out
+     *
+     * @param type Type of reply to be printed.
+     * @return String to be printed out.
      */
     public static String replyToMark(String type) {
         String string = "";
@@ -98,8 +103,9 @@ public class Ui {
 
     /**
      * Prints a reply to the various task commands
-     * @param type Type of reply to be printed
-     * @return String to be printed out
+     *
+     * @param type Type of reply to be printed.
+     * @return String to be printed out>
      */
     public static String replyToTasks(String type) {
         String string = "";
@@ -126,10 +132,11 @@ public class Ui {
 
     /**
      * Prints a reply to the various task commands
-     * @param type Type of reply to be printed
-     * @param task Task to be printed out
-     * @param alSize Size of the task list
-     * @return String to be printed out
+     *
+     * @param type Type of reply to be printed.
+     * @param task Task to be printed out.
+     * @param alSize Size of the task list.
+     * @return String to be printed out.
      */
     public static String replyToTasks(String type, Task task, int alSize) {
         if (type.equals("success")) {
@@ -144,8 +151,9 @@ public class Ui {
 
     /**
      * Prints a reply to the delete command
-     * @param type Type of reply to be printed
-     * @return String to be printed out
+     *
+     * @param type Type of reply to be printed.
+     * @return String to be printed out.
      */
     public static String replyToDelete(String type) {
         String string = "";
@@ -173,7 +181,8 @@ public class Ui {
 
     /**
      * Prints a reply when the command is unknown
-     * @return String to be printed out
+     *
+     * @return String to be printed out.
      */
     public static String replyToUnknownInput() {
         return """
@@ -185,8 +194,9 @@ public class Ui {
 
     /**
      * Prints a reply when loading the tasks from the file
-     * @param type Type of reply to be printed
-     * @return String to be printed out
+     *
+     * @param type Type of reply to be printed.
+     * @return String to be printed out.
      */
     public static String replyToLoadFile(String type) {
         String string = "";
@@ -220,8 +230,9 @@ public class Ui {
 
     /**
      * Prints a reply when saving the tasks to the file
-     * @param type Type of reply to be printed
-     * @return String to be printed out
+     *
+     * @param type Type of reply to be printed.
+     * @return String to be printed out.
      */
     public static String replyToSaveFile(String type) {
         String string = "";
@@ -254,8 +265,9 @@ public class Ui {
 
     /**
      * Prints a reply to finding a task
-     * @param type Type of reply to be printed
-     * @return String to be printed out
+     *
+     * @param type Type of reply to be printed.
+     * @return String to be printed out.
      */
     public static String replyToFind(String type) {
         String string = "";
@@ -285,8 +297,9 @@ public class Ui {
 
     /**
      * Prints a reply to reminders
-     * @param type Type of reply to be printed
-     * @return String to be printed out
+     *
+     * @param type Type of reply to be printed.
+     * @return String to be printed out.
      */
     public static String replyToReminder(String type) {
         String string = "";

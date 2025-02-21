@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import bane.core.Bane;
 import bane.exception.StorageException;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import javafx.animation.PauseTransition;
 /**
  * Controller for the main GUI.
  */
@@ -89,7 +89,7 @@ public class MainWindow extends AnchorPane {
         //@@author ypuppy-reused
         //Reused from https://github.com/nus-cs2103-AY2425S2/forum/issues/160
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
-        pause.setOnFinished( event -> Platform.exit());
+        pause.setOnFinished(event -> Platform.exit());
         pause.play();
         //@@author
     }

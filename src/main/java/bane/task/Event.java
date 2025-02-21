@@ -3,11 +3,8 @@ package bane.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
-
-import bane.enums.DateTimeFormat;
 
 /**
  * Class for tasks with a start and end time
@@ -23,10 +20,11 @@ public class Event implements Task {
 
     /**
      * Constructor for the Event class
-     * @param name Name of the event
-     * @param start Start date time of the event
-     * @param end End date time of the event
-     * @throws DateTimeParseException if the given string is not of correct format
+     *
+     * @param name Name of the event.
+     * @param start Start date time of the event.
+     * @param end End date time of the event.
+     * @throws DateTimeParseException if the given string is not of correct format.
      */
     public Event(String name, String start, String end) throws DateTimeParseException {
         this.name = name.trim();
@@ -79,9 +77,10 @@ public class Event implements Task {
 
     /**
      * Checks if two Events are equal
-     * @param obj Event to be compared to
+     *
+     * @param obj Event to be compared to.
      * @return true if name is equal, marked and reminder status are the same,
-     * and start and end dates are the same
+     *      and start and end dates are the same.
      */
     @Override
     public boolean equals(Object obj) {
