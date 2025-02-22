@@ -45,7 +45,49 @@ public class TaskListTest {
         ArrayList<Task> arrayList = new ArrayList<Task>();
         TaskList taskList = new TaskList(arrayList);
         assertTrue(taskList.isEmpty());
+    }
 
+    @Test
+    public void findTask_validTaskName_successReply() {
+        DeadlineStub stub1 = new DeadlineStub("return books", true);
+        DeadlineStub stub2 = new DeadlineStub("return clothes", false);
+        DeadlineStub stub3 = new DeadlineStub("return pen", true);
+        ArrayList<Task> arrayList = new ArrayList<Task>();
+        arrayList.add(stub1);
+        arrayList.add(stub2);
+        arrayList.add(stub3);
+        TaskList taskList = new TaskList(arrayList);
+        String output1 = taskList.findTask("books");
+        String expected1 = Ui.replyToFind("success") + """
+                1. [D] [X] [ ] return books
+                """;
+        String output2 = taskList.findTask("re");
+        String expected2 = Ui.replyToFind("success") + """
+                1. [D] [X] [ ] return books
+                2. [D] [ ] [ ] return clothes
+                3. [D] [X] [ ] return pen
+                """;
+        assertEquals(expected1, output1);
+        assertEquals(expected2, output2);
+    }
+
+    @Test
+    public void findTask_taskNameNotInArray_unableToFindReply() {
+        DeadlineStub stub1 = new DeadlineStub("return books", true);
+        DeadlineStub stub2 = new DeadlineStub("return clothes", false);
+        DeadlineStub stub3 = new DeadlineStub("return pen", true);
+        ArrayList<Task> arrayList = new ArrayList<Task>();
+        arrayList.add(stub1);
+        arrayList.add(stub2);
+        arrayList.add(stub3);
+        TaskList taskList = new TaskList(arrayList);
+        String output1 = taskList.findTask("bye");
+        String output2 = taskList.findTask("board");
+        String output3 = taskList.findTask("hi");
+        String expected = Ui.replyToFind("not_found");
+        assertEquals(expected, output1);
+        assertEquals(expected, output2);
+        assertEquals(expected, output3);
     }
 
 }

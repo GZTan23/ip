@@ -32,4 +32,10 @@ public class DeadlineStub implements Task{
     public void setReminder(boolean isReminder) {
         //do something
     }
+
+    @Override
+    public String toString() {
+        String mark = this.isDone ? "X" : " ";
+        return String.format("[D] [%s] [%s] %s", mark, " ", this.name);
+    }
 }
