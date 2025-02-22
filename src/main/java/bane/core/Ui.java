@@ -123,6 +123,23 @@ public class Ui {
                 Format: [command] [task] <duration if applicable>
                 """;
             break;
+        case "blank task name":
+            string = """
+                    Blank Task Name.
+                    Now I know you're trolling because what task
+                    does not have a name?
+                    Format: [command] [task] <duration if applicable>
+                    """;
+            break;
+        case "deadline wrong format":
+            string = "Wrong Format.\nFormat: deadline [task] /by [deadline]\n";
+            break;
+        case "event wrong format":
+            string = "Wrong Format.\nFormat: event [task] /from [time] /to [time]\n";
+            break;
+        case "wrong date format":
+            string = "Wrong Date Format.\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.\n";
+            break;
         default:
             break;
         }

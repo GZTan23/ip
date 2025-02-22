@@ -77,12 +77,17 @@ public class Parser {
         try {
             String[] diagParts = dialogue.split(" ", 2);
 
-            if (diagParts.length < 2 || diagParts[1].isEmpty()) {
+            if (diagParts.length < 2) {
                 sb.append(Ui.replyToTasks("empty command"));
                 return sb.toString();
             }
             switch (diagParts[0]) {
             case "todo":
+                boolean taskNameIsEmpty = diagParts[1].trim().isEmpty();
+                if (taskNameIsEmpty) {
+                    sb.append(Ui.replyToTasks("blank task name"));
+                    break;
+                }
                 ToDo tTask = new ToDo(diagParts[1]);
                 tasks.addTask(tTask);
                 sb.append(Ui.replyToTasks("success", tTask, tasks.getTaskSize()));
@@ -120,7 +125,16 @@ public class Parser {
 
         try {
             String[] taskParts = diagParts[1].split("/");
+            boolean taskNameIsEmpty = taskParts[0].trim().isEmpty();
+            if (taskNameIsEmpty) {
+                return sb.append(Ui.replyToTasks("blank task name"));
+            }
             String deadline = taskParts[1].split(" ", 2)[1];
+            boolean startsWithBy = taskParts[1].startsWith("by");
+            if (!startsWithBy) {
+                throw new TaskException(Ui.replyToTasks("deadline wrong format"));
+            }
+
 
             Deadline dTask = new Deadline(taskParts[0], deadline);
             tasks.addTask(dTask);
@@ -128,11 +142,10 @@ public class Parser {
             sb.append(Ui.replyToTasks("success", dTask, tasks.getTaskSize()));
 
         } catch (ArrayIndexOutOfBoundsException exception) {
-            throw new TaskException("Wrong Format.\nFormat: deadline [task] /by [deadline]\n");
+            throw new TaskException(Ui.replyToTasks("deadline wrong format"));
 
         } catch (DateTimeParseException exception) {
-            throw new TaskException(
-                    "Wrong Date Format.\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.\n");
+            throw new TaskException(Ui.replyToTasks("wrong date format"));
         }
 
         return sb;
@@ -151,14 +164,17 @@ public class Parser {
         try {
             //split the rest of the string without the command in front
             String[] taskParts = diagParts[1].split("/");
+            boolean taskNameIsEmpty = taskParts[0].trim().isEmpty();
+            if (taskNameIsEmpty) {
+                return sb.append(Ui.replyToTasks("blank task name"));
+            }
 
             //check if user has entered strictly following the format
             boolean startsWithFrom = taskParts[1].startsWith("from");
             boolean startsWithTo = taskParts[2].startsWith("to");
 
             if (!(startsWithFrom && startsWithTo)) {
-                throw new TaskException(
-                        "Wrong Format.\nFormat: event [task] /from [time] /to [time]\n");
+                throw new TaskException(Ui.replyToTasks("event wrong format"));
             }
             String start = taskParts[1].split(" ", 2)[1];
             String end = taskParts[2].split(" ", 2)[1];
@@ -168,11 +184,10 @@ public class Parser {
             sb.append(Ui.replyToTasks("success", eTask, tasks.getTaskSize()));
 
         } catch (ArrayIndexOutOfBoundsException exception) {
-            throw new TaskException("Wrong Format.\nFormat: event [task] /from [time] /to [time]\n");
+            throw new TaskException(Ui.replyToTasks("event wrong format"));
 
         } catch (DateTimeParseException exception) {
-            throw new TaskException(
-                    "Wrong Date Format.\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.\n");
+            throw new TaskException(Ui.replyToTasks("wrong date format"));
         }
 
         return sb;
