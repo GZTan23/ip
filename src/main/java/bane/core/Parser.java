@@ -64,13 +64,7 @@ public class Parser {
     }
 
 
-    /**
-     * Parses user input for the task name and date if any
-     *
-     * @param dialogue User input.
-     * @return String to be printed out.
-     */
-    public String parseTasks(String dialogue) {
+    private String parseTasks(String dialogue) {
         StringBuilder sb = new StringBuilder();
 
 
@@ -104,13 +98,6 @@ public class Parser {
         return sb.toString();
     }
 
-    /**
-     * Parses user input for the ToDo task
-     *
-     * @param diagParts Array of strings split from the user input.
-     * @return Reply of whether the command has been completed successfully.
-     * @throws TaskException if task name is empty
-     */
     private StringBuilder parseTodo(String[] diagParts) throws TaskException {
         StringBuilder sb = new StringBuilder();
 
@@ -124,13 +111,6 @@ public class Parser {
         return sb;
     }
 
-    /**
-     * Parses user input for the Deadline task
-     *
-     * @param diagParts Array of strings split from the user input.
-     * @return Reply of whether the command has been completed successfully.
-     * @throws TaskException if the input date and command is of wrong format.
-     */
     private StringBuilder parseDeadline(String[] diagParts) throws TaskException {
         StringBuilder sb = new StringBuilder();
 
@@ -196,13 +176,7 @@ public class Parser {
         return sb;
     }
 
-    /**
-     * Parses user input for the mark/unmark commands
-     *
-     * @param dialogue User input.
-     * @return String to be printed out.
-     */
-    public String parseMark(String dialogue) {
+    private String parseMark(String dialogue) {
         StringBuilder sb = new StringBuilder();
 
         try {
@@ -274,13 +248,7 @@ public class Parser {
         return sb;
     }
 
-    /**
-     * Parses user input for the delete command
-     *
-     * @param dialogue User input.
-     * @return String to be printed out.
-     */
-    public String parseDelete(String dialogue) {
+    private String parseDelete(String dialogue) {
         StringBuilder sb = new StringBuilder();
 
         try {
@@ -305,13 +273,7 @@ public class Parser {
         return sb.toString();
     }
 
-    /**
-     * Parses user input for the find command
-     *
-     * @param dialogue User input.
-     * @return String to be printed out.
-     */
-    public String parseFind(String dialogue) {
+    private String parseFind(String dialogue) {
         String[] diagParts = dialogue.split(" ", 2);
 
         if (diagParts.length < 2) {
@@ -322,13 +284,7 @@ public class Parser {
         return findTaskReply;
     }
 
-    /**
-     * Parse user input for the find command
-     *
-     * @param dialogue User input.
-     * @return String to be printed out.
-     */
-    public String parseList(String dialogue) {
+    private String parseList(String dialogue) {
         String[] diagParts = dialogue.split(" ", 2);
 
         if (diagParts.length != 2) {

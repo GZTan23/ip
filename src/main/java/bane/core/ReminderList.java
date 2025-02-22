@@ -7,7 +7,7 @@ import bane.task.Task;
 /**
  * Class that is part of TaskList, containing just the reminders
  */
-public class ReminderList {
+class ReminderList {
     private ArrayList<Task> reminders;
 
     /**
@@ -26,12 +26,7 @@ public class ReminderList {
         this.reminders = reminders;
     }
 
-    /**
-     * Prints out all the reminders currently in the list
-     *
-     * @return List of reminders as String.
-     */
-    public String listReminders() {
+    String listReminders() {
         StringBuilder sb = new StringBuilder();
 
         if (reminders.isEmpty()) {
@@ -45,34 +40,18 @@ public class ReminderList {
         return sb.toString();
     }
 
-    /**
-     * Prints out a specific reminder on the list
-     *
-     * @param idx Index of the reminder to display from the list.
-     * @return String representation of the reminder.
-     */
-    public String displayReminder(int idx) {
+    String displayReminder(int idx) {
         Task reminder = reminders.get(idx - 1);
         return String.format("    %d. %s\n", idx, reminder);
     }
 
-    /**
-     * Removes reminder from reminder list
-     *
-     * @param reminder Reminder to be removed.
-     */
-    public void removeReminder(Task reminder) {
+    void removeReminder(Task reminder) {
         this.reminders.remove(reminder);
         reminder.setReminder(false);
 
     }
 
-    /**
-     * Adds reminder to reminder list
-     *
-     * @param task Index of task on the task list to add to reminder list.
-     */
-    public void addReminder(Task task) {
+    void addReminder(Task task) {
         task.setReminder(true);
         if (!this.reminders.contains(task)) {
             this.reminders.add(task);
