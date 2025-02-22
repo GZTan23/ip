@@ -1,21 +1,19 @@
 # Bane User Guide
 
-![UI](/docs/Ui.png)
+![UI](Ui.png)
 
 Have you ever wanted someone to berate you while keeping track of your tasks? 
 Well, Bane is the chatbot for you!
 
-> [!WARNING]
 > If you are easily offended or angry, I am not responsible or will not 
 > be held liable for the damages indirectly or directly caused by use of this chatbot
 
 # Features
 
-> [!NOTE]
->  Parameters surrounded by `{ }` are optional whilst `[ ]` are mandatory
+> Parameters surrounded by `{ }` are optional whilst `[ ]` are mandatory
 
-<details>
-<summary> Add tasks </summary>
+<details markdown = "1">
+<summary markdown = "span"> Add tasks </summary>
 
 ## Add Tasks
 
@@ -39,8 +37,8 @@ There are 3 types of tasks, `Todo`, `Deadline`, `Event`
 * Example: `event return book /from 16-1-2001 16:00 /to 17-1-2001 17:00`
 
 </details> <br/>
-<details>
-<summary>Delete task </summary>
+<details markdown = "1">
+<summary markdown = "span">Delete task </summary>
 
 ## Delete task
 
@@ -51,8 +49,8 @@ Remove unwanted tasks from the task list
 
 
 </details> <br/>
-<details>
-<summary> Search for tasks </summary>
+<details markdown = "1">
+<summary markdown = "span"> Search for tasks </summary>
 
 ## Search for tasks
 
@@ -63,8 +61,8 @@ You can search for tasks by its task name
 
 </details> <br/>
 
-<details>
-<summary>Set reminders </summary>
+<details markdown = "1">
+<summary markdown = "span">Set reminders </summary>
 
 ## Set Reminders
 
@@ -75,8 +73,8 @@ Set reminders that list when the chatbot starts up
 
 </details> <br/>
 
-<details>
-<summary>Mark/unmark tasks as done </summary>
+<details markdown = "1">
+<summary markdown = "span">Mark/unmark tasks as done </summary>
 
 ## Mark/unmark tasks as done
 
@@ -94,8 +92,8 @@ Mark tasks as done or unmark them as needed
 
 </details> <br/>
 
-<details>
-<summary>List tasks/reminders </summary>
+<details markdown = "1">
+<summary markdown = "span">List tasks/reminders </summary>
 
 ## List tasks/reminders
 
