@@ -133,12 +133,15 @@ public class Ui {
             break;
         case "deadline wrong format":
             string = "Wrong Format.\nFormat: deadline [task] /by [deadline]\n";
+            string += replyToTasks("fail");
             break;
         case "event wrong format":
             string = "Wrong Format.\nFormat: event [task] /from [time] /to [time]\n";
+            string += replyToTasks("fail");
             break;
         case "wrong date format":
             string = "Wrong Date Format.\nFormat for time: [DD-MM-YYYY] [HH:mm].\nCan be date or both.\n";
+            string += replyToTasks("fail");
             break;
         default:
             break;
