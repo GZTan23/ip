@@ -22,18 +22,18 @@ There are 3 types of tasks, `Todo`, `Deadline`, `Event`
  
 ### Todo
 
-* Usage: `todo [taskname]`
+* Usage: `todo [task name]`
 * Example: `todo return book`
 
 ### Deadline
 
-* Usage: `deadline [taskname] /by [date] {time}`
+* Usage: `deadline [task name] /by [date] {time}`
 * Example: `deadline return book /by 16-1-2001 16:00`,
 `deadline homework /by 17-08-2025`
 
 ### Event
 
-* Usage: `deadline [taskname] /from [date] {time} /to [date] {time}`
+* Usage: `event [task name] /from [date] {time} /to [date] {time}`
 * Example: `event return book /from 16-1-2001 16:00 /to 17-1-2001 17:00`
 
 </details> <br/>
@@ -105,7 +105,7 @@ List tasks or reminders that have been added to the chatbot
 
 ### Reminders
 
-* Usage: `list reminders'
+* Usage: `list reminders`
 
 </details> <br/>
 
